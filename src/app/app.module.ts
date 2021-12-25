@@ -13,24 +13,30 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MemberCardComponent } from './components/member-card/member-card.component';
 import {MatCardModule} from "@angular/material/card";
+import { MembersComponent } from './pages/members/members.component';
+import {HttpClientModule} from "@angular/common/http";
+import {FlexModule} from "@angular/flex-layout";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MembersComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    FlexModule
   ],
   providers: [],
   bootstrap: [AppComponent]

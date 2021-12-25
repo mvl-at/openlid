@@ -1,3 +1,4 @@
 export const controllers = {
-  photo: '/photo'
+  photo: '/photo',
+  groupedMembers: '/groupedmembers'
 }
