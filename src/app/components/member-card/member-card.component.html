@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{member.name}}</mat-card-title>
+    <mat-card-subtitle>seit {{member.joining}}</mat-card-subtitle>
+    <img [alt]="'Bild von ' + member.name" [src]="photo" mat-card-image>
+    <mat-card-content>
+      <p *ngIf="member.titles && member.titles.length > 0">{{member.titles.join(', ')}}</p>
+    </mat-card-content>
+  </mat-card-header>
+</mat-card>
