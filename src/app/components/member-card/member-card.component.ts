@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Member} from "../../common/model";
+import {Member} from '../../common/model';
+import {environment} from '../../../environments/environment';
+import {controllers} from '../../services/controllers';
 
 @Component({
   selector: 'lid-member-card',
@@ -15,7 +17,7 @@ export class MemberCardComponent implements OnInit {
   }
 
   get photo(): string {
-    return '';
+    return `${environment.barrelUrl}${controllers.photo}/${this.member.username}`;
   }
 
   ngOnInit(): void {
