@@ -1,0 +1,94 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$lid-primary-map: (
+  50 : #e4eaf0,
+  100 : #bbcada,
+  200 : #8ea7c1,
+  300 : #6183a8,
+  400 : #3f6995,
+  500 : #1d4e82,
+  600 : #1a477a,
+  700 : #153d6f,
+  800 : #113565,
+  900 : #0a2552,
+  A100 : #87adff,
+  A200 : #548aff,
+  A400 : #2168ff,
+  A700 : #0856ff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+$lid-accent-map: (
+  50 : #f0e4e4,
+  100 : #dabbbb,
+  200 : #c18e8e,
+  300 : #a86161,
+  400 : #953f3f,
+  500 : #821d1d,
+  600 : #7a1a1a,
+  700 : #6f1515,
+  800 : #651111,
+  900 : #520a0a,
+  A100 : #ff8787,
+  A200 : #ff5454,
+  A400 : #ff2121,
+  A700 : #ff0808,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+$lid-primary-palette: mat.define-palette($lid-primary-map);
+$lid-accent-palette: mat.define-palette($lid-accent-map);
+
+$lid-light-theme: mat.define-light-theme((
+  color: (
+    primary: $lid-primary-palette,
+    accent: $lid-accent-palette,
+  )
+));
+
+$lid-dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $lid-primary-palette,
+    accent: $lid-accent-palette,
+  )
+));
+
+@include mat.core-theme($lid-light-theme);
+@include mat.all-component-themes($lid-light-theme);
+
+@media (prefers-color-scheme: dark) {
+  @include mat.core-theme($lid-dark-theme);
+  @include mat.all-component-themes($lid-dark-theme);
+}
