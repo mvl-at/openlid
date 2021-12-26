@@ -16,13 +16,15 @@ import {MatCardModule} from "@angular/material/card";
 import { MembersComponent } from './pages/members/members.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FlexModule} from "@angular/flex-layout";
+import { FallbackImgDirective } from './directives/fallback-img.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     MemberCardComponent,
-    MembersComponent
+    MembersComponent,
+    FallbackImgDirective
   ],
   imports: [
     BrowserModule,
