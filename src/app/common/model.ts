@@ -18,6 +18,11 @@
  *
  */
 
+export interface Crew {
+  musicians: Register[];
+  sutlers: Member[];
+  honoraryMembers: Member[];
+}
 export interface Member {
   username: string;
   firstName: string;
@@ -90,7 +95,7 @@ export interface PageNumber {
 
 export interface Register {
   name: string;
-  nameSingular: string;
+  namePlural: string;
   members: Member[] | null;
 }
 

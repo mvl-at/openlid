@@ -1,6 +1,6 @@
 <mat-card class="member-card">
   <mat-card-header>
-    <mat-card-title>{{member.name}}</mat-card-title>
+    <mat-card-title>{{member.firstName}} {{member.lastName}}</mat-card-title>
     <mat-card-subtitle>seit {{member.joining}}</mat-card-subtitle>
   </mat-card-header>
   <img [alt]="'Bild von ' + member.name" [fallback]="member.gender === 'm'? 'assets/avatar-male.svg' : 'assets/avatar-female.svg'"

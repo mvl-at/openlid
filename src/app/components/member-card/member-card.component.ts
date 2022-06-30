@@ -17,7 +17,7 @@ export class MemberCardComponent implements OnInit {
   }
 
   get photo(): string {
-    return `${environment.barrelUrl}${controllers.photo}/${this.member.username}`;
+    return `${environment.barrelUrl}${controllers.members.photo(this.member.username)}`;
   }
 
   ngOnInit(): void {

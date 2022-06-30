@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Register} from "../common/model";
+import {Crew} from "../common/model";
 import {environment} from "../../environments/environment";
 import {controllers} from "./controllers";
 
@@ -13,7 +13,7 @@ export class MemberService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAllByRegisters(): Observable<Register[]> {
-    return this.httpClient.get<Register[]>(`${environment.barrelUrl}${controllers.groupedMembers}`);
+  getAllByRegisters(): Observable<Crew> {
+    return this.httpClient.get<Crew>(`${environment.barrelUrl}${controllers.members.root}`);
   }
 }

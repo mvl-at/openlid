@@ -1,4 +1,6 @@
 export const controllers = {
-  photo: '/photo',
-  groupedMembers: '/groupedmembers'
+  members: {
+    root: '/members',
+    photo: (username: String) => `${controllers.members.root}/${username}/photo`
+  }
 }
