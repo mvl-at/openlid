@@ -1,13 +1,19 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+  <mat-sidenav #drawer [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
                [opened]="(isHandset$ | async) === false"
                class="sidenav"
                fixedInViewport>
     <mat-toolbar>Menü</mat-toolbar>
     <mat-nav-list>
       <ng-container *ngFor="let item of navigationItems">
-        <a [routerLink]="item.link" [fragment]="item.fragment" mat-list-item>{{item.label}}</a>
-        <a *ngFor="let subItem of item.children" [routerLink]="subItem.link" [fragment]="subItem.fragment" mat-list-item><span
+        <a (click)="scroll(item.fragment)" *ngIf="item.scroll && item.fragment" mat-list-item>{{item.label}}</a>
+        <a *ngIf="!item.scroll" [fragment]="item.fragment" [routerLink]="item.link" mat-list-item>{{item.label}}</a>
+        <a (click)="scroll(subItem.fragment || '')" *ngFor="let subItem of item.children.filter(isScrollItem)"
+           mat-list-item><span
+          class="sub-item">{{subItem.label}}</span></a>
+        <a *ngFor="let subItem of item.children.filter(isNotScrollItem)" [fragment]="subItem.fragment"
+           [routerLink]="subItem.link" mat-list-item><span
           class="sub-item">{{subItem.label}}</span></a>
       </ng-container>
     </mat-nav-list>

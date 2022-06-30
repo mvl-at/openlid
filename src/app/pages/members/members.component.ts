@@ -22,17 +22,19 @@ export class MembersComponent implements OnInit {
         console.log('received registers', data);
         this.crew = data;
         let memberNavigation: NavigationItem[] = this.crew.musicians.map(register => ({
-          link: this.router.url,
+          link: [this.router.url],
           fragment: register.name,
           label: register.name,
-          children: []
+          children: [],
+          scroll: true
         }));
         if (this.crew.sutlers.length > 0) {
           memberNavigation.push({
             children: [],
             fragment: "Marketenderinnen",
             label: "Marketenderinnen",
-            link: this.router.url
+            link: [this.router.url],
+            scroll: true
           });
         }
         if (this.crew.honoraryMembers.length > 0) {
@@ -40,7 +42,8 @@ export class MembersComponent implements OnInit {
             children: [],
             fragment: "Ehrenmitglieder",
             label: "Ehrenmitglieder",
-            link: this.router.url
+            link: [this.router.url],
+            scroll: true
           });
         }
         this.navigation.addChildren('Mitglieder', memberNavigation);
