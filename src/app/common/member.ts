@@ -23,6 +23,7 @@ export interface Crew {
   sutlers: Member[];
   honoraryMembers: Member[];
 }
+
 export interface Member {
   username: string;
   firstName: string;
@@ -50,78 +51,8 @@ export interface DetailedMember extends Member {
   groups: string[];
 }
 
-export interface Author {
-  id: number;
-  name: string;
-  composerOf: Score[] | null;
-  arrangerOf: Score[] | null;
-}
-
-export interface Book {
-  id: number;
-  name: string;
-  annotation: string | null;
-  pages: Page[] | null;
-}
-
-export interface Genre {
-  id: number;
-  name: string;
-}
-
-export interface Grade {
-  id: number;
-  name: string;
-}
-
-export interface Page {
-  id: PageId;
-  score: Score;
-  book: Book;
-  begin: PageNumber;
-  end: PageNumber;
-}
-
-export interface PageId {
-  scoreId: number;
-  bookId: number;
-}
-
-export interface PageNumber {
-  prefix: string | null;
-  number: number;
-  suffix: string | null;
-}
-
 export interface Register {
   name: string;
   namePlural: string;
   members: Member[] | null;
-}
-
-export interface Score {
-  id: number;
-  title: string;
-  genres: Genre[];
-  composers: Author[];
-  arrangers: Author[];
-  publisher: string;
-  grade: Grade | null;
-  subTitles: string | null;
-  conductorScore: boolean;
-  backOf: Score | null;
-}
-
-export interface ScoreLocation {
-  id: number;
-  name: string;
-}
-
-export interface ScoreRetention {
-  id: ScoreRetentionId;
-}
-
-export interface ScoreRetentionId {
-  scoreId: number;
-  scoreLocationId: number;
 }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Member} from '../../common/model';
+import {Member} from '../../common/member';
 import {environment} from '../../../environments/environment';
 import {controllers} from '../../services/controllers';
 

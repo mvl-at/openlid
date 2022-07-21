@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Crew} from "../../common/model";
+import {Crew} from "../../common/member";
 import {MemberService} from "../../services/member.service";
 import {NavigationComponent, NavigationItem} from "../../components/navigation/navigation.component";
 import {Router} from "@angular/router";
