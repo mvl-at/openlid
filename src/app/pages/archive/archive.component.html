@@ -1,6 +1,6 @@
-<h1>Das erste Leopoldsdorfer Archiv, das Original</h1>
+<h1>Das erste Leopoldsdorfer Notenarchiv, das Original</h1>
 
-<table mat-table [dataSource]="scores" class="mat-elevation-z8">
+<table mat-table [dataSource]="scores" fixedLayout="true" class="mat-elevation-z8" style="width: 100%">
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef> Titel</th>
     <td mat-cell *matCellDef="let element"> {{element.title}} </td>
@@ -8,17 +8,17 @@
 
   <ng-container matColumnDef="subtitles">
     <th mat-header-cell *matHeaderCellDef> Untertitel</th>
-    <td mat-cell *matCellDef="let element"> {{element.subtitles}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.subtitles.join(', ')}} </td>
   </ng-container>
 
   <ng-container matColumnDef="composers">
     <th mat-header-cell *matHeaderCellDef> Komponisten</th>
-    <td mat-cell *matCellDef="let element"> {{element.composers}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.composers.join(', ')}} </td>
   </ng-container>
 
   <ng-container matColumnDef="arrangers">
     <th mat-header-cell *matHeaderCellDef> Arrangeure</th>
-    <td mat-cell *matCellDef="let element"> {{element.arrangers}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.arrangers.join(', ')}} </td>
   </ng-container>
 
   <ng-container matColumnDef="publisher">
@@ -34,5 +34,6 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<mat-paginator [length]="totalRows" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page">
+<mat-paginator [length]="totalRows" [pageSize]="limit" [pageSizeOptions]="pageSizes" (page)="changePage($event)"
+               aria-label="Select page">
 </mat-paginator>
