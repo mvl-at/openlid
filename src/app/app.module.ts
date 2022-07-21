@@ -21,41 +21,21 @@ import {RouterModule} from '@angular/router';
 import {ArchiveComponent} from './pages/archive/archive.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSelectModule} from '@angular/material/select';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavigationComponent,
-    MemberCardComponent,
-    MembersComponent,
-    FallbackImgDirective,
-    ArchiveComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatCardModule,
-    RouterModule.forRoot([], {
-      useHash: false,
-      anchorScrolling: 'enabled',
-      onSameUrlNavigation: 'reload',
-      enableTracing: true,
-      scrollPositionRestoration: 'enabled'
-    }),
-    FlexModule,
-    MatTableModule,
-    MatPaginatorModule
-  ],
+  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
+    useHash: false,
+    anchorScrolling: 'enabled',
+    onSameUrlNavigation: 'reload',
+    enableTracing: true,
+    scrollPositionRestoration: 'enabled'
+  }), FlexModule, MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule],
   exports: [RouterModule],
-  providers: [],
+  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

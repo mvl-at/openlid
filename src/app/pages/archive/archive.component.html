@@ -1,5 +1,13 @@
 <h1>Erstes Leopoldsdorfer Notenarchiv, das Original</h1>
 
+<mat-form-field>
+  <mat-label>Attribute</mat-label>
+  <mat-select [formControl]="attributes" multiple>
+    <mat-option *ngFor="let attribute of attributeList" [value]="attribute">{{attribute.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+
 <table mat-table [dataSource]="scores" fixedLayout="true" class="mat-elevation-z8" style="width: 100%">
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef> Titel</th>
@@ -36,8 +44,8 @@
     <td mat-cell *matCellDef="let element"> {{element.pages.map(pageToString).join(', ')}} </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-header-row *matHeaderRowDef="selectedValues"></tr>
+  <tr mat-row *matRowDef="let row; columns: selectedValues;"></tr>
 </table>
 <mat-paginator [length]="totalRows" [pageSize]="limit" [pageSizeOptions]="pageSizes" (page)="changePage($event)"
                class="mat-elevation-z8" aria-label="Select page">
