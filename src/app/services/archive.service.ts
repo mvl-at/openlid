@@ -43,6 +43,6 @@ export class ArchiveService {
    */
   getAllScoresPaginated(limit: number, skip: number): Observable<Pagination<Score>> {
     const params = {limit: limit, skip: skip};
-    return this.httpClient.get<Pagination<Score>>(`${environment.barrelUrl}${controllers.archive.all()}`, {params: params});
+    return this.httpClient.get<Pagination<Score>>(`${environment.barrelUrl}${controllers.archive.scores.root()}`, {params: params});
   }
 }
