@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ArchiveService} from '../../services/archive.service';
-import {Score} from '../../common/archive';
+import {Page, PageNumber, Score} from '../../common/archive';
 import {PageEvent} from '@angular/material/paginator';
 
 @Component({
@@ -8,7 +8,7 @@ import {PageEvent} from '@angular/material/paginator';
 })
 export class ArchiveComponent implements OnInit {
 
-  displayedColumns: string[] = ['title', 'subtitles', 'composers', 'arrangers', 'publisher', 'location'];
+  displayedColumns: string[] = ['title', 'subtitles', 'composers', 'arrangers', 'publisher', 'location', 'pages'];
 
   // fields for the pagination
   pageSizes = [10, 20, 30, 50, 100];
@@ -29,6 +29,10 @@ export class ArchiveComponent implements OnInit {
     return this.viewScores;
   }
 
+  private static pageNumberToString(pageNumber: PageNumber) {
+    return `${pageNumber.prefix ?? ''}${pageNumber.number}${pageNumber.suffix ?? ''}`;
+  }
+
   ngOnInit(): void {
     this.refreshArchive();
   }
@@ -37,6 +41,15 @@ export class ArchiveComponent implements OnInit {
     this.skip = event.pageSize * event.pageIndex;
     this.limit = event.pageSize;
     this.refreshArchive();
+  }
+
+  pageToString(page: Page) {
+    const begin = ArchiveComponent.pageNumberToString(page.begin);
+    if (page.end) {
+      return `${page.book} ${begin}-${ArchiveComponent.pageNumberToString(page.end)}`;
+    } else {
+      return `${page.book} ${begin}`;
+    }
   }
 
   private refreshArchive() {

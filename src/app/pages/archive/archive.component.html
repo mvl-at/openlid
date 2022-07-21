@@ -1,4 +1,4 @@
-<h1>Das erste Leopoldsdorfer Notenarchiv, das Original</h1>
+<h1>Erstes Leopoldsdorfer Notenarchiv, das Original</h1>
 
 <table mat-table [dataSource]="scores" fixedLayout="true" class="mat-elevation-z8" style="width: 100%">
   <ng-container matColumnDef="title">
@@ -31,9 +31,14 @@
     <td mat-cell *matCellDef="let element"> {{element.location}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="pages">
+    <th mat-header-cell *matHeaderCellDef> Seiten</th>
+    <td mat-cell *matCellDef="let element"> {{element.pages.map(pageToString).join(', ')}} </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <mat-paginator [length]="totalRows" [pageSize]="limit" [pageSizeOptions]="pageSizes" (page)="changePage($event)"
-               aria-label="Select page">
+               class="mat-elevation-z8" aria-label="Select page">
 </mat-paginator>
