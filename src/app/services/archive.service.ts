@@ -18,10 +18,22 @@
  *
  */
 
-export const controllers = {
-  members: {
-    root: '/members', photo: (username: String) => `${controllers.members.root}/${username}/photo`
-  }, archive: {
-    root: '/archive', all: () => `${controllers.archive.root}/scores`
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {controllers} from './controllers';
+import {Pagination, Score} from '../common/archive';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ArchiveService {
+
+  constructor(private httpClient: HttpClient) {
+  }
+
+  getAllScoresPaginated(limit: number, offset: number): Observable<Pagination<Score>> {
+    return this.httpClient.get<Pagination<Score>>(`${environment.barrelUrl}${controllers.archive.all()}`);
   }
 }

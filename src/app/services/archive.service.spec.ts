@@ -1,6 +1,6 @@
 /*
  * Lid, the frontend of the Musikverein Leopoldsdorf.
- * Copyright (C) 2021-2022  Richard Stöckl
+ * Copyright (C) 2022  Richard Stöckl
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +18,19 @@
  *
  */
 
-export const controllers = {
-  members: {
-    root: '/members', photo: (username: String) => `${controllers.members.root}/${username}/photo`
-  }, archive: {
-    root: '/archive', all: () => `${controllers.archive.root}/scores`
-  }
-}
+import {TestBed} from '@angular/core/testing';
+
+import {ArchiveService} from './archive.service';
+
+describe('ArchiveService', () => {
+  let service: ArchiveService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(ArchiveService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
