@@ -21,7 +21,14 @@
 export interface Pagination<E> {
   total_rows: number,
   offset: number,
-  rows: E[],
+  rows: PaginationRow<E>[],
+}
+
+export interface PaginationRow<E> {
+  id: string,
+  key: string,
+  value: any,
+  doc: E,
 }
 
 export interface Score {

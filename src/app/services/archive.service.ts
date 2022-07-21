@@ -33,6 +33,14 @@ export class ArchiveService {
   constructor(private httpClient: HttpClient) {
   }
 
+  /**
+   * Fetches all available scores from the archive database.
+   * This call supports pagination.
+   *
+   * @param limit the maximum amount of records being returned
+   * @param offset the page offset, starts with `0`
+   * @return the [Observable] of all the paginates rows of scores
+   */
   getAllScoresPaginated(limit: number, offset: number): Observable<Pagination<Score>> {
     return this.httpClient.get<Pagination<Score>>(`${environment.barrelUrl}${controllers.archive.all()}`);
   }
