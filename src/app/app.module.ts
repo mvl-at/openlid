@@ -12,12 +12,15 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MemberCardComponent} from './components/member-card/member-card.component';
-import {MatCardModule} from "@angular/material/card";
+import {MatCardModule} from '@angular/material/card';
 import {MembersComponent} from './pages/members/members.component';
-import {HttpClientModule} from "@angular/common/http";
-import {FlexModule} from "@angular/flex-layout";
+import {HttpClientModule} from '@angular/common/http';
+import {FlexModule} from '@angular/flex-layout';
 import {FallbackImgDirective} from './directives/fallback-img.directive';
-import {RouterModule} from "@angular/router";
+import {RouterModule} from '@angular/router';
+import {ArchiveComponent} from './pages/archive/archive.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import {RouterModule} from "@angular/router";
     NavigationComponent,
     MemberCardComponent,
     MembersComponent,
-    FallbackImgDirective
+    FallbackImgDirective,
+    ArchiveComponent
   ],
   imports: [
     BrowserModule,
@@ -41,12 +45,14 @@ import {RouterModule} from "@angular/router";
     MatCardModule,
     RouterModule.forRoot([], {
       useHash: false,
-      anchorScrolling: "enabled",
-      onSameUrlNavigation: "reload",
+      anchorScrolling: 'enabled',
+      onSameUrlNavigation: 'reload',
       enableTracing: true,
-      scrollPositionRestoration: "enabled"
+      scrollPositionRestoration: 'enabled'
     }),
-    FlexModule
+    FlexModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   exports: [RouterModule],
   providers: [],

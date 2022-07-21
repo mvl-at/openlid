@@ -38,10 +38,11 @@ export class ArchiveService {
    * This call supports pagination.
    *
    * @param limit the maximum amount of records being returned
-   * @param offset the page offset, starts with `0`
+   * @param skip the page offset, starts with `0`
    * @return the [Observable] of all the paginates rows of scores
    */
-  getAllScoresPaginated(limit: number, offset: number): Observable<Pagination<Score>> {
-    return this.httpClient.get<Pagination<Score>>(`${environment.barrelUrl}${controllers.archive.all()}`);
+  getAllScoresPaginated(limit: number, skip: number): Observable<Pagination<Score>> {
+    const params = {limit: limit, skip: skip};
+    return this.httpClient.get<Pagination<Score>>(`${environment.barrelUrl}${controllers.archive.all()}`, {params: params});
   }
 }

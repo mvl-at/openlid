@@ -4,19 +4,14 @@ import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 
 @Component({
-  selector: 'lid-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  selector: 'lid-navigation', templateUrl: './navigation.component.html', styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
 
   navigationItems = defaultItems;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+    .pipe(map(result => result.matches), shareReplay());
 
   constructor(private breakpointObserver: BreakpointObserver) {
   }
@@ -39,7 +34,9 @@ export class NavigationComponent {
   }
 }
 
-export const defaultItems: NavigationItem[] = [{label: 'Mitglieder', link: ['/members'], children: []}]
+export const defaultItems: NavigationItem[] = [{label: 'Mitglieder', link: ['/members'], children: []}, {
+  label: 'Archiv', link: ['/archive'], children: []
+}];
 
 export interface NavigationItem {
   label: string;
