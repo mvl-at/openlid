@@ -23,7 +23,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {controllers} from './controllers';
-import {Pagination, Score} from '../common/archive';
+import {CountStatistic, CountStatisticSubject, Pagination, Score} from '../common/archive';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +43,44 @@ export class ArchiveService {
    */
   getAllScoresPaginated(limit: number, skip: number): Observable<Pagination<Score>> {
     const params = {limit: limit, skip: skip};
-    return this.httpClient.get<Pagination<Score>>(`${environment.barrelUrl}${controllers.archive.scores.root()}`, {params: params});
+    return this.httpClient.get<Pagination<Score>>(`${environment.barrelUrl}${controllers.archive.scores.root}`, {params: params});
+  }
+
+  /**
+   * Fetch all the genres of the database with the counts of how much they are being used.
+   */
+  getGenres(): Observable<CountStatistic> {
+    return this.getCountStatistics(CountStatisticSubject.Genres);
+  }
+
+  /**
+   * Fetch all the composers of the database with the counts of how much they are being used.
+   */
+  getComposers(): Observable<CountStatistic> {
+    return this.getCountStatistics(CountStatisticSubject.Composers);
+  }
+
+  /**
+   * Fetch all the arrangers of the database with the counts of how much they are being used.
+   */
+  getArrangers(): Observable<CountStatistic> {
+    return this.getCountStatistics(CountStatisticSubject.Arrangers);
+  }
+
+  /**
+   * Fetch all the publisher of the database with the counts of how much they are being used.
+   */
+  getPublishers(): Observable<CountStatistic> {
+    return this.getCountStatistics(CountStatisticSubject.Publishers);
+  }
+
+  /**
+   * Fetch the count statistics for the given subject.
+   * @param subject the subject whose statistic should be retrieved
+   * @private
+   */
+  private getCountStatistics(subject: CountStatisticSubject): Observable<CountStatistic> {
+    const params = {subject: subject.toString()};
+    return this.httpClient.get<CountStatistic>(`${environment.barrelUrl}${controllers.archive.statistics.counts()}`, {params: params});
   }
 }

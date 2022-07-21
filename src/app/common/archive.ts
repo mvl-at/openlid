@@ -61,3 +61,21 @@ export interface PageNumber {
   number: number;
   suffix: string | null;
 }
+
+export type CountStatistic = Statistic<string, number>
+
+export enum CountStatisticSubject {
+  Genres = 'genres',
+  Composers = 'composers',
+  Arrangers = 'arrangers',
+  Publishers = 'publishers',
+}
+
+export interface Statistic<E, A> {
+  rows: StatisticRow<E, A>[];
+}
+
+export interface StatisticRow<E, A> {
+  key: A;
+  value: A;
+}

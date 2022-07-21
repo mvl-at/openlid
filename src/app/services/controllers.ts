@@ -22,9 +22,12 @@ export const controllers = {
   members: {
     root: '/members', photo: (username: String) => `${controllers.members.root}/${username}/photo`
   }, archive: {
-    root: '/',
     scores: {
-      root: () => `${controllers.archive.root}/scores/`
+      root: '/scores'
+    },
+    statistics: {
+      root: '/statistics',
+      counts: () => `${controllers.archive.statistics.root}/counts`
     }
   }
 }
