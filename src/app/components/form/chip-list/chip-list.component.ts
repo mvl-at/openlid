@@ -20,25 +20,28 @@
 
 import {Component, ElementRef, HostBinding, Input, OnInit, Optional, Self, ViewChild} from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {FormControl, NgControl} from '@angular/forms';
+import {ControlValueAccessor, FormControl, NgControl} from '@angular/forms';
 import {map, Observable, startWith, Subject} from 'rxjs';
-import {MatChipInputEvent} from '@angular/material/chips';
+import {MatChipInputEvent, MatChipList} from '@angular/material/chips';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatFormFieldControl} from '@angular/material/form-field';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 @Component({
-  selector: 'lid-chip-list', templateUrl: './chip-list.component.html', styleUrls: ['./chip-list.component.scss']
+  selector: 'lid-chip-list',
+  templateUrl: './chip-list.component.html',
+  styleUrls: ['./chip-list.component.scss'],
+  providers: [{provide: MatFormFieldControl, useExisting: ChipListComponent}]
 })
-export class ChipListComponent implements OnInit, MatFormFieldControl<string[]> {
+export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>, ControlValueAccessor {
   static nextId = 0;
   @Input() allItems: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
   @Input() ariaLabel: string = 'Element Auswahl';
   separatorKeysCodes: number[] = [ENTER, COMMA];
   itemCtrl = new FormControl('');
   filteredItems: Observable<string[]>;
-  value: string[] = ['Lemon'];
   @ViewChild('itemInput') itemInput!: ElementRef<HTMLInputElement>;
+  @ViewChild(MatChipList) rootChipList!: MatChipList;
   readonly autofilled: boolean = false;
   readonly controlType: string = 'chip-list-input';
   focused: boolean = false;
@@ -48,7 +51,20 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]> 
   private touched: boolean = false;
 
   constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl != null) {
+      this.ngControl.valueAccessor = this;
+    }
     this.filteredItems = this.itemCtrl.valueChanges.pipe(startWith(null), map((item: string | null) => (item ? this._filter(item) : this.allItems.slice())),);
+  }
+
+  _value: string[] = ['Lemon'];
+
+  get value() {
+    return this._value;
+  }
+
+  set value(value: string[]) {
+    this._value = value;
   }
 
   private _disabled = false;
@@ -97,16 +113,41 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]> 
     this.stateChanges.next();
   }
 
+  onChange: any = () => {
+  };
+
+  onTouched: any = () => {
+  };
+
+  writeValue(obj: any): void {
+    this.value = obj;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
   setDescribedByIds(ids: string[]) {
-    const controlElement = this.itemInput.nativeElement
-      .querySelector('.example-tel-input-container')!;
-    controlElement.setAttribute('aria-describedby', ids.join(' '));
+    if (this.itemInput) {
+      const controlElement = this.itemInput.nativeElement
+        .querySelector('.chipList')!;
+      if (controlElement) {
+        controlElement.setAttribute('aria-describedby', ids.join(' '));
+      }
+    }
+    if (this.rootChipList) {
+      this.rootChipList.setDescribedByIds(ids);
+    }
   }
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
-    // Add our fruit
+    // Add our item
     if (value) {
       this.value.push(value);
     }
