@@ -76,6 +76,6 @@ export interface Statistic<E, A> {
 }
 
 export interface StatisticRow<E, A> {
-  key: A;
+  key: E;
   value: A;
 }
