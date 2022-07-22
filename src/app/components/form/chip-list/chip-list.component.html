@@ -1,0 +1,23 @@
+<mat-chip-list #chipList (focusin)="onFocusIn($event)" (focusout)="onFocusOut($event)" [aria-describedby]="ariaLabel">
+  <mat-chip
+    (removed)="remove(item)"
+    *ngFor="let item of value">
+    {{item}}
+    <button matChipRemove>
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-chip>
+  <input
+    #itemInput
+    (matChipInputTokenEnd)="add($event)"
+    [formControl]="itemCtrl"
+    [matAutocomplete]="auto"
+    [matChipInputFor]="chipList"
+    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+    [placeholder]="placeholder">
+</mat-chip-list>
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+  <mat-option *ngFor="let item of filteredItems | async" [value]="item">
+    {{item}}
+  </mat-option>
+</mat-autocomplete>
