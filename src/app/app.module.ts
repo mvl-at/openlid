@@ -29,6 +29,7 @@ import {ChipListComponent} from './components/form/chip-list/chip-list.component
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent],
@@ -38,7 +39,7 @@ import {MatInputModule} from '@angular/material/input';
     onSameUrlNavigation: 'reload',
     enableTracing: true,
     scrollPositionRestoration: 'enabled'
-  }), FlexModule, MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule],
+  }), FlexModule, MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
   providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}],
   bootstrap: [AppComponent]

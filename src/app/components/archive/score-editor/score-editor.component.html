@@ -1,1 +1,50 @@
-<p>score-editor works!</p>
+<form [formGroup]="scoreForm" fxLayout="row wrap">
+  <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+    <mat-form-field fxFlex>
+      <mat-label>Titel</mat-label>
+      <input formControlName="title" matInput placeholder="z.B. Bitte gib mir eine Chance" required>
+    </mat-form-field>
+  </div>
+
+  <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+    <mat-form-field fxFlex>
+      <mat-label>Genres</mat-label>
+      <lid-chip-list [allItems]="genres" [formControl]="scoreForm.controls['genres']"
+                     placeholder="Neues Genre..."></lid-chip-list>
+    </mat-form-field>
+  </div>
+
+  <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+    <mat-form-field fxFlex>
+      <mat-label>Komponisten</mat-label>
+      <lid-chip-list [allItems]="composers" [formControl]="scoreForm.controls['composers']"
+                     placeholder="Neuer Komponist..."></lid-chip-list>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+      <mat-label>Arrangeure</mat-label>
+      <lid-chip-list [allItems]="arrangers" [formControl]="scoreForm.controls['arrangers']"
+                     placeholder="Neuer Arrangeur..."></lid-chip-list>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+      <mat-label>Verlag</mat-label>
+      <input formControlName="publisher" matInput placeholder="z.B. Ewoton">
+    </mat-form-field>
+  </div>
+
+  <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+    <mat-form-field fxFlex>
+      <mat-label>Aufbewahrung</mat-label>
+      <input formControlName="location" matInput placeholder="z.B. Archiv">
+    </mat-form-field>
+    <mat-form-field fxFlex>
+      <mat-label>Stufe</mat-label>
+      <input formControlName="grade" matInput placeholder="z.B. B">
+    </mat-form-field>
+    <mat-form-field fxFlex>
+      <mat-label>Rückseite</mat-label>
+      <input formControlName="back_title" matInput placeholder="z.B. Castaldo Marsch">
+    </mat-form-field>
+    <mat-checkbox formControlName="conductor_score">Partitur</mat-checkbox>
+  </div>
+</form>
+value is: {{scoreForm.getRawValue() | json}}

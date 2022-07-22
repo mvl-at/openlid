@@ -22,6 +22,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Score} from '../../../common/archive';
 import {FormBuilder} from '@angular/forms';
 import {FormModel, InferModeNullable} from 'ngx-mf';
+import {ArchiveService} from '../../../services/archive.service';
 
 @Component({
   selector: 'lid-score-editor',
@@ -30,6 +31,10 @@ import {FormModel, InferModeNullable} from 'ngx-mf';
 })
 export class ScoreEditorComponent implements OnInit {
 
+  genres: string[] = [];
+  arrangers: string[] = [];
+  composers: string[] = [];
+  publishers: string[] = [];
 
   scoreForm = this.formBuilder.nonNullable.group<ScoreForm['controls']>({
     _id: this.formBuilder.control(null),
@@ -50,17 +55,36 @@ export class ScoreEditorComponent implements OnInit {
     title: this.formBuilder.nonNullable.control('')
   });
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private archiveService: ArchiveService) {
   }
 
   @Input()
-  setScore(score: Score) {
+  set score(score: Score) {
     this.scoreForm.patchValue(score);
   }
 
   ngOnInit(): void {
+    this.refreshStatistics();
   }
 
+  private refreshStatistics() {
+    this.archiveService.getGenres().subscribe({
+      next: data => this.genres = data.rows.map(r => r.key),
+      error: console.log
+    });
+    this.archiveService.getArrangers().subscribe({
+      next: data => this.arrangers = data.rows.map(r => r.key),
+      error: console.log
+    });
+    this.archiveService.getComposers().subscribe({
+      next: data => this.composers = data.rows.map(r => r.key),
+      error: console.log
+    });
+    this.archiveService.getPublishers().subscribe({
+      next: data => this.publishers = data.rows.map(r => r.key),
+      error: console.log
+    });
+  }
 }
 
 type ScoreForm = FormModel<Score, { pages: ['group'] }, InferModeNullable>;
