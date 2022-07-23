@@ -23,6 +23,8 @@ import {Score} from '../../../common/archive';
 import {FormBuilder} from '@angular/forms';
 import {FormModel, InferModeNullable} from 'ngx-mf';
 import {ArchiveService} from '../../../services/archive.service';
+import {Observable, startWith} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'lid-score-editor',
@@ -35,6 +37,7 @@ export class ScoreEditorComponent implements OnInit {
   arrangers: string[] = [];
   composers: string[] = [];
   publishers: string[] = [];
+  filteredPublishers: Observable<string[]> | undefined;
 
   scoreForm = this.formBuilder.nonNullable.group<ScoreForm['controls']>({
     _id: this.formBuilder.control(null),
@@ -65,6 +68,10 @@ export class ScoreEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshStatistics();
+    this.filteredPublishers = this.scoreForm.controls['publisher'].valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
   }
 
   private refreshStatistics() {
@@ -84,6 +91,11 @@ export class ScoreEditorComponent implements OnInit {
       next: data => this.publishers = data.rows.map(r => r.key),
       error: console.log
     });
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.publishers.filter(publisher => publisher.toLowerCase().includes(filterValue));
   }
 }
 
