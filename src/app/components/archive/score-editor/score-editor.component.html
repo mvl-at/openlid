@@ -2,7 +2,7 @@
   <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
     <mat-form-field fxFlex>
       <mat-label>Titel</mat-label>
-      <input formControlName="title" matInput placeholder="z.B. Bitte gib mir eine Chance" required>
+      <input formControlName="title" matInput placeholder="z.B. Bitte gib mir eine Chance" required [lidTrim]="false">
     </mat-form-field>
   </div>
 
@@ -27,7 +27,7 @@
     </mat-form-field>
     <mat-form-field fxFlex>
       <mat-label>Verlag</mat-label>
-      <input [matAutocomplete]="auto" formControlName="publisher" matInput placeholder="z.B. Ewoton">
+      <input [matAutocomplete]="auto" formControlName="publisher" matInput placeholder="z.B. Ewoton" [lidTrim]="true">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let publisher of filteredPublishers | async" [value]="publisher">
           {{publisher}}
@@ -39,15 +39,15 @@
   <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
     <mat-form-field fxFlex>
       <mat-label>Aufbewahrung</mat-label>
-      <input formControlName="location" matInput placeholder="z.B. Archiv">
+      <input formControlName="location" matInput placeholder="z.B. Archiv" [lidTrim]="true">
     </mat-form-field>
     <mat-form-field fxFlex>
       <mat-label>Stufe</mat-label>
-      <input formControlName="grade" matInput placeholder="z.B. B">
+      <input formControlName="grade" matInput placeholder="z.B. B" [lidTrim]="true">
     </mat-form-field>
     <mat-form-field fxFlex>
       <mat-label>Rückseite</mat-label>
-      <input formControlName="back_title" matInput placeholder="z.B. Castaldo Marsch">
+      <input formControlName="back_title" matInput placeholder="z.B. Castaldo Marsch" [lidTrim]="true">
     </mat-form-field>
     <mat-checkbox formControlName="conductor_score">Partitur</mat-checkbox>
   </div>
