@@ -17,22 +17,7 @@ $lid-primary-map: (
   A200 : #548aff,
   A400 : #2168ff,
   A700 : #0856ff,
-  contrast: (
-    50 : #000000,
-    100 : #000000,
-    200 : #000000,
-    300 : #ffffff,
-    400 : #ffffff,
-    500 : #ffffff,
-    600 : #ffffff,
-    700 : #ffffff,
-    800 : #ffffff,
-    900 : #ffffff,
-    A100 : #000000,
-    A200 : #000000,
-    A400 : #ffffff,
-    A700 : #ffffff,
-  )
+
 );
 
 $lid-accent-map: (
@@ -50,6 +35,13 @@ $lid-accent-map: (
   A200 : #ff5454,
   A400 : #ff2121,
   A700 : #ff0808,
+
+);
+
+$lid-primary-dark-map: ();
+$lid-accent-dark-map: ();
+
+$contrast-map: (
   contrast: (
     50 : #000000,
     100 : #000000,
@@ -68,8 +60,27 @@ $lid-accent-map: (
   )
 );
 
+@each $key, $color in $lid-primary-map {
+  $map: ();
+  $map: map-merge($map, ($key: lighten($color, 34)));
+  $lid-primary-dark-map: map-merge($lid-primary-dark-map, $map);
+}
+
+@each $key, $color in $lid-accent-map {
+  $map: ();
+  $map: map-merge($map, ($key: lighten($color, 34)));
+  $lid-accent-dark-map: map-merge($lid-accent-dark-map, $map);
+}
+
+$lid-primary-map: map-merge($lid-primary-map, $contrast-map);
+$lid-accent-map: map-merge($lid-accent-map, $contrast-map);
+$lid-primary-dark-map: map-merge($lid-primary-dark-map, $contrast-map);
+$lid-accent-dark-map: map-merge($lid-accent-dark-map, $contrast-map);
+
 $lid-primary-palette: mat.define-palette($lid-primary-map);
 $lid-accent-palette: mat.define-palette($lid-accent-map);
+$lid-primary-dark-palette: mat.define-palette($lid-primary-dark-map);
+$lid-accent-dark-palette: mat.define-palette($lid-accent-dark-map);
 
 $lid-light-theme: mat.define-light-theme((
   color: (
@@ -80,8 +91,8 @@ $lid-light-theme: mat.define-light-theme((
 
 $lid-dark-theme: mat.define-dark-theme((
   color: (
-    primary: $lid-primary-palette,
-    accent: $lid-accent-palette,
+    primary: $lid-primary-dark-palette,
+    accent: $lid-accent-dark-palette,
   )
 ));
 
