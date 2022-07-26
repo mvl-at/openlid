@@ -1,5 +1,5 @@
 /*
- * Lid, the frontend of the Musikverein Leopoldsdorf.
+ * OpenLid, the frontend of the Musikverein Leopoldsdorf.
  * Copyright (C) 2022  Richard Stöckl
  *
  * This program is free software; you can redistribute it and/or modify
