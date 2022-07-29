@@ -53,7 +53,7 @@ export class ScoresDataSource implements DataSource<Score> {
     if (this.isEmpty) {
       return this.totalRows;
     } else {
-      return (this.bookmarks.size - 1) * this.lastLimit + this.lastResultSize;
+      return Math.max(this.bookmarks.size * this.lastLimit + this.lastResultSize, 0);
     }
   }
 
@@ -70,7 +70,9 @@ export class ScoresDataSource implements DataSource<Score> {
     this.loadingSubject.next(true);
     this.isEmpty = isEmpty(filter);
     this.lastLimit = limit;
-    if (filter !== this.lastFilter) {
+    console.debug('old and new filter', this.lastFilter, filter);
+    if (JSON.stringify(filter) !== JSON.stringify(this.lastFilter)) {
+      console.log('clear bookmarks');
       this.bookmarks.clear();
       this.totalRows = 0;
     }
@@ -95,12 +97,14 @@ export class ScoresDataSource implements DataSource<Score> {
 
   private loadScoresFromSearch(index: number, limit: number, filter: ScoreFilter) {
     let bookmark = this.bookmarks.get(index) || null;
+    console.debug('current bookmarks', index, this.bookmarks);
     this.archiveService.searchScore(filter, limit, bookmark).pipe(catchError(() => of({
       docs: [], bookmark: ''
     })), finalize(() => this.loadingSubject.next(false)))
       .subscribe({
         next: data => {
           this.scoresSubject.next(data.docs);
+          console.debug('store bookmark', index + 1, data.bookmark);
           this.bookmarks.set(index + 1, data.bookmark);
           this.lastResultSize = data.docs.length;
         }

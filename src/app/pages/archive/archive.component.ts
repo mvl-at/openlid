@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ArchiveService} from '../../services/archive.service';
-import {Page, PageNumber, Score} from '../../common/archive';
-import {PageEvent} from '@angular/material/paginator';
-import {FormControl} from '@angular/forms';
+import {Page, PageNumber, ScoreFilter} from '../../common/archive';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {FormBuilder, FormControl} from '@angular/forms';
+import {ScoresDataSource} from './scores-data-source';
+import {FormModel, InferModeFromModel} from 'ngx-mf';
 
 @Component({
   selector: 'lid-archive', templateUrl: './archive.component.html', styleUrls: ['./archive.component.scss']
@@ -16,20 +18,31 @@ export class ArchiveComponent implements OnInit {
   }, {name: 'Seiten', value: 'pages'}];
 
   attributes = new FormControl(this.attributeList);
+  scoreFilterForm = this.formBuilder.nonNullable.group<ScoreFilterForm['controls']>({
+    searchTerm: this.formBuilder.control(null),
+    regex: this.formBuilder.nonNullable.control(false),
+    attributes: this.formBuilder.nonNullable.control([]),
+    book: this.formBuilder.control('Rot'),
+    location: this.formBuilder.control(null),
+    sort: this.formBuilder.control(null),
+    ascending: this.formBuilder.control(null)
+  });
 
   // fields for the pagination
   pageSizes = [10, 20, 30, 50, 100];
-  limit: number = 20;
-  skip: number = 0;
-  totalRows: number = 0;
+  limit = 20;
 
-  private viewScores: Score[] = [];
+  private readonly scoresDataSource: ScoresDataSource;
 
-  constructor(private archiveService: ArchiveService) {
+  @ViewChild(MatPaginator)
+  private paginator!: MatPaginator;
+
+  constructor(private archiveService: ArchiveService, private formBuilder: FormBuilder) {
+    this.scoresDataSource = new ScoresDataSource(archiveService);
   }
 
   get scores() {
-    return this.viewScores;
+    return this.scoresDataSource;
   }
 
   get selectedValues() {
@@ -41,13 +54,14 @@ export class ArchiveComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.refreshArchive();
   }
 
-  changePage(event: PageEvent) {
-    this.skip = event.pageSize * event.pageIndex;
-    this.limit = event.pageSize;
-    this.refreshArchive();
+  ngAfterViewInit() {
+    this.refreshScores();
+  }
+
+  changePage(_event: PageEvent) {
+    this.refreshScores();
   }
 
   pageToString(page: Page) {
@@ -59,12 +73,9 @@ export class ArchiveComponent implements OnInit {
     }
   }
 
-  private refreshArchive() {
-    this.archiveService.getAllScoresPaginated(this.limit, this.skip).subscribe({
-      next: result => {
-        this.viewScores = result.rows.map(r => r.doc);
-        this.totalRows = result.total_rows;
-      }, error: console.log
-    });
+  private refreshScores() {
+    this.scoresDataSource.loadScores(this.paginator.pageIndex, this.paginator.pageSize, this.scoreFilterForm.getRawValue());
   }
 }
+
+type ScoreFilterForm = FormModel<ScoreFilter, {}, InferModeFromModel>;
