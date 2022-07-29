@@ -67,6 +67,20 @@ export interface PageNumber {
   suffix: string | null;
 }
 
+export interface ScoreFilter {
+  searchTerm: string | null;
+  regex: boolean;
+  attributes: string[];
+  book: string | null;
+  location: string | null;
+  sort: string | null;
+  ascending: boolean | null;
+}
+
+export function isEmpty(filter: ScoreFilter): boolean {
+  return !filter.searchTerm && !filter.book && !filter.location && !filter.sort;
+}
+
 export type CountStatistic = Statistic<string, number>
 
 export enum CountStatisticSubject {
