@@ -37,11 +37,12 @@ export class ScoresDataSource implements DataSource<Score> {
   private lastLimit: number = 0;
 
   // begin empty filter attributes
-  private totalRows: number = 0;
+  private totalRows: number = 1;
   // end empty filter attributes
 
   // begin non-empty filter attributes
   private lastResultSize: number = 0;
+  private foundResults: number = 1;
   private bookmarks: Map<number, string> = new Map();
 
   // begin non-empty filter attributes
@@ -53,7 +54,7 @@ export class ScoresDataSource implements DataSource<Score> {
     if (this.isEmpty) {
       return this.totalRows;
     } else {
-      return Math.max(this.bookmarks.size * this.lastLimit + this.lastResultSize, 0);
+      return this.foundResults;
     }
   }
 
@@ -75,6 +76,7 @@ export class ScoresDataSource implements DataSource<Score> {
       console.log('clear bookmarks');
       this.bookmarks.clear();
       this.totalRows = 0;
+      this.foundResults = 1;
     }
     this.lastFilter = filter;
     if (this.isEmpty) {
@@ -105,6 +107,12 @@ export class ScoresDataSource implements DataSource<Score> {
         next: data => {
           this.scoresSubject.next(data.docs);
           console.debug('store bookmark', index + 1, data.bookmark);
+          if (!this.bookmarks.has(index + 1)) {
+            this.foundResults += data.docs.length;
+            if (this.lastResultSize > data.docs.length) {
+              this.foundResults -= 1;
+            }
+          }
           this.bookmarks.set(index + 1, data.bookmark);
           this.lastResultSize = data.docs.length;
         }

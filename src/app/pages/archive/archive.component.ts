@@ -32,7 +32,7 @@ export class ArchiveComponent implements OnInit {
   pageSizes = [10, 20, 30, 50, 100];
   limit = 20;
 
-  private readonly scoresDataSource: ScoresDataSource;
+  readonly scoresDataSource: ScoresDataSource;
 
   @ViewChild(MatPaginator)
   private paginator!: MatPaginator;
