@@ -19,11 +19,11 @@
  */
 
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {controllers} from './controllers';
-import {CountStatistic, CountStatisticSubject, Pagination, Score} from '../common/archive';
+import {CountStatistic, CountStatisticSubject, Pagination, Score, ScoreFilter, SearchResult} from '../common/archive';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +44,39 @@ export class ArchiveService {
   getAllScoresPaginated(limit: number, skip: number): Observable<Pagination<Score>> {
     const params = {limit: limit, skip: skip};
     return this.httpClient.get<Pagination<Score>>(`${environment.barrelUrl}${controllers.archive.scores.root}`, {params: params});
+  }
+
+  /**
+   * Search for all scores with the given filter.
+   * For pagination see the upstream API doc.
+   * @param filter the filter to use for the search
+   * @param limit the limit of the search results
+   * @param bookmark the bookmark used for pagination
+   */
+  searchScore(filter: ScoreFilter, limit: number, bookmark: string | null): Observable<SearchResult<Score>> {
+    let params = new HttpParams();
+    params = params.set('limit', limit);
+    if (bookmark) {
+      params = params.set('bookmark', bookmark);
+    }
+    if (filter.searchTerm) {
+      params = params.set('search_term', filter.searchTerm);
+    }
+    params = params.set('regex', filter.regex);
+    filter.attributes.forEach(a => {params = params.append('attributes', a)});
+    if (filter.book) {
+      params = params.set('book', filter.book);
+    }
+    if (filter.location) {
+      params = params.set('location', filter.location);
+    }
+    if (filter.sort) {
+      params = params.set('sort', filter.sort);
+    }
+    if (filter.ascending) {
+      params = params.set('ascending', filter.ascending);
+    }
+    return this.httpClient.get<SearchResult<Score>>(`${environment.barrelUrl}${controllers.archive.scores.searches()}`, {params: params});
   }
 
   /**
