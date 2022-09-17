@@ -60,7 +60,11 @@ export class NavigationComponent {
   }
 }
 
-export const defaultItems: NavigationItem[] = [{label: 'Mitglieder', link: ['/members'], children: []}, {
+export const defaultItems: NavigationItem[] = [{label: 'Startseite', link: ['/'], children: []}, {
+  label: 'Mitglieder',
+  link: ['/members'],
+  children: []
+}, {
   label: 'Archiv', link: ['/archive'], children: []
 }];
 
