@@ -18,23 +18,32 @@
  *
  */
 
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {NavigationComponent} from './components/navigation/navigation.component';
-import {MembersComponent} from './pages/members/members.component';
-import {ArchiveComponent} from './pages/archive/archive.component';
-import {BlackboardComponent} from './pages/blackboard/blackboard.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {DocumentService} from '../../../services/document.service';
 
-const routes: Routes = [
-  {path: '', component: BlackboardComponent},
-  {path: 'menu', component: NavigationComponent},
-  {path: 'members', component: MembersComponent},
-  {path: 'archive', component: ArchiveComponent},
-];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+@Component({
+  selector: 'lid-blackboard-item',
+  templateUrl: './blackboard-item.component.html',
+  styleUrls: ['./blackboard-item.component.scss']
 })
-export class AppRoutingModule {
+export class BlackboardItemComponent implements OnInit {
+
+  @Input() filename: string = '';
+
+  constructor(private documentService: DocumentService) {
+  }
+
+  private _content: string = '';
+
+  get content() {
+    return this._content;
+  }
+
+  ngOnInit(): void {
+    this.documentService.getBlackBoardDocument(this.filename).subscribe({
+      next: value => this._content = value,
+      error: console.error
+    });
+  }
+
 }

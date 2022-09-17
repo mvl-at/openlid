@@ -47,7 +47,7 @@
   <tr mat-header-row *matHeaderRowDef="selectedValues"></tr>
   <tr mat-row *matRowDef="let row; columns: selectedValues;"></tr>
 </table>
-<mat-paginator [length]="scores.totalAmount" [pageSize]="limit" [pageSizeOptions]="pageSizes" (page)="changePage($event)"
+<mat-paginator [length]="scores.totalAmount" [pageSize]="limit" [pageSizeOptions]="pageSizes" (page)="changePage()" (selectionchange)="changePage()"
                class="mat-elevation-z8" aria-label="Select page">
 </mat-paginator>
 
