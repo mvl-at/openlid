@@ -33,6 +33,12 @@ export class BlackboardItemComponent implements OnInit {
   constructor(private documentService: DocumentService) {
   }
 
+  private _isLoading: boolean = true;
+
+  get isLoading() {
+    return this._isLoading;
+  }
+
   private _content: string = '';
 
   get content() {
@@ -42,7 +48,8 @@ export class BlackboardItemComponent implements OnInit {
   ngOnInit(): void {
     this.documentService.getBlackBoardDocument(this.filename).subscribe({
       next: value => this._content = value,
-      error: console.error
+      error: console.error,
+      complete: () => this._isLoading = false,
     });
   }
 
