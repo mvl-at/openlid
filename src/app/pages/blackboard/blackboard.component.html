@@ -1,1 +1,14 @@
-<lid-blackboard-item *ngFor="let document of documents" [filename]="document"></lid-blackboard-item>
+<h1>Musikverein Leopolsdorf</h1>
+<p>Willkommen beim Musikverein Leopoldsdorf!
+  Wir sind eine gemütliche Kapelle aus dem Marchfeld und haben uns zur Aufgabe gesetzt die Bewohner unserer Ortschaft
+  nicht nur musikalisch zu unterhalten.
+  Selbstverständlich begrenzt sich das nicht nur auf unsere Mitbewohner, auch alle anderen Leute von nah und fern sind
+  herzlich dazu eingeladen unserer Untermalung zu lauschen.
+</p>
+<h2>Das Schwarze Brett</h2>
+Das schwarze Brett ist dazu geschaffen worden um einen Überblick über aktuelle Ereignisse schnell und einfach abrufbar zu gestalten.
+
+<div *ngFor="let document of documents">
+  <br>
+  <lid-blackboard-item [filename]="document"></lid-blackboard-item>
+</div>
