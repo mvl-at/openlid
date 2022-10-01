@@ -35,7 +35,8 @@ export const controllers = {
     root: '/documents',
     blackboard: {
       root: () => `${controllers.documents.root}/blackboard`,
-      document: (document: string) => `${controllers.documents.blackboard.root()}/${document}`
+      document: (document: string) => `${controllers.documents.blackboard.root()}/${document}`,
+      image: (filename: string) => `${controllers.documents.blackboard.root()}/assets/${filename}`
     }
   }
 }

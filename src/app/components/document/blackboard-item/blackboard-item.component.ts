@@ -20,6 +20,9 @@
 
 import {Component, Input, OnInit} from '@angular/core';
 import {DocumentService} from '../../../services/document.service';
+import {environment} from '../../../../environments/environment';
+import {map} from 'rxjs';
+import {controllers} from '../../../services/controllers';
 
 @Component({
   selector: 'lid-blackboard-item',
@@ -45,12 +48,35 @@ export class BlackboardItemComponent implements OnInit {
     return this._content;
   }
 
+  /**
+   * Replace all attachment urls within a markdown content string and return a copy.
+   * The urls must be in the following format: `![image description](.attachments.id/filename)` where `image description` and `id` are arbitrary strings and `filename` is the filename of the file to request.
+   *
+   * @param markdownContent the markdown content string - will not be changed
+   * @private
+   */
+  private static replaceAttachmentUrls(markdownContent: string): string {
+    console.debug('replaceAttachmentUrls');
+    const attachmentRegex = /!\[.*]\(\.attachments\..*\/.*\)/;
+    const urlPartPrefix = '](.attachments.';
+    let workingContent = markdownContent.toString();
+    let searchIndex;
+    while ((searchIndex = workingContent.search(attachmentRegex)) != -1) {
+      const fileIdBeginIndex = workingContent.indexOf(urlPartPrefix, searchIndex) + urlPartPrefix.length;
+      console.debug('fileIdBeginIndex', searchIndex);
+      const documentFileCombination = workingContent.substring(fileIdBeginIndex, workingContent.indexOf(')', fileIdBeginIndex)).split('/');
+      const newUrl = controllers.documents.blackboard.image(documentFileCombination[1]);
+      console.debug('new url', newUrl);
+      workingContent = workingContent.replace(/\(.*\)/, `(${environment.barrelUrl}${newUrl})`);
+    }
+    return workingContent;
+  }
+
   ngOnInit(): void {
-    this.documentService.getBlackBoardDocument(this.filename).subscribe({
+    this.documentService.getBlackBoardDocument(this.filename).pipe(map(BlackboardItemComponent.replaceAttachmentUrls)).subscribe({
       next: value => this._content = value,
       error: console.error,
       complete: () => this._isLoading = false,
     });
   }
-
 }
