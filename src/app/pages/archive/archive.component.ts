@@ -18,6 +18,11 @@ export class ArchiveComponent implements OnInit {
   }, {name: 'Seiten', value: 'pages'}];
 
   attributes = new FormControl(this.attributeList);
+
+  filterAttributes = [{name: 'Titel', value: 'title'}, {name: 'Alias', value: 'alias'}, {name: 'Untertitel', value: 'subtitles'}, {name: 'Genres', value: 'genres'}, {
+    name: 'Komponisten', value: 'composers'
+  }, {name: 'Arrangeure', value: 'arrangers'}, {name: 'Verlag', value: 'publisher'}];
+
   scoreFilterForm = this.formBuilder.nonNullable.group<ScoreFilterForm['controls']>({
     searchTerm: this.formBuilder.control(null),
     regex: this.formBuilder.nonNullable.control(false),
@@ -60,7 +65,7 @@ export class ArchiveComponent implements OnInit {
     this.refreshScores();
   }
 
-  changePage(_event: PageEvent) {
+  changePage() {
     this.refreshScores();
   }
 

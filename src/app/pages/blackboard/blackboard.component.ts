@@ -18,23 +18,30 @@
  *
  */
 
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {NavigationComponent} from './components/navigation/navigation.component';
-import {MembersComponent} from './pages/members/members.component';
-import {ArchiveComponent} from './pages/archive/archive.component';
-import {BlackboardComponent} from './pages/blackboard/blackboard.component';
+import {Component, OnInit} from '@angular/core';
+import {DocumentService} from '../../services/document.service';
 
-const routes: Routes = [
-  {path: '', component: BlackboardComponent},
-  {path: 'menu', component: NavigationComponent},
-  {path: 'members', component: MembersComponent},
-  {path: 'archive', component: ArchiveComponent},
-];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+@Component({
+  selector: 'lid-blackboard',
+  templateUrl: './blackboard.component.html',
+  styleUrls: ['./blackboard.component.scss']
 })
-export class AppRoutingModule {
+export class BlackboardComponent implements OnInit {
+
+  constructor(private documentService: DocumentService) {
+  }
+
+  private _documents: string[] = [];
+
+  get documents() {
+    return this._documents;
+  }
+
+  ngOnInit(): void {
+    this.documentService.getBlackboardDocuments().subscribe({
+      next: value => this._documents = value,
+      error: console.error
+    });
+  }
+
 }
