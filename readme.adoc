@@ -1,4 +1,4 @@
-= OpenLid: The Frontend Backend of the Musikverein Leopoldsdorf
+= OpenLid: The Frontend of the Musikverein Leopoldsdorf
 
 This frontend especially written for the Musikverein Leopoldsdorf, provides the frontend functionality to barrel backends such as https://github.com/mvl-at/openkeg[OpenKeg].
 
