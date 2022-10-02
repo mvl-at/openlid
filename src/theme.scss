@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'styles';
 
 @include mat.core();
 
@@ -98,6 +99,7 @@ $lid-dark-theme: mat.define-dark-theme((
 
 @include mat.core-theme($lid-light-theme);
 @include mat.all-component-themes($lid-light-theme);
+@include styles.background-color($lid-light-theme);
 
 @media (prefers-color-scheme: dark) {
   @include mat.core-theme($lid-dark-theme);

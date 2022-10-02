@@ -55,9 +55,11 @@ import {BlackboardComponent} from './pages/blackboard/blackboard.component';
 import {BlackboardItemComponent} from './components/document/blackboard-item/blackboard-item.component';
 import {MarkdownModule, MarkdownService} from 'ngx-markdown';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { FooterComponent } from './components/footer/footer.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent],
+  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
     useHash: false,
     anchorScrolling: 'enabled',
@@ -66,7 +68,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     scrollPositionRestoration: 'enabled'
   }), FlexModule, MarkdownModule.forRoot({
     sanitize: SecurityContext.NONE
-  }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule],
+  }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
   providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}, MarkdownService],
   bootstrap: [AppComponent]

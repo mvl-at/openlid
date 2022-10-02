@@ -1,0 +1,39 @@
+<footer class="footer mat-background-primary mat-primary lid-background-primary">
+  <div class="info-item-container" fxLayout="row" fxLayoutAlign="space-around">
+
+    <div fxLayout="column">
+      <b>Links</b>
+      <mat-list dense>
+        <mat-list-item *ngFor="let link of footerInfo.links" class="lid-background-primary-font-color">
+          <mat-icon>{{link.icon}}</mat-icon>
+          <a [href]="link.link" class="lid-background-primary-font-color">{{link.name}}</a>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <div fxLayout="column">
+      <b>Impressum</b>
+      <mat-list dense>
+        <mat-list-item class="lid-background-primary-font-color">
+          <mat-icon>phone</mat-icon>
+          <span>{{footerInfo.phone}}</span>
+        </mat-list-item>
+        <mat-list-item class="lid-background-primary-font-color">
+          <mat-icon>home</mat-icon>
+          <span>{{footerInfo.address}}</span>
+        </mat-list-item>
+        <mat-list-item class="lid-background-primary-font-color">
+          <mat-icon>email</mat-icon>
+          <a [href]="'mailto:'+footerInfo.email" class="lid-background-primary-font-color">{{footerInfo.email}}</a>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="credits">
+    <p>
+      <img alt="logo" src="assets/logo-white.svg"/>
+    </p>
+    © 2021—{{ currentYear }} Musikverein Leopoldsdorf
+  </div>
+</footer>
