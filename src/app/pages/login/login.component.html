@@ -28,7 +28,7 @@
   </div>
 
   <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
-    <button color="accent" mat-raised-button type="submit">Anmelden</button>
+    <button color="accent" mat-raised-button type="submit" [disabled]="!loginForm.valid">Anmelden</button>
   </div>
 </form>
 
