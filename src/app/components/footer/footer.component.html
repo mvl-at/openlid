@@ -4,17 +4,9 @@
     <div fxLayout="column">
       <b>Links</b>
       <mat-list dense>
-        <mat-list-item class="lid-background-primary-font-color">
-          <mat-icon fontIcon="book"></mat-icon>
-          <a class="lid-background-primary-font-color" href="">GitHub</a>
-        </mat-list-item>
-        <mat-list-item class="lid-background-primary-font-color">
-          <mat-icon fontIcon="group"></mat-icon>
-          <a class="lid-background-primary-font-color" href="">Facebook</a>
-        </mat-list-item>
-        <mat-list-item class="lid-background-primary-font-color">
-          <mat-icon fontIcon="photo_camera"></mat-icon>
-          <a class="lid-background-primary-font-color" href="">Instagram</a>
+        <mat-list-item *ngFor="let link of footerInfo.links" class="lid-background-primary-font-color">
+          <mat-icon>{{link.icon}}</mat-icon>
+          <a [href]="link.link" class="lid-background-primary-font-color">{{link.name}}</a>
         </mat-list-item>
       </mat-list>
     </div>
@@ -23,16 +15,16 @@
       <b>Impressum</b>
       <mat-list dense>
         <mat-list-item class="lid-background-primary-font-color">
-          <mat-icon fontIcon="phone"></mat-icon>
-          <span>0 123456789</span>
+          <mat-icon>phone</mat-icon>
+          <span>{{footerInfo.phone}}</span>
         </mat-list-item>
         <mat-list-item class="lid-background-primary-font-color">
-          <mat-icon fontIcon="home"></mat-icon>
-          <span>Somewhere in the City</span>
+          <mat-icon>home</mat-icon>
+          <span>{{footerInfo.address}}</span>
         </mat-list-item>
         <mat-list-item class="lid-background-primary-font-color">
-          <mat-icon fontIcon="email"></mat-icon>
-          <a class="lid-background-primary-font-color" href="mailto:admin@example.org">admin@example.org</a>
+          <mat-icon>email</mat-icon>
+          <a [href]="'mailto:'+footerInfo.email" class="lid-background-primary-font-color">{{footerInfo.email}}</a>
         </mat-list-item>
       </mat-list>
     </div>
