@@ -21,11 +21,14 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'lid-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  selector: 'lid-footer', templateUrl: './footer.component.html', styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+
+  get currentYear() {
+    const now = new Date(Date.now());
+    return now.getFullYear();
+  }
 
   constructor() {
   }

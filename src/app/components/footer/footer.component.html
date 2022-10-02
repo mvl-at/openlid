@@ -1,9 +1,47 @@
 <footer class="footer mat-background-primary mat-primary lid-background-primary">
-  <div fxLayout="row">
-    <mat-list dense>
-      <mat-list-item class="lid-background-primary-font-color">
-        <mat-icon fontIcon="phone"></mat-icon>&ensp;0 123456789
-      </mat-list-item>
-    </mat-list>
+  <div class="info-item-container" fxLayout="row" fxLayoutAlign="space-around">
+
+    <div fxLayout="column">
+      <b>Links</b>
+      <mat-list dense>
+        <mat-list-item class="lid-background-primary-font-color">
+          <mat-icon fontIcon="book"></mat-icon>
+          <a class="lid-background-primary-font-color" href="">GitHub</a>
+        </mat-list-item>
+        <mat-list-item class="lid-background-primary-font-color">
+          <mat-icon fontIcon="group"></mat-icon>
+          <a class="lid-background-primary-font-color" href="">Facebook</a>
+        </mat-list-item>
+        <mat-list-item class="lid-background-primary-font-color">
+          <mat-icon fontIcon="photo_camera"></mat-icon>
+          <a class="lid-background-primary-font-color" href="">Instagram</a>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <div fxLayout="column">
+      <b>Impressum</b>
+      <mat-list dense>
+        <mat-list-item class="lid-background-primary-font-color">
+          <mat-icon fontIcon="phone"></mat-icon>
+          <span>0 123456789</span>
+        </mat-list-item>
+        <mat-list-item class="lid-background-primary-font-color">
+          <mat-icon fontIcon="home"></mat-icon>
+          <span>Somewhere in the City</span>
+        </mat-list-item>
+        <mat-list-item class="lid-background-primary-font-color">
+          <mat-icon fontIcon="email"></mat-icon>
+          <a class="lid-background-primary-font-color" href="mailto:admin@example.org">admin@example.org</a>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="credits">
+    <p>
+      <img alt="logo" src="assets/logo-white.svg"/>
+    </p>
+    © 2021—{{ currentYear }} Musikverein Leopoldsdorf
   </div>
 </footer>
