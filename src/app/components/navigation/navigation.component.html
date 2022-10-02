@@ -1,4 +1,4 @@
-<mat-toolbar class="mat-elevation-z8 top-bar" color="primary">
+<mat-toolbar class="mat-elevation-z8 top-bar lid-background-primary" color="primary">
   <button
     (click)="drawer.toggle()"
     aria-label="Toggle sidenav"
@@ -34,5 +34,6 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <ng-content></ng-content>
+    <lid-footer></lid-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>
