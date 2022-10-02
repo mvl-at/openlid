@@ -24,12 +24,14 @@ import {NavigationComponent} from './components/navigation/navigation.component'
 import {MembersComponent} from './pages/members/members.component';
 import {ArchiveComponent} from './pages/archive/archive.component';
 import {BlackboardComponent} from './pages/blackboard/blackboard.component';
+import {LoginComponent} from './pages/login/login.component';
 
 const routes: Routes = [
   {path: '', component: BlackboardComponent},
   {path: 'menu', component: NavigationComponent},
   {path: 'members', component: MembersComponent},
   {path: 'archive', component: ArchiveComponent},
+  {path: 'login', component: LoginComponent},
 ];
 
 @NgModule({
