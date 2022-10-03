@@ -6,8 +6,6 @@
 
 <p>Vorname: {{selfInfo?.firstName}}</p>
 <p>Nachname: {{selfInfo?.lastName}}</p>
-<p>Benutzername: {{selfInfo?.username}}</p>
-<p>Voller Benutzername: {{details?.fullUsername}}</p>
 <br/>
 <p>Geschlecht: {{selfInfo?.gender}}</p>
 <p>Beitritt: {{selfInfo?.joining}}</p>
@@ -15,6 +13,13 @@
 <p>Funktionen: {{selfInfo?.titles}}</p>
 <p>Offiziell: {{selfInfo?.official ? 'ja' : 'nein'}}</p>
 <br/>
+<p>Benutzername: {{selfInfo?.username}}</p>
+<p>Voller Benutzername: {{details?.fullUsername}}</p>
+<p>Rechte:</p>
+<ul>
+  <li *ngFor="let group of executiveRoles">{{group.name}} ({{group.description}})</li>
+</ul>
+
 <mat-accordion>
   <mat-expansion-panel (closed)="panelOpenState = false"
                        (opened)="panelOpenState = true">

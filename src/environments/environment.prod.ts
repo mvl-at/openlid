@@ -7,5 +7,9 @@ export const environment = {
     }, {
       name: 'Instagram', link: 'https://www.instagram.com/mvleopoldsdorf/', icon: 'photo_camera'
     },], phone: '+43 2216 3160', address: 'Kempfendorf 2, A-2285 Leopoldsdorf i.M.', email: 'obmann@mvl.at',
+  },
+  executiveRoles: {
+    archive: 'Archivar',
+    root: 'Verzeichnisverwalter',
   }
 };

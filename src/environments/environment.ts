@@ -11,6 +11,10 @@ export const environment = {
     }, {
       name: 'Instagram', link: 'https://www.instagram.com/example/', icon: 'photo_camera'
     },], phone: '+43 2216 1234', address: 'Karlsplatz 1, A-1010 Wien', email: 'admin@example.org',
+  },
+  executiveRoles: {
+    archive: 'Archivar',
+    root: 'Verzeichnisverwalter',
   }
 };
 

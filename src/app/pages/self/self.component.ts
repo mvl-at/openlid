@@ -40,6 +40,11 @@ export class SelfComponent implements OnInit {
     return this.selfInfo?.sensitives;
   }
 
+  get executiveRoles() {
+    return this.selfService.executives;
+  }
+
+
   ngOnInit(): void {
   }
 

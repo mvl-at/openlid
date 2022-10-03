@@ -24,7 +24,7 @@ import {Login} from '../common/login';
 import {environment} from '../../environments/environment';
 import {controllers} from './controllers';
 import {map} from 'rxjs/operators';
-import {Member} from '../common/member';
+import {Group, Member} from '../common/member';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -36,6 +36,8 @@ const TOKEN_KEY = 'request_token';
 export class SelfService {
 
   private _user?: Member = undefined;
+  constructor(private httpClient: HttpClient, private router: Router, private snackBar: MatSnackBar) {
+  }
 
   /**
    * Get the user which is currently logged in.
@@ -44,7 +46,13 @@ export class SelfService {
     return this._user;
   }
 
-  constructor(private httpClient: HttpClient, private router: Router, private snackBar: MatSnackBar) {
+  private _executives: Group[] = [];
+
+  /**
+   * Get the executive roles of the user which is currently logged in.
+   */
+  get executives() {
+    return this._executives;
   }
 
   /**
@@ -64,9 +72,18 @@ export class SelfService {
     if (!token) {
       localStorage.removeItem(TOKEN_KEY);
       this._user = undefined;
+      this._executives = [];
       return;
     }
     localStorage.setItem(TOKEN_KEY, token);
+  }
+
+  /**
+   * Check whether the currently logged-in user is part of the provided executive role or not.
+   * @param role the role which the user should belong to
+   */
+  hasExecutiveRole(role: string) {
+    return this._executives.some(g => g.name === role);
   }
 
   /**
@@ -119,11 +136,24 @@ export class SelfService {
     return this.httpClient.get<Member>(`${environment.barrelUrl}${controllers.self.info()}`);
   }
 
+  /**
+   * Retrieve all the executive roles of the currently logged-in user.
+   */
+  executiveRoles() {
+    return this.httpClient.get<Group[]>(`${environment.barrelUrl}${controllers.self.executiveRoles()}`);
+  }
+
   private refreshUserInfo() {
     this.info().subscribe({
       next: value => {
         console.debug('retrieved user info', value);
         this._user = value;
+      }
+    });
+    this.executiveRoles().subscribe({
+      next: value => {
+        console.debug('retrieved executive roles', value);
+        this._executives = value;
       }
     });
   }

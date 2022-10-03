@@ -41,8 +41,8 @@ export interface Member {
 }
 
 export interface MemberSensitives {
-  fullUsername: string,
-  commonName: string,
+  fullUsername: string;
+  commonName: string;
   mail: string[];
   mobile: string[];
   whatsapp: boolean | null;
@@ -51,16 +51,22 @@ export interface MemberSensitives {
 }
 
 export interface Address {
-  street: string,
-  houseNumber: string,
-  postalCode: string,
-  city: string,
-  state: string,
-  countryCode: string,
+  street: string;
+  houseNumber: string;
+  postalCode: string;
+  city: string;
+  state: string;
+  countryCode: string;
 }
 
 export interface Register {
   name: string;
   namePlural: string;
   members: Member[] | null;
+}
+
+export interface Group {
+  name: string;
+  namePlural: string;
+  description: string;
 }
