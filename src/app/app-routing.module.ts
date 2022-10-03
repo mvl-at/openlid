@@ -26,7 +26,7 @@ import {ArchiveComponent} from './pages/archive/archive.component';
 import {BlackboardComponent} from './pages/blackboard/blackboard.component';
 import {LoginComponent} from './pages/login/login.component';
 import {SelfComponent} from './pages/self/self.component';
-import {LoginGuard} from './guards/login.guard';
+import {AuthenticationGuard} from './guards/authentication.guard.service';
 import {ExecutiveRoleGuard} from './guards/executive-role.guard';
 import {environment} from '../environments/environment';
 
@@ -41,7 +41,7 @@ const routes: Routes = [
     data: {roles: [environment.executiveRoles.archive]}
   },
   {path: 'login', component: LoginComponent},
-  {path: 'self', component: SelfComponent, canActivate: [LoginGuard]},
+  {path: 'self', component: SelfComponent, canActivate: [AuthenticationGuard]},
 ];
 
 @NgModule({
