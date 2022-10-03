@@ -42,6 +42,10 @@ export class NavigationComponent {
     return `${environment.barrelUrl}${controllers.members.photo(this.selfService?.user?.username? this.selfService?.user?.username : '')}`;
   }
 
+  get isSpecialBar(): boolean {
+    return this.selfService.hasExecutiveRole(environment.executiveRoles.root);
+  }
+
   constructor(private breakpointObserver: BreakpointObserver, public selfService: SelfService) {
     this.isExtraScreenSmall = breakpointObserver.observe(Breakpoints.XSmall)
       .pipe(map(breakpoint => breakpoint.matches));

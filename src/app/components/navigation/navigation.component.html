@@ -1,4 +1,5 @@
-<mat-toolbar class="mat-elevation-z8 top-bar lid-background-primary" color="primary">
+<mat-toolbar [class.lid-background-accent]="isSpecialBar" [class.lid-background-primary]="!isSpecialBar" class="mat-elevation-z8 top-bar"
+             color="primary">
   <button
     (click)="drawer.toggle()"
     aria-label="Toggle sidenav"
