@@ -29,6 +29,7 @@ import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 const TOKEN_KEY = 'request_token';
+const LAST_ROLES = 'last_roles';
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +95,10 @@ export class SelfService {
     return () => {
       if (selfService.token) {
         selfService.refreshUserInfo();
+        const lastRoles = localStorage.getItem(LAST_ROLES);
+        if (lastRoles) {
+          selfService._executives = JSON.parse(lastRoles);
+        }
       }
     };
   }
@@ -126,6 +131,7 @@ export class SelfService {
    */
   logout() {
     this.token = null;
+    this.setExecutives([]);
     this.router.navigateByUrl('/').then(() => this.snackBar.open('Sie sind nun abgemeldet'));
   }
 
@@ -153,8 +159,22 @@ export class SelfService {
     this.executiveRoles().subscribe({
       next: value => {
         console.debug('retrieved executive roles', value);
-        this._executives = value;
+        this.setExecutives(value);
       }
     });
+  }
+
+  /**
+   * Set the new executive roles amd update the local storage.
+   * @param executives the new executive roles, if `[]` it will be removed from the local storage
+   * @private
+   */
+  private setExecutives(executives: Group[]) {
+    this._executives = executives;
+    if (executives === []) {
+      localStorage.removeItem(LAST_ROLES);
+    } else {
+      localStorage.setItem(LAST_ROLES, JSON.stringify(executives));
+    }
   }
 }
