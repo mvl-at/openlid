@@ -18,7 +18,7 @@
  *
  */
 
-import {NgModule, SecurityContext} from '@angular/core';
+import {APP_INITIALIZER, NgModule, SecurityContext} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -34,7 +34,7 @@ import {MatListModule} from '@angular/material/list';
 import {MemberCardComponent} from './components/member-card/member-card.component';
 import {MatCardModule} from '@angular/material/card';
 import {MembersComponent} from './pages/members/members.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FlexModule} from '@angular/flex-layout';
 import {FallbackImgDirective} from './directives/fallback-img.directive';
 import {RouterModule} from '@angular/router';
@@ -59,6 +59,8 @@ import {FooterComponent} from './components/footer/footer.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {LoginComponent} from './pages/login/login.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {BearerTokenInterceptor} from './interceptors/bearer-token.interceptor';
+import {SelfService} from './services/self.service';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent],
@@ -72,7 +74,14 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     sanitize: SecurityContext.NONE
   }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
-  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}, MarkdownService],
+  providers: [{
+    provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+    useValue: {appearance: 'fill'}
+  }, MarkdownService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: BearerTokenInterceptor,
+    multi: true
+  }, {provide: APP_INITIALIZER, deps: [SelfService], useFactory: SelfService.initializeSelfService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

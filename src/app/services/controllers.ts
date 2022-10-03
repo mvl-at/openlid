@@ -36,6 +36,6 @@ export const controllers = {
       image: (filename: string) => `${controllers.documents.blackboard.root()}/assets/${filename}`
     }
   }, self: {
-    root: '/users', auth: () => `${controllers.self.root}/auth`
+    root: '/users', auth: () => `${controllers.self.root}/auth`, info: () => `${controllers.self.root}/self`
   }
 }

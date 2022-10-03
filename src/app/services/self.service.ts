@@ -24,6 +24,7 @@ import {Login} from '../common/login';
 import {environment} from '../../environments/environment';
 import {controllers} from './controllers';
 import {map} from 'rxjs/operators';
+import {Member} from '../common/member';
 
 const TOKEN_KEY = 'request_token';
 
@@ -31,6 +32,15 @@ const TOKEN_KEY = 'request_token';
   providedIn: 'root'
 })
 export class SelfService {
+
+  private _user?: Member = undefined;
+
+  /**
+   * Get the user which is currently logged in.
+   */
+  get user() {
+    return this._user;
+  }
 
   constructor(private httpClient: HttpClient) {
   }
@@ -51,9 +61,22 @@ export class SelfService {
   set token(token: string | null) {
     if (!token) {
       localStorage.removeItem(TOKEN_KEY);
+      this._user = undefined;
       return;
     }
     localStorage.setItem(TOKEN_KEY, token);
+  }
+
+  /**
+   * Create the initializer function which initializes the {@link SelfService} from persisted information such as the token.
+   * @param selfService
+   */
+  static initializeSelfService(selfService: SelfService) {
+    return () => {
+      if (selfService.token) {
+        selfService.refreshUserInfo();
+      }
+    };
   }
 
   /**
@@ -71,8 +94,25 @@ export class SelfService {
       if (response.ok) {
         console.log('login was successful, store token');
         this.token = response.headers.get('authorization');
+        this.refreshUserInfo();
       }
       return response;
     }));
+  }
+
+  /**
+   * Retrieve the member infos of the currently logged-in user.
+   */
+  info() {
+    return this.httpClient.get<Member>(`${environment.barrelUrl}${controllers.self.info()}`);
+  }
+
+  private refreshUserInfo() {
+    this.info().subscribe({
+      next: value => {
+        console.debug('retrieved user info', value);
+        this._user = value;
+      }
+    });
   }
 }
