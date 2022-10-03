@@ -18,7 +18,7 @@
  *
  */
 
-import {NgModule, SecurityContext} from '@angular/core';
+import {APP_INITIALIZER, NgModule, SecurityContext} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -34,8 +34,8 @@ import {MatListModule} from '@angular/material/list';
 import {MemberCardComponent} from './components/member-card/member-card.component';
 import {MatCardModule} from '@angular/material/card';
 import {MembersComponent} from './pages/members/members.component';
-import {HttpClientModule} from '@angular/common/http';
-import {FlexModule} from '@angular/flex-layout';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {ExtendedModule, FlexModule} from '@angular/flex-layout';
 import {FallbackImgDirective} from './directives/fallback-img.directive';
 import {RouterModule} from '@angular/router';
 import {ArchiveComponent} from './pages/archive/archive.component';
@@ -55,11 +55,19 @@ import {BlackboardComponent} from './pages/blackboard/blackboard.component';
 import {BlackboardItemComponent} from './components/document/blackboard-item/blackboard-item.component';
 import {MarkdownModule, MarkdownService} from 'ngx-markdown';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import { FooterComponent } from './components/footer/footer.component';
+import {FooterComponent} from './components/footer/footer.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {LoginComponent} from './pages/login/login.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {BearerTokenInterceptor} from './interceptors/bearer-token.interceptor';
+import {SelfService} from './services/self.service';
+import {MatMenuModule} from '@angular/material/menu';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/material/snack-bar';
+import {SelfComponent} from './pages/self/self.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent],
+  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
     useHash: false,
     anchorScrolling: 'enabled',
@@ -68,9 +76,24 @@ import {MatGridListModule} from '@angular/material/grid-list';
     scrollPositionRestoration: 'enabled'
   }), FlexModule, MarkdownModule.forRoot({
     sanitize: SecurityContext.NONE
-  }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule],
+  }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, ExtendedModule],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
-  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}, MarkdownService],
+  providers: [{
+    provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+    useValue: {appearance: 'fill'}
+  }, MarkdownService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: BearerTokenInterceptor,
+    multi: true
+  }, {
+    provide: APP_INITIALIZER,
+    deps: [SelfService],
+    useFactory: SelfService.initializeSelfService,
+    multi: true
+  }, {
+    provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+    useValue: {duration: 2500}
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

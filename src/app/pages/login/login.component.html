@@ -1,0 +1,48 @@
+<h1>Login</h1>
+
+<p>
+  Der Login ermöglicht Mitgliedern Aktionen die ansonsten nicht möglich wären.
+  Er ist nur für Mitglieder des Musikverein Leopoldsdorf gedacht weswegen eine Registrierung eines neuen Benutzers nicht
+  möglich ist.
+</p>
+
+<form (ngSubmit)="login()" [formGroup]="loginForm" fxLayout="row wrap">
+  <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
+    <mat-form-field fxFlex.lt-sm style="min-width: 25em">
+      <mat-label>Benutzername</mat-label>
+      <input formControlName="username" matInput placeholder="z.B. caesar" required>
+    </mat-form-field>
+  </div>
+
+  <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
+    <mat-form-field fxFlex.lt-sm style="min-width: 25em">
+      <mat-label>Passwort</mat-label>
+      <input formControlName="password" matInput required type="password">
+    </mat-form-field>
+  </div>
+
+  <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
+    <mat-error *ngIf="credentialsInvalid" fxFlex>Benutzername oder Passwort inkorrekt</mat-error>
+  </div>
+
+  <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
+    <p>
+      <mat-slide-toggle formControlName="persist" fxFlex>Angemeldet bleiben</mat-slide-toggle>
+    </p>
+  </div>
+
+  <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
+    <button color="accent" mat-raised-button type="submit" [disabled]="!loginForm.valid">Anmelden</button>
+  </div>
+</form>
+
+<p *ngIf="loginForm.value.persist" style="margin-top: 2em">
+  <i>Hinweis: Bei der Option "Angemeldet bleiben" wird ein Cookie
+    benötigt um die Anmeldeinformationen zu speichern.
+    Dies ist eine technische Notwendigkeit wobei weder ein Benutzername noch ein Passwort gespeichert wird, sondern nur
+    ein Schlüssel, welcher von der Serverinfrastruktur weiterverwendet werden kann.
+    Ber Aktivierung der Funktion erteilen Sie die Erlaubnis, das Cookie zu speichern und zu den Servern des Musikverein
+    Leopoldsdorf zu übertragen.
+    Cookies werden nicht an Dritte weitergegeben.
+  </i>
+</p>
