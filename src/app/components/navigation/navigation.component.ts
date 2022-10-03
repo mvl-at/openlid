@@ -31,7 +31,6 @@ import {controllers} from '../../services/controllers';
 })
 export class NavigationComponent {
 
-  navigationItems = defaultItems;
   isExtraScreenSmall: Observable<boolean>;
   isScreenSmall: Observable<boolean>;
 
@@ -39,11 +38,23 @@ export class NavigationComponent {
     .pipe(map(result => result.matches), shareReplay());
 
   get photo(): string {
-    return `${environment.barrelUrl}${controllers.members.photo(this.selfService?.user?.username? this.selfService?.user?.username : '')}`;
+    return `${environment.barrelUrl}${controllers.members.photo(this.selfService?.user?.username ? this.selfService?.user?.username : '')}`;
   }
 
   get isSpecialBar(): boolean {
     return this.selfService.hasExecutiveRole(environment.executiveRoles.root);
+  }
+
+  get navigationItems() {
+    return defaultItems.filter(i => {
+      if (i.roles === []) {
+        return this.selfService.token;
+      }
+      if (!i.roles) {
+        return true;
+      }
+      return i.roles.some(g => this.selfService.hasExecutiveRole(g));
+    });
   }
 
   constructor(private breakpointObserver: BreakpointObserver, public selfService: SelfService) {
@@ -76,7 +87,7 @@ export const defaultItems: NavigationItem[] = [{label: 'Startseite', link: ['/']
   link: ['/members'],
   children: []
 }, {
-  label: 'Archiv', link: ['/archive'], children: []
+  label: 'Archiv', link: ['/archive'], children: [], roles: [environment.executiveRoles.archive]
 }];
 
 export interface NavigationItem {
@@ -85,4 +96,5 @@ export interface NavigationItem {
   fragment?: string;
   children: NavigationItem[];
   scroll?: boolean;
+  roles?: string[];
 }
