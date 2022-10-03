@@ -35,7 +35,9 @@
     <button color="accent" mat-raised-button type="submit" [disabled]="!loginForm.valid">Anmelden</button>
   </div>
 </form>
-
+<p style="margin-top: 1em">
+  <a [href]="resetLink" target="_blank">Passwort vergessen</a>
+</p>
 <p *ngIf="loginForm.value.persist" style="margin-top: 2em">
   <i>Hinweis: Bei der Option "Angemeldet bleiben" wird ein Cookie
     benötigt um die Anmeldeinformationen zu speichern.
