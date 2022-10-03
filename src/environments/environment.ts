@@ -2,7 +2,9 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+import {Environment} from './environment.model';
+
+export const environment: Environment = {
   production: false, barrelUrl: 'http://localhost:1926/api/v1', footer: {
     links: [{
       name: 'GitHub', link: 'https://github.com/example/', icon: 'book'
@@ -16,7 +18,7 @@ export const environment = {
     archive: 'Archivar',
     root: 'Verzeichnisverwalter',
   },
-  passwordResetLink: "https://reset.example.org/"
+  passwordResetLink: 'https://reset.example.org/'
 };
 
 /*
