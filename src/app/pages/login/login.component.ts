@@ -21,6 +21,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.selfService.token) {
+      console.debug('user is already authenticated, redirecting...');
+      this.router.navigateByUrl('/self').then();
+    }
   }
 
   login() {
