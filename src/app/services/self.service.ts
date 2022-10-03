@@ -25,6 +25,8 @@ import {environment} from '../../environments/environment';
 import {controllers} from './controllers';
 import {map} from 'rxjs/operators';
 import {Member} from '../common/member';
+import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 const TOKEN_KEY = 'request_token';
 
@@ -42,7 +44,7 @@ export class SelfService {
     return this._user;
   }
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private router: Router, private snackBar: MatSnackBar) {
   }
 
   /**
@@ -98,6 +100,16 @@ export class SelfService {
       }
       return response;
     }));
+  }
+
+  /**
+   * Perform the user logout.
+   * This will wipe the token and the user information.
+   * After success, it redirects to the root and displays a message.
+   */
+  logout() {
+    this.token = null;
+    this.router.navigateByUrl('/').then(() => this.snackBar.open('Sie sind nun abgemeldet'));
   }
 
   /**

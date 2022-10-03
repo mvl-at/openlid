@@ -61,6 +61,8 @@ import {LoginComponent} from './pages/login/login.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {BearerTokenInterceptor} from './interceptors/bearer-token.interceptor';
 import {SelfService} from './services/self.service';
+import {MatMenuModule} from '@angular/material/menu';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent],
@@ -72,7 +74,7 @@ import {SelfService} from './services/self.service';
     scrollPositionRestoration: 'enabled'
   }), FlexModule, MarkdownModule.forRoot({
     sanitize: SecurityContext.NONE
-  }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule],
+  }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
   providers: [{
     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
@@ -81,7 +83,15 @@ import {SelfService} from './services/self.service';
     provide: HTTP_INTERCEPTORS,
     useClass: BearerTokenInterceptor,
     multi: true
-  }, {provide: APP_INITIALIZER, deps: [SelfService], useFactory: SelfService.initializeSelfService, multi: true}],
+  }, {
+    provide: APP_INITIALIZER,
+    deps: [SelfService],
+    useFactory: SelfService.initializeSelfService,
+    multi: true
+  }, {
+    provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+    useValue: {duration: 2500}
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
