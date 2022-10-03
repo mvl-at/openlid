@@ -25,6 +25,7 @@ import {MembersComponent} from './pages/members/members.component';
 import {ArchiveComponent} from './pages/archive/archive.component';
 import {BlackboardComponent} from './pages/blackboard/blackboard.component';
 import {LoginComponent} from './pages/login/login.component';
+import {SelfComponent} from './pages/self/self.component';
 
 const routes: Routes = [
   {path: '', component: BlackboardComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'members', component: MembersComponent},
   {path: 'archive', component: ArchiveComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'self', component: SelfComponent},
 ];
 
 @NgModule({
