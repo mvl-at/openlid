@@ -29,7 +29,7 @@ import {SelfService} from '../services/self.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginGuard implements CanActivate {
+export class AuthenticationGuard implements CanActivate {
 
   constructor(private selfService: SelfService, private router: Router) {
   }

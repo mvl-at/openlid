@@ -27,12 +27,19 @@ import {BlackboardComponent} from './pages/blackboard/blackboard.component';
 import {LoginComponent} from './pages/login/login.component';
 import {SelfComponent} from './pages/self/self.component';
 import {LoginGuard} from './guards/login.guard';
+import {ExecutiveRoleGuard} from './guards/executive-role.guard';
+import {environment} from '../environments/environment';
 
 const routes: Routes = [
   {path: '', component: BlackboardComponent},
   {path: 'menu', component: NavigationComponent},
   {path: 'members', component: MembersComponent},
-  {path: 'archive', component: ArchiveComponent},
+  {
+    path: 'archive',
+    component: ArchiveComponent,
+    canActivate: [ExecutiveRoleGuard],
+    data: {roles: [environment.executiveRoles.archive]}
+  },
   {path: 'login', component: LoginComponent},
   {path: 'self', component: SelfComponent, canActivate: [LoginGuard]},
 ];
