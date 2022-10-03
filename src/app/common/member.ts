@@ -36,19 +36,27 @@ export interface Member {
 
   official: boolean | null;
   listed: boolean | null;
+
+  sensitives: DetailedMember | null;
 }
 
-export interface DetailedMember extends Member {
-  birthday: Date;
-  mailAddresses: string[];
-  mobiles: string[];
-  countryCode: string | null;
-  province: string | null;
-  postalCode: string | null;
-  locality: string | null;
-  houseIdentifier: string | null;
+export interface DetailedMember {
+  fullUsername: string,
+  commonName: string,
+  mail: string[];
+  mobile: string[];
   whatsapp: boolean | null;
-  groups: string[];
+  birthday: Date;
+  address: Address | null;
+}
+
+export interface Address {
+  street: string,
+  houseNumber: string,
+  postalCode: string,
+  city: string,
+  state: string,
+  countryCode: string,
 }
 
 export interface Register {
