@@ -15,7 +15,8 @@ export const environment = {
   executiveRoles: {
     archive: 'Archivar',
     root: 'Verzeichnisverwalter',
-  }
+  },
+  passwordResetLink: "https://reset.example.org/"
 };
 
 /*

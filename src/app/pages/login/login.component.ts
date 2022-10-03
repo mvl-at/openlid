@@ -6,6 +6,7 @@ import {SelfService} from '../../services/self.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {HttpErrorResponse} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'lid-login', templateUrl: './login.component.html', styleUrls: ['./login.component.scss']
@@ -19,6 +20,10 @@ export class LoginComponent implements OnInit {
   });
 
   credentialsInvalid = false;
+
+  get resetLink() {
+    return environment.passwordResetLink;
+  }
 
   constructor(private formBuilder: FormBuilder, private selfService: SelfService, private router: Router, private snackBar: MatSnackBar) {
   }

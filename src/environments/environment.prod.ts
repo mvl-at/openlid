@@ -11,5 +11,6 @@ export const environment = {
   executiveRoles: {
     archive: 'Archivar',
     root: 'Verzeichnisverwalter',
-  }
+  },
+  passwordResetLink: "https://selfservice.mvl.at/index.php?action=sendtoken"
 };
