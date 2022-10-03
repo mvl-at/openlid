@@ -37,10 +37,10 @@ export interface Member {
   official: boolean | null;
   listed: boolean | null;
 
-  sensitives: DetailedMember | null;
+  sensitives: MemberSensitives | null;
 }
 
-export interface DetailedMember {
+export interface MemberSensitives {
   fullUsername: string,
   commonName: string,
   mail: string[];
