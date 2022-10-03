@@ -14,7 +14,7 @@
     <mat-icon>arrow_drop_down</mat-icon>
   </button>
   <mat-menu #userMenu="matMenu">
-    <a href="/self" mat-menu-item>Anmeldeinformationen</a>
+    <a routerLink="/self" mat-menu-item>Anmeldeinformationen</a>
     <button (click)="selfService.logout()" mat-menu-item>Logout</button>
   </mat-menu>
   <img *ngIf="selfService.user" [alt]="'Bild von ' + selfService.user.name"
