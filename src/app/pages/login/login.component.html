@@ -22,6 +22,10 @@
   </div>
 
   <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
+    <mat-error *ngIf="credentialsInvalid" fxFlex>Benutzername oder Passwort inkorrekt</mat-error>
+  </div>
+
+  <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
     <p>
       <mat-slide-toggle formControlName="persist" fxFlex>Angemeldet bleiben</mat-slide-toggle>
     </p>
