@@ -38,6 +38,7 @@ export const controllers = {
   }, self: {
     root: '/users',
     auth: () => `${controllers.self.root}/auth`,
+    refresh: () => `${controllers.self.root}/renewal`,
     info: () => `${controllers.self.root}/self`,
     executiveRoles: () => `${controllers.self.root}/executives`
   }

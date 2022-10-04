@@ -23,13 +23,18 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Login} from '../common/login';
 import {environment} from '../../environments/environment';
 import {controllers} from './controllers';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {Group, Member} from '../common/member';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {catchError, of} from 'rxjs';
 
 const TOKEN_KEY = 'request_token';
+const RENEWAL_TOKEN_KEY = 'renewal_token';
 const LAST_ROLES = 'last_roles';
+
+const AUTHORIZATION_HEADER = 'authorization';
+const AUTHORIZATION_RENEWAL_HEADER = 'x-authorization-renewal';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +42,7 @@ const LAST_ROLES = 'last_roles';
 export class SelfService {
 
   private _user?: Member = undefined;
+
   constructor(private httpClient: HttpClient, private router: Router, private snackBar: MatSnackBar) {
   }
 
@@ -76,7 +82,19 @@ export class SelfService {
       this._executives = [];
       return;
     }
-    localStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(TOKEN_KEY, this.removeBearerPrefix(token));
+  }
+
+  get renewalToken(): string | null {
+    return localStorage.getItem(RENEWAL_TOKEN_KEY);
+  }
+
+  set renewalToken(token: string | null) {
+    if (!token) {
+      localStorage.removeItem(RENEWAL_TOKEN_KEY);
+      return;
+    }
+    localStorage.setItem(RENEWAL_TOKEN_KEY, this.removeBearerPrefix(token));
   }
 
   /**
@@ -117,11 +135,44 @@ export class SelfService {
     }).pipe(map(response => {
       if (response.ok) {
         console.log('login was successful, store token');
-        this.token = response.headers.get('authorization');
+        this.token = response.headers.get(AUTHORIZATION_HEADER);
+        if (credentials.persist) {
+          console.log('user decided to remain logged-in, store renewal token');
+          this.renewalToken = response.headers.get(AUTHORIZATION_RENEWAL_HEADER);
+        }
         this.refreshUserInfo();
       }
       return response;
     }));
+  }
+
+  /**
+   * Refresh the (expired) request token with the usage of the refresh token.
+   * If it is not available, the observer will do nothing.
+   * If something goes wrong during the refresh, the user will be logged out.
+   */
+  refreshToken() {
+    if (!this.renewalToken) {
+      console.log('there is not refresh token');
+      return of(false);
+    }
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.renewalToken}`
+    });
+    return this.httpClient
+      .post<any>(`${environment.barrelUrl}${controllers.self.refresh()}`, '', {headers: headers, observe: 'response'})
+      .pipe(
+        tap((response) => {
+          console.debug('retrieved the new token');
+          this.token = response.headers.get(AUTHORIZATION_HEADER);
+          this.refreshUserInfo();
+        }),
+        catchError((error) => {
+          console.log('error during token renewal', error);
+          this.logout();
+          return of(false);
+        })
+      );
   }
 
   /**
@@ -131,6 +182,7 @@ export class SelfService {
    */
   logout() {
     this.token = null;
+    this.renewalToken = null;
     this.setExecutives([]);
     this.router.navigateByUrl('/').then(() => this.snackBar.open('Sie sind nun abgemeldet'));
   }
@@ -176,5 +228,16 @@ export class SelfService {
     } else {
       localStorage.setItem(LAST_ROLES, JSON.stringify(executives));
     }
+  }
+
+  /**
+   * Remove the bearer prefix from the token if available.
+   * Otherwise, the token itself will be returned.
+   * This does not manipulate the passed token but returns a copy instead.
+   * @param token the token to remove the bearer
+   * @private
+   */
+  private removeBearerPrefix(token: string): string {
+    return token.replace(/^([Bb])earer( )*/, '');
   }
 }
