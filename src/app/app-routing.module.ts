@@ -30,6 +30,7 @@ import {AuthenticationGuard} from './guards/authentication.guard.service';
 import {ExecutiveRoleGuard} from './guards/executive-role.guard';
 import {environment} from '../environments/environment';
 import {ScoreShelfComponent} from './pages/archive/scores/score-shelf/score-shelf.component';
+import {ScoreCreatorComponent} from './pages/archive/scores/score-creator/score-creator.component';
 
 const routes: Routes = [
   {path: '', component: BlackboardComponent},
@@ -46,7 +47,11 @@ const routes: Routes = [
     },
       {
         path: 'scores',
-        component: ScoreShelfComponent
+        component: ScoreShelfComponent,
+      },
+      {
+        path: 'scores/new',
+        component: ScoreCreatorComponent
       }
     ]
   },

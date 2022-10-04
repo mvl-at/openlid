@@ -52,4 +52,6 @@
     <mat-checkbox formControlName="conductor_score">Partitur</mat-checkbox>
   </div>
 </form>
-value is: {{scoreForm.getRawValue() | json}}
+<pre *ngIf="true|debugDisplay">
+  value is: {{scoreForm.getRawValue() | json}}
+</pre>
