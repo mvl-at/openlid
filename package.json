@@ -1,6 +1,6 @@
 {
   "name": "lid",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,13 +11,13 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^14.0.6",
-    "@angular/cdk": "14.1.0",
+    "@angular/cdk": "14.2.3",
     "@angular/common": "^14.0.6",
     "@angular/compiler": "^14.0.6",
     "@angular/core": "^14.0.6",
     "@angular/flex-layout": "^14.0.0-beta.40",
     "@angular/forms": "^14.0.6",
-    "@angular/material": "14.1.0",
+    "@angular/material": "14.2.3",
     "@angular/platform-browser": "^14.0.6",
     "@angular/platform-browser-dynamic": "^14.0.6",
     "@angular/router": "^14.0.6",
