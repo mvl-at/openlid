@@ -88,6 +88,7 @@ export enum CountStatisticSubject {
   Composers = 'composers',
   Arrangers = 'arrangers',
   Publishers = 'publishers',
+  Locations = 'locations',
 }
 
 export interface Statistic<E, A> {

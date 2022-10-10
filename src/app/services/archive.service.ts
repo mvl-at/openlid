@@ -108,6 +108,13 @@ export class ArchiveService {
   }
 
   /**
+   * Fetch all the locations of the database with the counts of how much they are being used.
+   */
+  getLocations(): Observable<CountStatistic> {
+    return this.getCountStatistics(CountStatisticSubject.Locations);
+  }
+
+  /**
    * Fetch the count statistics for the given subject.
    * @param subject the subject whose statistic should be retrieved
    * @private

@@ -39,7 +39,13 @@
   <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
     <mat-form-field fxFlex>
       <mat-label>Aufbewahrung</mat-label>
-      <input formControlName="location" matInput placeholder="z.B. Archiv" [lidTrim]="true">
+      <input [lidTrim]="true" [matAutocomplete]="locationAutocomplete" formControlName="location" matInput
+             placeholder="z.B. Archiv">
+      <mat-autocomplete #locationAutocomplete="matAutocomplete">
+        <mat-option *ngFor="let location of filteredLocations | async" [value]="location">
+          {{location}}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
     <mat-form-field fxFlex>
       <mat-label>Stufe</mat-label>
