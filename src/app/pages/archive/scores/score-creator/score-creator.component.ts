@@ -22,6 +22,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Score} from '../../../../common/archive';
 import {ScoreEditorComponent} from '../../../../components/archive/score-editor/score-editor.component';
 import {Location} from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  ScoreModificationDialogComponent
+} from '../../../../dialogs/score-modification-dialog/score-modification-dialog.component';
 
 @Component({
   selector: 'lid-score-creator',
@@ -51,7 +55,7 @@ export class ScoreCreatorComponent implements OnInit {
     title: ''
   };
 
-  constructor(private location: Location) {
+  constructor(private location: Location, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -59,6 +63,19 @@ export class ScoreCreatorComponent implements OnInit {
 
   cancel(event: MouseEvent) {
     console.debug('navigate back with', event);
-    this.location.back();
+    if (this.scoreEditor?.scoreForm?.untouched) {
+      this.location.back();
+      return;
+    }
+    const dialogRef = this.dialog.open(ScoreModificationDialogComponent, {
+      data: {score: this.scoreEditor?.scoreForm?.getRawValue(), mode: 'cancel'},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.debug(`the dialog was closed: ${result}`);
+      if (result) {
+        this.location.back();
+      }
+    });
   }
 }

@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Stück <b *ngIf="data.score">"{{data.score.title}}" </b><span *ngIf="data.mode === 'cancel'">verwerfen</span><span
+  *ngIf="data.mode === 'delete'">löschen</span>?</h1>
+<div mat-dialog-content>
+  Das Stück <span *ngIf="data.score">
+  <b>"{{data.score.title}}"</b> in der Ausgabe von "{{data.score.arrangers.join(', ')}}"
+</span>
+  wirklich <span *ngIf="data.mode === 'cancel'">verwerfen</span><span *ngIf="data.mode === 'delete'">löschen</span>?
+  Diese Änderung kann nicht mehr rückgängig gemacht werden und muss bei Bedarf wiederholt werden.
+</div>
+<div mat-dialog-actions>
+  <button [mat-dialog-close]="false" mat-button>Abbrechen</button>
+  <button [mat-dialog-close]="true" cdkFocusInitial mat-button><span
+    *ngIf="data.mode === 'cancel'">Verwerfen</span><span
+    *ngIf="data.mode === 'delete'">Löschen</span></button>
+</div>
