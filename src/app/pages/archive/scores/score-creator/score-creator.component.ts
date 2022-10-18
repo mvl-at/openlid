@@ -26,6 +26,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {
   ScoreModificationDialogComponent
 } from '../../../../dialogs/score-modification-dialog/score-modification-dialog.component';
+import {ArchiveService} from '../../../../services/archive.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'lid-score-creator',
@@ -55,7 +57,7 @@ export class ScoreCreatorComponent implements OnInit {
     title: ''
   };
 
-  constructor(private location: Location, private dialog: MatDialog) {
+  constructor(private location: Location, private dialog: MatDialog, private archiveService: ArchiveService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -76,6 +78,21 @@ export class ScoreCreatorComponent implements OnInit {
       if (result) {
         this.location.back();
       }
+    });
+  }
+
+  createScore() {
+    const score = this.scoreEditor?.scoreForm.getRawValue();
+    if (!score) {
+      console.error('unable to retrieve score from presumably valid form');
+      return;
+    }
+    this.archiveService.putScore(score as Score).subscribe({
+      next: value => {
+        console.log('created score', value);
+        this.location.back();
+        this.snackBar.open(`Stück "${score.title}" erfolgreich eingetragen`);
+      }, error: err => console.error('unable to persist score', err)
     });
   }
 }

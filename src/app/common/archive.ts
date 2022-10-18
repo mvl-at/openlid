@@ -36,6 +36,12 @@ export interface SearchResult<E> {
   bookmark: string,
 }
 
+export interface DatabaseOperationResponse {
+  ok: boolean,
+  id: string,
+  rev: string,
+}
+
 export interface Score {
   _id: string | null;
   _rev: string | null;
