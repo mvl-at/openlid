@@ -66,18 +66,22 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/materia
 import {SelfComponent} from './pages/self/self.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {DebugDisplayPipe} from './pipes/debug-display.pipe';
+import {ScoreShelfComponent} from './pages/archive/scores/score-shelf/score-shelf.component';
+import { ScoreCreatorComponent } from './pages/archive/scores/score-creator/score-creator.component';
+import { ScoreModificationDialogComponent } from './dialogs/score-modification-dialog/score-modification-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
-    useHash: false,
-    anchorScrolling: 'enabled',
-    onSameUrlNavigation: 'reload',
-    enableTracing: true,
-    scrollPositionRestoration: 'enabled'
-  }), FlexModule, MarkdownModule.forRoot({
-    sanitize: SecurityContext.NONE
-  }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, ExtendedModule],
+  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent],
+    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
+        useHash: false,
+        anchorScrolling: 'enabled',
+        onSameUrlNavigation: 'reload',
+        enableTracing: true,
+        scrollPositionRestoration: 'enabled'
+    }), FlexModule, MarkdownModule.forRoot({
+        sanitize: SecurityContext.NONE
+    }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, ExtendedModule, MatDialogModule],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
   providers: [{
     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

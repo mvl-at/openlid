@@ -1,0 +1,6 @@
+<h2>Neues Stück eintragen</h2>
+<lid-score-editor [score]="defaultScore"></lid-score-editor>
+<div fxLayout="row" fxLayoutGap="16px">
+  <button [disabled]="!scoreEditor?.scoreForm?.valid" color="primary" (click)="createScore()" mat-raised-button>Eintragen</button>
+  <button (click)="cancel($event)" mat-raised-button>Abbrechen</button>
+</div>

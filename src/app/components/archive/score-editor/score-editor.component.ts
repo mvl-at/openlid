@@ -37,7 +37,9 @@ export class ScoreEditorComponent implements OnInit {
   arrangers: string[] = [];
   composers: string[] = [];
   publishers: string[] = [];
+  locations: string[] = [];
   filteredPublishers: Observable<string[]> | undefined;
+  filteredLocations: Observable<string[]> | undefined;
 
   scoreForm = this.formBuilder.nonNullable.group<ScoreForm['controls']>({
     _id: this.formBuilder.control(null),
@@ -70,7 +72,11 @@ export class ScoreEditorComponent implements OnInit {
     this.refreshStatistics();
     this.filteredPublishers = this.scoreForm.controls['publisher'].valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '')),
+      map(value => this._filter(value || '', this.publishers)),
+    );
+    this.filteredLocations = this.scoreForm.controls['location'].valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '', this.locations)),
     );
   }
 
@@ -91,11 +97,15 @@ export class ScoreEditorComponent implements OnInit {
       next: data => this.publishers = data.rows.map(r => r.key),
       error: console.log
     });
+    this.archiveService.getLocations().subscribe({
+      next: data => this.locations = data.rows.map(r => r.key),
+      error: console.log
+    });
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string, collection: string[]): string[] {
     const filterValue = value.toLowerCase();
-    return this.publishers.filter(publisher => publisher.toLowerCase().includes(filterValue));
+    return collection.filter(publisher => publisher.toLowerCase().includes(filterValue));
   }
 }
 

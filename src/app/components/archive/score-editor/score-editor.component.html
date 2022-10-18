@@ -1,20 +1,32 @@
-<form [formGroup]="scoreForm" fxLayout="row wrap">
+<form [formGroup]="scoreForm">
   <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
-    <mat-form-field fxFlex>
+    <mat-form-field fxFlex="33%">
       <mat-label>Titel</mat-label>
       <input formControlName="title" matInput placeholder="z.B. Bitte gib mir eine Chance" required [lidTrim]="false">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="66%">
+      <mat-label>Alias</mat-label>
+      <lid-chip-list [formControl]="scoreForm.controls['alias']"
+                     placeholder="Neuer Alias..."></lid-chip-list>
     </mat-form-field>
   </div>
 
   <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
-    <mat-form-field fxFlex>
+    <mat-form-field fxFlex="33%">
       <mat-label>Genres</mat-label>
       <lid-chip-list [allItems]="genres" [formControl]="scoreForm.controls['genres']"
                      placeholder="Neues Genre..."></lid-chip-list>
     </mat-form-field>
+
+    <mat-form-field fxFlex="66%">
+      <mat-label>Untertitel</mat-label>
+      <lid-chip-list [formControl]="scoreForm.controls['subtitles']"
+                     placeholder="Neuer Untertitel..."></lid-chip-list>
+    </mat-form-field>
   </div>
 
-  <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+  <div fxFlexFill fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="16px">
     <mat-form-field fxFlex>
       <mat-label>Komponisten</mat-label>
       <lid-chip-list [allItems]="composers" [formControl]="scoreForm.controls['composers']"
@@ -36,20 +48,28 @@
     </mat-form-field>
   </div>
 
-  <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+  <div fxFlexFill fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="16px">
     <mat-form-field fxFlex>
       <mat-label>Aufbewahrung</mat-label>
-      <input formControlName="location" matInput placeholder="z.B. Archiv" [lidTrim]="true">
+      <input [lidTrim]="true" [matAutocomplete]="locationAutocomplete" formControlName="location" matInput
+             placeholder="z.B. Archiv">
+      <mat-autocomplete #locationAutocomplete="matAutocomplete">
+        <mat-option *ngFor="let location of filteredLocations | async" [value]="location">
+          {{location}}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
     <mat-form-field fxFlex>
       <mat-label>Stufe</mat-label>
-      <input formControlName="grade" matInput placeholder="z.B. B" [lidTrim]="true">
+      <input [lidTrim]="true" formControlName="grade" matInput placeholder="z.B. B">
     </mat-form-field>
     <mat-form-field fxFlex>
       <mat-label>Rückseite</mat-label>
-      <input formControlName="back_title" matInput placeholder="z.B. Castaldo Marsch" [lidTrim]="true">
+      <input [lidTrim]="true" formControlName="back_title" matInput placeholder="z.B. Castaldo Marsch">
     </mat-form-field>
-    <mat-checkbox formControlName="conductor_score">Partitur</mat-checkbox>
+    <mat-checkbox formControlName="conductor_score" fxFlex>Partitur</mat-checkbox>
   </div>
 </form>
-value is: {{scoreForm.getRawValue() | json}}
+<pre *ngIf="true|debugDisplay">
+  value is: {{scoreForm.getRawValue() | json}}
+</pre>
