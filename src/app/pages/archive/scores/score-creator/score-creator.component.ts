@@ -18,8 +18,10 @@
  *
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Score} from '../../../../common/archive';
+import {ScoreEditorComponent} from '../../../../components/archive/score-editor/score-editor.component';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'lid-score-creator',
@@ -27,6 +29,8 @@ import {Score} from '../../../../common/archive';
   styleUrls: ['./score-creator.component.scss']
 })
 export class ScoreCreatorComponent implements OnInit {
+
+  @ViewChild(ScoreEditorComponent) scoreEditor?: ScoreEditorComponent;
 
   readonly defaultScore: Score = {
     _id: null,
@@ -47,10 +51,14 @@ export class ScoreCreatorComponent implements OnInit {
     title: ''
   };
 
-  constructor() {
+  constructor(private location: Location) {
   }
 
   ngOnInit(): void {
   }
 
+  cancel(event: MouseEvent) {
+    console.debug('navigate back with', event);
+    this.location.back();
+  }
 }
