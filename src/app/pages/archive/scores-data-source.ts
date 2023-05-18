@@ -28,8 +28,6 @@ export class ScoresDataSource implements DataSource<Score> {
   private scoresSubject = new BehaviorSubject<Score[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
-  public loading$ = this.loadingSubject.asObservable();
-
   // `true` if the last request by `this.logScores(...)` was requested with an empty filter
   private isEmpty: boolean = true;
 

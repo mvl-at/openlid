@@ -28,6 +28,7 @@ import {
 } from '../../../../dialogs/score-modification-dialog/score-modification-dialog.component';
 import {ArchiveService} from '../../../../services/archive.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {HttpErrorSnackBarService} from '../../../../mat-helpers/http-error-snack-bar.service';
 
 @Component({
   selector: 'lid-score-creator',
@@ -57,7 +58,7 @@ export class ScoreCreatorComponent implements OnInit {
     title: ''
   };
 
-  constructor(private location: Location, private dialog: MatDialog, private archiveService: ArchiveService, private snackBar: MatSnackBar) {
+  constructor(private location: Location, private dialog: MatDialog, private archiveService: ArchiveService, private snackBar: MatSnackBar, private snackBarErrorHandler: HttpErrorSnackBarService) {
   }
 
   ngOnInit(): void {
@@ -92,7 +93,10 @@ export class ScoreCreatorComponent implements OnInit {
         console.log('created score', value);
         this.location.back();
         this.snackBar.open(`Stück "${score.title}" erfolgreich eingetragen`);
-      }, error: err => console.error('unable to persist score', err)
+      }, error: err => {
+        console.error('unable to persist score', err);
+        this.snackBarErrorHandler.showError(err);
+      }
     });
   }
 }

@@ -20,6 +20,7 @@
 
 import {Component, OnInit} from '@angular/core';
 import {DocumentService} from '../../services/document.service';
+import {HttpErrorSnackBarService} from '../../mat-helpers/http-error-snack-bar.service';
 
 @Component({
   selector: 'lid-blackboard',
@@ -28,7 +29,7 @@ import {DocumentService} from '../../services/document.service';
 })
 export class BlackboardComponent implements OnInit {
 
-  constructor(private documentService: DocumentService) {
+  constructor(private documentService: DocumentService, private snackBarErrorHandler: HttpErrorSnackBarService) {
   }
 
   private _documents: string[] = [];
@@ -40,7 +41,7 @@ export class BlackboardComponent implements OnInit {
   ngOnInit(): void {
     this.documentService.getBlackboardDocuments().subscribe({
       next: value => this._documents = value,
-      error: console.error
+      error: this.snackBarErrorHandler.showError
     });
   }
 
