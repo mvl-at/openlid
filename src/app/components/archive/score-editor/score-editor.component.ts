@@ -25,6 +25,7 @@ import {FormModel, InferModeNullable} from 'ngx-mf';
 import {ArchiveService} from '../../../services/archive.service';
 import {Observable, startWith} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {HttpErrorSnackBarService} from '../../../mat-helpers/http-error-snack-bar.service';
 
 @Component({
   selector: 'lid-score-editor',
@@ -60,7 +61,7 @@ export class ScoreEditorComponent implements OnInit {
     title: this.formBuilder.nonNullable.control('')
   });
 
-  constructor(private formBuilder: FormBuilder, private archiveService: ArchiveService) {
+  constructor(private formBuilder: FormBuilder, private archiveService: ArchiveService, private snackBarErrorHandler: HttpErrorSnackBarService) {
   }
 
   @Input()
@@ -83,23 +84,23 @@ export class ScoreEditorComponent implements OnInit {
   private refreshStatistics() {
     this.archiveService.getGenres().subscribe({
       next: data => this.genres = data.rows.map(r => r.key),
-      error: console.log
+      error: this.snackBarErrorHandler.showError
     });
     this.archiveService.getArrangers().subscribe({
       next: data => this.arrangers = data.rows.map(r => r.key),
-      error: console.log
+      error: this.snackBarErrorHandler.showError
     });
     this.archiveService.getComposers().subscribe({
       next: data => this.composers = data.rows.map(r => r.key),
-      error: console.log
+      error: this.snackBarErrorHandler.showError
     });
     this.archiveService.getPublishers().subscribe({
       next: data => this.publishers = data.rows.map(r => r.key),
-      error: console.log
+      error: this.snackBarErrorHandler.showError
     });
     this.archiveService.getLocations().subscribe({
       next: data => this.locations = data.rows.map(r => r.key),
-      error: console.log
+      error: this.snackBarErrorHandler.showError
     });
   }
 
