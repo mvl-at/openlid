@@ -18,31 +18,22 @@
  *
  */
 
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
+import {inject} from '@angular/core';
+import {Router} from '@angular/router';
 import {SelfService} from '../services/self.service';
 
 /**
  * Redirect the user to `/login` if they are not authenticated.
  */
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthenticationGuard implements CanActivate {
 
-  constructor(private selfService: SelfService, private router: Router) {
+export const authenticationGuard = () => {
+  const selfService = inject(SelfService);
+  const router = inject(Router);
+  const isLoggedIn = selfService.token !== undefined && selfService.token !== null;
+  if (isLoggedIn) {
+    return true;
   }
+  router.navigateByUrl('/login').then(() => console.debug('tried to reach page which requires authentication, redirected to login'));
+  return false;
+};
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const isLoggedIn = this.selfService.token !== undefined && this.selfService.token !== null;
-    if (isLoggedIn) {
-      return true;
-    }
-    this.router.navigateByUrl('/login').then(() => console.debug('tried to reach page which requires authentication, redirected to login'));
-    return false;
-  }
-
-}

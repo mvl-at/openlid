@@ -18,9 +18,8 @@
  *
  */
 
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
+import {inject} from '@angular/core';
+import {ActivatedRouteSnapshot, Router} from '@angular/router';
 import {SelfService} from '../services/self.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -29,28 +28,21 @@ import {MatSnackBar} from '@angular/material/snack-bar';
  * This guard requires the `roles` field set in the `data` field in the route definitions.
  * This field must be of type {@link string[]}, containing all roles whereas at least one is required.
  */
-@Injectable({
-  providedIn: 'root'
-})
-export class ExecutiveRoleGuard implements CanActivate {
 
-  constructor(private selfService: SelfService, private router: Router, private snackBar: MatSnackBar) {
+export const executiveRoleGuard = (route: ActivatedRouteSnapshot) => {
+  const selfService = inject(SelfService);
+  const router = inject(Router);
+  const snackBar = inject(MatSnackBar);
+  const desiredRoles: string[] = route.data['roles'];
+  if (desiredRoles.some(r => selfService.hasExecutiveRole(r))) {
+    return true;
   }
-
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const desiredRoles: string[] = route.data['roles'];
-    if (desiredRoles.some(r => this.selfService.hasExecutiveRole(r))) {
-      return true;
+  console.debug('user has not at least one of the required executive roles', desiredRoles);
+  router.navigateByUrl('/self').then(value => {
+      console.debug('user redirection', value);
+      snackBar.open(`Sie haben nicht eines der notwendigen Rechte: ${desiredRoles.join(', ')}`);
     }
-    console.debug('user has not at least one of the required executive roles', desiredRoles);
-    this.router.navigateByUrl('/self').then(value => {
-        console.debug('user redirection', value);
-        this.snackBar.open(`Sie haben nicht eines der notwendigen Rechte: ${desiredRoles.join(', ')}`);
-      }
-    );
+  );
     return false;
   }
 
-}
