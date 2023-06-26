@@ -1,43 +1,43 @@
 <form [formGroup]="scoreForm">
-  <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
-    <mat-form-field fxFlex="33%">
+  <div class="form-row">
+    <mat-form-field class="form-ratio-1">
       <mat-label>Titel</mat-label>
       <input formControlName="title" matInput placeholder="z.B. Bitte gib mir eine Chance" required [lidTrim]="false">
     </mat-form-field>
 
-    <mat-form-field fxFlex="66%">
+    <mat-form-field class="form-ratio-2">
       <mat-label>Alias</mat-label>
       <lid-chip-list [formControl]="scoreForm.controls['alias']"
                      placeholder="Neuer Alias..."></lid-chip-list>
     </mat-form-field>
   </div>
 
-  <div fxFlexFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
-    <mat-form-field fxFlex="33%">
+  <div class="form-row">
+    <mat-form-field class="form-ratio-1">
       <mat-label>Genres</mat-label>
       <lid-chip-list [allItems]="genres" [formControl]="scoreForm.controls['genres']"
                      placeholder="Neues Genre..."></lid-chip-list>
     </mat-form-field>
 
-    <mat-form-field fxFlex="66%">
+    <mat-form-field class="form-ratio-2">
       <mat-label>Untertitel</mat-label>
       <lid-chip-list [formControl]="scoreForm.controls['subtitles']"
                      placeholder="Neuer Untertitel..."></lid-chip-list>
     </mat-form-field>
   </div>
 
-  <div fxFlexFill fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="16px">
-    <mat-form-field fxFlex>
+  <div class="form-row">
+    <mat-form-field class="form-ratio-1">
       <mat-label>Komponisten</mat-label>
       <lid-chip-list [allItems]="composers" [formControl]="scoreForm.controls['composers']"
                      placeholder="Neuer Komponist..."></lid-chip-list>
     </mat-form-field>
-    <mat-form-field fxFlex>
+    <mat-form-field class="form-ratio-1">
       <mat-label>Arrangeure</mat-label>
       <lid-chip-list [allItems]="arrangers" [formControl]="scoreForm.controls['arrangers']"
                      placeholder="Neuer Arrangeur..."></lid-chip-list>
     </mat-form-field>
-    <mat-form-field fxFlex>
+    <mat-form-field class="form-ratio-1">
       <mat-label>Verlag</mat-label>
       <input [matAutocomplete]="auto" formControlName="publisher" matInput placeholder="z.B. Ewoton" [lidTrim]="true">
       <mat-autocomplete #auto="matAutocomplete">
@@ -48,8 +48,8 @@
     </mat-form-field>
   </div>
 
-  <div fxFlexFill fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="16px">
-    <mat-form-field fxFlex>
+  <div class="form-row">
+    <mat-form-field class="form-ratio-1">
       <mat-label>Aufbewahrung</mat-label>
       <input [lidTrim]="true" [matAutocomplete]="locationAutocomplete" formControlName="location" matInput
              placeholder="z.B. Archiv">
@@ -59,15 +59,15 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <mat-form-field fxFlex>
+    <mat-form-field class="form-ratio-1">
       <mat-label>Stufe</mat-label>
       <input [lidTrim]="true" formControlName="grade" matInput placeholder="z.B. B">
     </mat-form-field>
-    <mat-form-field fxFlex>
+    <mat-form-field class="form-ratio-1">
       <mat-label>Rückseite</mat-label>
       <input [lidTrim]="true" formControlName="back_title" matInput placeholder="z.B. Castaldo Marsch">
     </mat-form-field>
-    <mat-checkbox formControlName="conductor_score" fxFlex>Partitur</mat-checkbox>
+    <mat-checkbox class="form-ratio-1" formControlName="conductor_score">Partitur</mat-checkbox>
   </div>
 </form>
 <pre *ngIf="true|debugDisplay">
