@@ -6,32 +6,32 @@
   möglich ist.
 </p>
 
-<form (ngSubmit)="login()" [formGroup]="loginForm" fxLayout="row wrap">
-  <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
-    <mat-form-field fxFlex.lt-sm style="min-width: 25em">
+<form (ngSubmit)="login()" [formGroup]="loginForm">
+  <div>
+    <mat-form-field>
       <mat-label>Benutzername</mat-label>
       <input formControlName="username" matInput placeholder="z.B. caesar" required>
     </mat-form-field>
   </div>
 
-  <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
-    <mat-form-field fxFlex.lt-sm style="min-width: 25em">
+  <div>
+    <mat-form-field>
       <mat-label>Passwort</mat-label>
       <input formControlName="password" matInput required type="password">
     </mat-form-field>
   </div>
 
-  <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
-    <mat-error *ngIf="credentialsInvalid" fxFlex>Benutzername oder Passwort inkorrekt</mat-error>
+  <div>
+    <mat-error *ngIf="credentialsInvalid">Benutzername oder Passwort inkorrekt</mat-error>
   </div>
 
-  <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
+  <div>
     <p>
-      <mat-slide-toggle formControlName="persist" fxFlex>Angemeldet bleiben</mat-slide-toggle>
+      <mat-slide-toggle formControlName="persist">Angemeldet bleiben</mat-slide-toggle>
     </p>
   </div>
 
-  <div fxFlexFill fxLayout="row" fxLayoutGap="16px">
+  <div>
     <button color="accent" mat-raised-button type="submit" [disabled]="!loginForm.valid">Anmelden</button>
   </div>
 </form>
