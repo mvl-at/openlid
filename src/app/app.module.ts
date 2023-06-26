@@ -35,7 +35,6 @@ import {MemberCardComponent} from './components/member-card/member-card.componen
 import {MatCardModule} from '@angular/material/card';
 import {MembersComponent} from './pages/members/members.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {ExtendedModule, FlexModule} from '@angular/flex-layout';
 import {FallbackImgDirective} from './directives/fallback-img.directive';
 import {RouterModule} from '@angular/router';
 import {ArchiveComponent} from './pages/archive/archive.component';
@@ -79,9 +78,9 @@ import {MatDialogModule} from '@angular/material/dialog';
         onSameUrlNavigation: 'reload',
         enableTracing: true,
         scrollPositionRestoration: 'enabled'
-    }), FlexModule, MarkdownModule.forRoot({
+    }), MarkdownModule.forRoot({
         sanitize: SecurityContext.NONE
-    }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, ExtendedModule, MatDialogModule],
+    }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, MatDialogModule],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
   providers: [{
     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
