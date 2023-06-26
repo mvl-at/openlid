@@ -47,11 +47,11 @@ export class NavigationComponent {
 
   get navigationItems() {
     return defaultItems.filter(i => {
-      if (i.roles === []) {
-        return this.selfService.token;
-      }
       if (!i.roles) {
         return true;
+      }
+      if (i.roles.length === 0) {
+        return this.selfService.token;
       }
       return i.roles.some(g => this.selfService.hasExecutiveRole(g));
     });

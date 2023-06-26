@@ -223,7 +223,7 @@ export class SelfService {
    */
   private setExecutives(executives: Group[]) {
     this._executives = executives;
-    if (executives === []) {
+    if (executives.length === 0) {
       localStorage.removeItem(LAST_ROLES);
     } else {
       localStorage.setItem(LAST_ROLES, JSON.stringify(executives));
