@@ -22,9 +22,9 @@ import {Component, ElementRef, HostBinding, Input, OnInit, Optional, Self, ViewC
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ControlValueAccessor, FormControl, NgControl} from '@angular/forms';
 import {map, Observable, startWith, Subject} from 'rxjs';
-import {MatChipInputEvent, MatChipList} from '@angular/material/chips';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {MatFormFieldControl} from '@angular/material/form-field';
+import {MatLegacyChipInputEvent as MatChipInputEvent, MatLegacyChipList as MatChipList} from '@angular/material/legacy-chips';
+import {MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent} from '@angular/material/legacy-autocomplete';
+import {MatLegacyFormFieldControl as MatFormFieldControl} from '@angular/material/legacy-form-field';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 @Component({

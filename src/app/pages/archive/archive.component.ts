@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ArchiveService} from '../../services/archive.service';
 import {Page, PageNumber, ScoreFilter} from '../../common/archive';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatLegacyPaginator as MatPaginator, LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {ScoresDataSource} from './scores-data-source';
 import {FormModel, InferModeFromModel} from 'ngx-mf';
