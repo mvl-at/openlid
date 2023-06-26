@@ -8,9 +8,10 @@
 //  If you specify typography styles for the components you use elsewhere, you should delete this line.
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
+//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
+//@include mat.all-legacy-component-typographies();
+//@include mat.legacy-core();
+@include mat.core();
 
 $lid-primary-map: (
   50 : #e4eaf0,
@@ -106,11 +107,11 @@ $lid-dark-theme: mat.define-dark-theme((
   )
 ));
 
-@include mat.legacy-core-theme($lid-light-theme);
-@include mat.all-legacy-component-themes($lid-light-theme);
+@include mat.core-theme($lid-light-theme);
+@include mat.all-component-themes($lid-light-theme);
 @include styles.background-color($lid-light-theme);
 
 @media (prefers-color-scheme: dark) {
-  @include mat.legacy-core-theme($lid-dark-theme);
-  @include mat.all-legacy-component-themes($lid-dark-theme);
+  @include mat.core-theme($lid-dark-theme);
+  @include mat.all-component-themes($lid-dark-theme);
 }

@@ -22,9 +22,9 @@ import {Component, ElementRef, HostBinding, Input, OnInit, Optional, Self, ViewC
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ControlValueAccessor, FormControl, NgControl} from '@angular/forms';
 import {map, Observable, startWith, Subject} from 'rxjs';
-import {MatLegacyChipInputEvent as MatChipInputEvent, MatLegacyChipList as MatChipList} from '@angular/material/legacy-chips';
-import {MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent} from '@angular/material/legacy-autocomplete';
-import {MatLegacyFormFieldControl as MatFormFieldControl} from '@angular/material/legacy-form-field';
+import {MatChipGrid, MatChipInputEvent} from '@angular/material/chips';
+import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {MatFormFieldControl} from '@angular/material/form-field';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 @Component({
@@ -41,7 +41,7 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
   itemCtrl = new FormControl('');
   filteredItems: Observable<string[]>;
   @ViewChild('itemInput') itemInput!: ElementRef<HTMLInputElement>;
-  @ViewChild(MatChipList) rootChipList!: MatChipList;
+  @ViewChild(MatChipGrid) rootChipList!: MatChipGrid;
   readonly autofilled: boolean = false;
   readonly controlType: string = 'chip-list-input';
   focused: boolean = false;
