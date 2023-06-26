@@ -26,8 +26,8 @@ import {ArchiveComponent} from './pages/archive/archive.component';
 import {BlackboardComponent} from './pages/blackboard/blackboard.component';
 import {LoginComponent} from './pages/login/login.component';
 import {SelfComponent} from './pages/self/self.component';
-import {AuthenticationGuard} from './guards/authentication.guard.service';
-import {ExecutiveRoleGuard} from './guards/executive-role.guard';
+import {authenticationGuard} from './guards/authentication.guard.service';
+import {executiveRoleGuard} from './guards/executive-role.guard';
 import {environment} from '../environments/environment';
 import {ScoreShelfComponent} from './pages/archive/scores/score-shelf/score-shelf.component';
 import {ScoreCreatorComponent} from './pages/archive/scores/score-creator/score-creator.component';
@@ -39,7 +39,7 @@ const routes: Routes = [
   {
     path: 'archive',
     component: ArchiveComponent,
-    canActivate: [ExecutiveRoleGuard],
+    canActivate: [executiveRoleGuard],
     data: {roles: [environment.executiveRoles.archive]},
     children: [{
       path: '',
@@ -56,7 +56,7 @@ const routes: Routes = [
     ]
   },
   {path: 'login', component: LoginComponent},
-  {path: 'self', component: SelfComponent, canActivate: [AuthenticationGuard]},
+  {path: 'self', component: SelfComponent, canActivate: [authenticationGuard]},
 ];
 
 @NgModule({
