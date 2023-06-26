@@ -27,16 +27,19 @@ export const controllers = {
       searches: () => `${controllers.archive.scores.root}/searches`
     },
     statistics: {
-      root: '/statistics',
-      counts: () => `${controllers.archive.statistics.root}/counts`
+      root: '/statistics', counts: () => `${controllers.archive.statistics.root}/counts`
     }
-  },
-  documents: {
-    root: '/documents',
-    blackboard: {
+  }, documents: {
+    root: '/documents', blackboard: {
       root: () => `${controllers.documents.root}/blackboard`,
       document: (document: string) => `${controllers.documents.blackboard.root()}/${document}`,
       image: (filename: string) => `${controllers.documents.blackboard.root()}/assets/${filename}`
     }
+  }, self: {
+    root: '/users',
+    auth: () => `${controllers.self.root}/auth`,
+    refresh: () => `${controllers.self.root}/renewal`,
+    info: () => `${controllers.self.root}/self`,
+    executiveRoles: () => `${controllers.self.root}/executives`
   }
 }

@@ -1,0 +1,50 @@
+<h1>Login</h1>
+
+<p>
+  Der Login ermöglicht Mitgliedern Aktionen die ansonsten nicht möglich wären.
+  Er ist nur für Mitglieder des Musikverein Leopoldsdorf gedacht weswegen eine Registrierung eines neuen Benutzers nicht
+  möglich ist.
+</p>
+
+<form (ngSubmit)="login()" [formGroup]="loginForm">
+  <div>
+    <mat-form-field>
+      <mat-label>Benutzername</mat-label>
+      <input formControlName="username" matInput placeholder="z.B. caesar" required>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>Passwort</mat-label>
+      <input formControlName="password" matInput required type="password">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-error *ngIf="credentialsInvalid">Benutzername oder Passwort inkorrekt</mat-error>
+  </div>
+
+  <div>
+    <p>
+      <mat-slide-toggle formControlName="persist">Angemeldet bleiben</mat-slide-toggle>
+    </p>
+  </div>
+
+  <div>
+    <button color="accent" mat-raised-button type="submit" [disabled]="!loginForm.valid">Anmelden</button>
+  </div>
+</form>
+<p style="margin-top: 1em">
+  <a [href]="resetLink" target="_blank">Passwort vergessen</a>
+</p>
+<p *ngIf="loginForm.value.persist" style="margin-top: 2em">
+  <i>Hinweis: Bei der Option "Angemeldet bleiben" wird ein Cookie
+    benötigt um die Anmeldeinformationen zu speichern.
+    Dies ist eine technische Notwendigkeit wobei weder ein Benutzername noch ein Passwort gespeichert wird, sondern nur
+    ein Schlüssel, welcher von der Serverinfrastruktur weiterverwendet werden kann.
+    Ber Aktivierung der Funktion erteilen Sie die Erlaubnis, das Cookie zu speichern und zu den Servern des Musikverein
+    Leopoldsdorf zu übertragen.
+    Cookies werden nicht an Dritte weitergegeben.
+  </i>
+</p>

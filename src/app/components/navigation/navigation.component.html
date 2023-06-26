@@ -1,4 +1,5 @@
-<mat-toolbar class="mat-elevation-z8 top-bar" color="primary">
+<mat-toolbar [class.lid-background-accent]="isSpecialBar" [class.lid-background-primary]="!isSpecialBar" class="mat-elevation-z8 top-bar"
+             color="primary">
   <button
     (click)="drawer.toggle()"
     aria-label="Toggle sidenav"
@@ -7,6 +8,21 @@
     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
   </button>
   <span>Musikverein Leopoldsdorf</span>
+  <span class="spacer"></span>
+  <mat-icon *ngIf="true|debugDisplay">code</mat-icon>
+  <button *ngIf="selfService.user" [matMenuTriggerFor]="userMenu"
+          mat-button>{{selfService.user.firstName}} {{selfService.user.lastName}}
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #userMenu="matMenu">
+    <a routerLink="/self" mat-menu-item>Anmeldeinformationen</a>
+    <button (click)="selfService.logout()" mat-menu-item>Logout</button>
+  </mat-menu>
+  <img *ngIf="selfService.user" [alt]="'Bild von ' + selfService.user.name"
+       [fallback]="selfService.user.gender === 'm'? 'assets/avatar-male.svg' : 'assets/avatar-female.svg'"
+       [src]="photo" class="menu-photo">
+  <a *ngIf="!selfService.user" href="/login" mat-button>Login</a>
+  <img src="assets/logo-white.svg" alt="logo" class="logo"/>
 </mat-toolbar>
 <mat-sidenav-container [class.normal-toolbar-margin]="!(isHandset | async)"
                        [class.small-toolbar-margin]="isHandset | async"
@@ -34,5 +50,6 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <ng-content></ng-content>
+    <lid-footer></lid-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

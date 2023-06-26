@@ -1,0 +1,43 @@
+<h1>Anmeldeinformationen</h1>
+
+<lid-member-card *ngIf="selfInfo" [member]="selfInfo"></lid-member-card>
+
+<br/>
+
+<p>Vorname: {{selfInfo?.firstName}}</p>
+<p>Nachname: {{selfInfo?.lastName}}</p>
+<br/>
+<p>Geschlecht: {{selfInfo?.gender}}</p>
+<p>Beitritt: {{selfInfo?.joining}}</p>
+<p>Aktiv: {{selfInfo?.active ? 'ja' : 'nein'}}</p>
+<p>Funktionen: {{selfInfo?.titles}}</p>
+<p>Offiziell: {{selfInfo?.official ? 'ja' : 'nein'}}</p>
+<br/>
+<p>Benutzername: {{selfInfo?.username}}</p>
+<p>Voller Benutzername: {{details?.fullUsername}}</p>
+<p>Rechte:</p>
+<ul>
+  <li *ngFor="let group of executiveRoles">{{group.name}} ({{group.description}})</li>
+</ul>
+
+<mat-accordion>
+  <mat-expansion-panel (closed)="panelOpenState = false"
+                       (opened)="panelOpenState = true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Private Daten
+      </mat-panel-title>
+      <mat-panel-description>
+        Daten wie Email oder Handynummer
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>Handynummer: {{details?.mobile}}</p>
+    <p>Whatsapp: {{details?.whatsapp ? 'ja' : 'nein'}}</p>
+    <p>Email: {{details?.mail}}</p>
+    <p>Geburtstag: {{details?.birthday}}</p>
+    <p>Adresse: {{details?.address?.street}} {{details?.address?.houseNumber}}, {{details?.address?.countryCode}}
+      -{{details?.address?.postalCode}} {{details?.address?.city}}, {{details?.address?.state}}</p>
+  </mat-expansion-panel>
+</mat-accordion>
+
+

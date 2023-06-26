@@ -25,6 +25,7 @@ import {FormModel, InferModeNullable} from 'ngx-mf';
 import {ArchiveService} from '../../../services/archive.service';
 import {Observable, startWith} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {HttpErrorSnackBarService} from '../../../mat-helpers/http-error-snack-bar.service';
 
 @Component({
   selector: 'lid-score-editor',
@@ -37,7 +38,9 @@ export class ScoreEditorComponent implements OnInit {
   arrangers: string[] = [];
   composers: string[] = [];
   publishers: string[] = [];
+  locations: string[] = [];
   filteredPublishers: Observable<string[]> | undefined;
+  filteredLocations: Observable<string[]> | undefined;
 
   scoreForm = this.formBuilder.nonNullable.group<ScoreForm['controls']>({
     _id: this.formBuilder.control(null),
@@ -58,7 +61,7 @@ export class ScoreEditorComponent implements OnInit {
     title: this.formBuilder.nonNullable.control('')
   });
 
-  constructor(private formBuilder: FormBuilder, private archiveService: ArchiveService) {
+  constructor(private formBuilder: FormBuilder, private archiveService: ArchiveService, private snackBarErrorHandler: HttpErrorSnackBarService) {
   }
 
   @Input()
@@ -70,32 +73,40 @@ export class ScoreEditorComponent implements OnInit {
     this.refreshStatistics();
     this.filteredPublishers = this.scoreForm.controls['publisher'].valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '')),
+      map(value => this._filter(value || '', this.publishers)),
+    );
+    this.filteredLocations = this.scoreForm.controls['location'].valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '', this.locations)),
     );
   }
 
   private refreshStatistics() {
     this.archiveService.getGenres().subscribe({
       next: data => this.genres = data.rows.map(r => r.key),
-      error: console.log
+      error: this.snackBarErrorHandler.showError
     });
     this.archiveService.getArrangers().subscribe({
       next: data => this.arrangers = data.rows.map(r => r.key),
-      error: console.log
+      error: this.snackBarErrorHandler.showError
     });
     this.archiveService.getComposers().subscribe({
       next: data => this.composers = data.rows.map(r => r.key),
-      error: console.log
+      error: this.snackBarErrorHandler.showError
     });
     this.archiveService.getPublishers().subscribe({
       next: data => this.publishers = data.rows.map(r => r.key),
-      error: console.log
+      error: this.snackBarErrorHandler.showError
+    });
+    this.archiveService.getLocations().subscribe({
+      next: data => this.locations = data.rows.map(r => r.key),
+      error: this.snackBarErrorHandler.showError
     });
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string, collection: string[]): string[] {
     const filterValue = value.toLowerCase();
-    return this.publishers.filter(publisher => publisher.toLowerCase().includes(filterValue));
+    return collection.filter(publisher => publisher.toLowerCase().includes(filterValue));
   }
 }
 

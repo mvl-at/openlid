@@ -23,6 +23,7 @@ import {DocumentService} from '../../../services/document.service';
 import {environment} from '../../../../environments/environment';
 import {map} from 'rxjs';
 import {controllers} from '../../../services/controllers';
+import {HttpErrorSnackBarService} from '../../../mat-helpers/http-error-snack-bar.service';
 
 @Component({
   selector: 'lid-blackboard-item',
@@ -33,7 +34,7 @@ export class BlackboardItemComponent implements OnInit {
 
   @Input() filename: string = '';
 
-  constructor(private documentService: DocumentService) {
+  constructor(private documentService: DocumentService, private snackBarErrorHandler: HttpErrorSnackBarService) {
   }
 
   private _isLoading: boolean = true;
@@ -75,7 +76,7 @@ export class BlackboardItemComponent implements OnInit {
   ngOnInit(): void {
     this.documentService.getBlackBoardDocument(this.filename).pipe(map(BlackboardItemComponent.replaceAttachmentUrls)).subscribe({
       next: value => this._content = value,
-      error: console.error,
+      error: this.snackBarErrorHandler.showError,
       complete: () => this._isLoading = false,
     });
   }

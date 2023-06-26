@@ -18,7 +18,7 @@
  *
  */
 
-import {NgModule, SecurityContext} from '@angular/core';
+import {APP_INITIALIZER, NgModule, SecurityContext} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -34,8 +34,7 @@ import {MatLegacyListModule as MatListModule} from '@angular/material/legacy-lis
 import {MemberCardComponent} from './components/member-card/member-card.component';
 import {MatLegacyCardModule as MatCardModule} from '@angular/material/legacy-card';
 import {MembersComponent} from './pages/members/members.component';
-import {HttpClientModule} from '@angular/common/http';
-import {FlexModule} from '@angular/flex-layout';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FallbackImgDirective} from './directives/fallback-img.directive';
 import {RouterModule} from '@angular/router';
 import {ArchiveComponent} from './pages/archive/archive.component';
@@ -55,20 +54,50 @@ import {BlackboardComponent} from './pages/blackboard/blackboard.component';
 import {BlackboardItemComponent} from './components/document/blackboard-item/blackboard-item.component';
 import {MarkdownModule, MarkdownService} from 'ngx-markdown';
 import {MatLegacyProgressBarModule as MatProgressBarModule} from '@angular/material/legacy-progress-bar';
+import {FooterComponent} from './components/footer/footer.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {LoginComponent} from './pages/login/login.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {BearerTokenInterceptor} from './interceptors/bearer-token.interceptor';
+import {SelfService} from './services/self.service';
+import {MatMenuModule} from '@angular/material/menu';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/material/snack-bar';
+import {SelfComponent} from './pages/self/self.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {DebugDisplayPipe} from './pipes/debug-display.pipe';
+import {ScoreShelfComponent} from './pages/archive/scores/score-shelf/score-shelf.component';
+import { ScoreCreatorComponent } from './pages/archive/scores/score-creator/score-creator.component';
+import { ScoreModificationDialogComponent } from './dialogs/score-modification-dialog/score-modification-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
-    useHash: false,
-    anchorScrolling: 'enabled',
-    onSameUrlNavigation: 'reload',
-    enableTracing: true,
-    scrollPositionRestoration: 'enabled'
-  }), FlexModule, MarkdownModule.forRoot({
-    sanitize: SecurityContext.NONE
-  }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule],
+  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent],
+    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
+        useHash: false,
+        anchorScrolling: 'enabled',
+        onSameUrlNavigation: 'reload',
+        enableTracing: true,
+        scrollPositionRestoration: 'enabled'
+    }), MarkdownModule.forRoot({
+        sanitize: SecurityContext.NONE
+    }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, MatDialogModule],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
-  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}, MarkdownService],
+  providers: [{
+    provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+    useValue: {appearance: 'fill'}
+  }, MarkdownService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: BearerTokenInterceptor,
+    multi: true
+  }, {
+    provide: APP_INITIALIZER,
+    deps: [SelfService],
+    useFactory: SelfService.initializeSelfService,
+    multi: true
+  }, {
+    provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+    useValue: {duration: 2500}
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

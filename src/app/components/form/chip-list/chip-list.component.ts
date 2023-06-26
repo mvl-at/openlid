@@ -35,7 +35,7 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 })
 export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>, ControlValueAccessor {
   static nextId = 0;
-  @Input() allItems: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  @Input() allItems: string[] = [];
   @Input() ariaLabel: string = 'Element Auswahl';
   separatorKeysCodes: number[] = [ENTER, COMMA];
   itemCtrl = new FormControl('');

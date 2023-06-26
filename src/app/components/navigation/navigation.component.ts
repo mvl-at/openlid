@@ -22,20 +22,42 @@ import {Component} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
+import {SelfService} from '../../services/self.service';
+import {environment} from '../../../environments/environment';
+import {controllers} from '../../services/controllers';
 
 @Component({
   selector: 'lid-navigation', templateUrl: './navigation.component.html', styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
 
-  navigationItems = defaultItems;
   isExtraScreenSmall: Observable<boolean>;
   isScreenSmall: Observable<boolean>;
 
   isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(map(result => result.matches), shareReplay());
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  get photo(): string {
+    return `${environment.barrelUrl}${controllers.members.photo(this.selfService?.user?.username ? this.selfService?.user?.username : '')}`;
+  }
+
+  get isSpecialBar(): boolean {
+    return this.selfService.hasExecutiveRole(environment.executiveRoles.root);
+  }
+
+  get navigationItems() {
+    return defaultItems.filter(i => {
+      if (!i.roles) {
+        return true;
+      }
+      if (i.roles.length === 0) {
+        return this.selfService.token;
+      }
+      return i.roles.some(g => this.selfService.hasExecutiveRole(g));
+    });
+  }
+
+  constructor(private breakpointObserver: BreakpointObserver, public selfService: SelfService) {
     this.isExtraScreenSmall = breakpointObserver.observe(Breakpoints.XSmall)
       .pipe(map(breakpoint => breakpoint.matches));
     this.isScreenSmall = breakpointObserver.observe(Breakpoints.Small)
@@ -65,7 +87,7 @@ export const defaultItems: NavigationItem[] = [{label: 'Startseite', link: ['/']
   link: ['/members'],
   children: []
 }, {
-  label: 'Archiv', link: ['/archive'], children: []
+  label: 'Archiv', link: ['/archive'], children: [], roles: [environment.executiveRoles.archive]
 }];
 
 export interface NavigationItem {
@@ -74,4 +96,5 @@ export interface NavigationItem {
   fragment?: string;
   children: NavigationItem[];
   scroll?: boolean;
+  roles?: string[];
 }

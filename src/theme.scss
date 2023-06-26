@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'styles';
 
 // TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
 //  The following line adds:
@@ -107,6 +108,7 @@ $lid-dark-theme: mat.define-dark-theme((
 
 @include mat.legacy-core-theme($lid-light-theme);
 @include mat.all-legacy-component-themes($lid-light-theme);
+@include styles.background-color($lid-light-theme);
 
 @media (prefers-color-scheme: dark) {
   @include mat.legacy-core-theme($lid-dark-theme);

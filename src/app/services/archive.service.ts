@@ -23,7 +23,15 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {controllers} from './controllers';
-import {CountStatistic, CountStatisticSubject, Pagination, Score, ScoreFilter, SearchResult} from '../common/archive';
+import {
+  CountStatistic,
+  CountStatisticSubject,
+  DatabaseOperationResponse,
+  Pagination,
+  Score,
+  ScoreFilter,
+  SearchResult
+} from '../common/archive';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +52,18 @@ export class ArchiveService {
   getAllScoresPaginated(limit: number, skip: number): Observable<Pagination<Score>> {
     const params = {limit: limit, skip: skip};
     return this.httpClient.get<Pagination<Score>>(`${environment.barrelUrl}${controllers.archive.scores.root}`, {params: params});
+  }
+
+  /**
+   * Store a score in the database. It is not relevant in this case whether it is a new or an existing one.
+   * Both actions only differ whether {@link Score._id} and {@link Score._rev} are set or not.
+   * If it is the case, a new revision of the score will be stored.
+   * Keep in mind that faulty id (combinations) will lead to errors.
+   * @param score the score to persist
+   * @return the outcome of the request
+   */
+  putScore(score: Score): Observable<DatabaseOperationResponse> {
+    return this.httpClient.put<DatabaseOperationResponse>(`${environment.barrelUrl}${controllers.archive.scores.root}`, score);
   }
 
   /**
@@ -105,6 +125,13 @@ export class ArchiveService {
    */
   getPublishers(): Observable<CountStatistic> {
     return this.getCountStatistics(CountStatisticSubject.Publishers);
+  }
+
+  /**
+   * Fetch all the locations of the database with the counts of how much they are being used.
+   */
+  getLocations(): Observable<CountStatistic> {
+    return this.getCountStatistics(CountStatisticSubject.Locations);
   }
 
   /**
