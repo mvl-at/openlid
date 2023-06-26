@@ -1,0 +1,13 @@
+.form-row {
+  display: flex;
+  gap: 1.1em;
+  flex-wrap: wrap;
+}
+
+.form-ratio-1 {
+  flex-grow: 1;
+}
+
+.form-ratio-2 {
+  flex-grow: 2;
+}

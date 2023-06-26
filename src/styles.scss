@@ -30,3 +30,8 @@ body {
     color: mat.get-color-from-palette($accent-palette, default-contrast) !important;
   }
 }
+
+.lid-button-row {
+  display: flex;
+  gap: 1.1em;
+}
