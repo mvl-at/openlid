@@ -1,0 +1,29 @@
+<h2>Termine</h2>
+
+<p>
+  Hier finden sich alle Termine des Musikverein Leopoldsdorf.
+  Sie sind natürlich herzlich eingeladen möglichst viele davon zu besuchen.
+</p>
+
+<mat-progress-bar *ngIf="!eventsLoadingDone" mode="indeterminate"/>
+<i *ngIf="eventsLoadingDone && calendar.length === 0">Derzeit sind keine Termine verfügbar.</i>
+
+<table *ngIf="eventsLoadingDone" [dataSource]="calendar" class="mat-elevation-z8" mat-table>
+  <ng-container matColumnDef="summary">
+    <th *matHeaderCellDef mat-header-cell> Beschreibung</th>
+    <td *matCellDef="let event" mat-cell> {{event.summary.value}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="dtstart">
+    <th *matHeaderCellDef mat-header-cell> Beginn</th>
+    <td *matCellDef="let event" mat-cell> {{dateFormat(eventStart(event))}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="location">
+    <th *matHeaderCellDef mat-header-cell> Örtlichkeit</th>
+    <td *matCellDef="let event" mat-cell> {{event.location.value}} </td>
+  </ng-container>
+
+  <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+  <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+</table>

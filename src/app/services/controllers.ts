@@ -35,7 +35,11 @@ export const controllers = {
       document: (document: string) => `${controllers.documents.blackboard.root()}/${document}`,
       image: (filename: string) => `${controllers.documents.blackboard.root()}/assets/${filename}`
     }
-  }, self: {
+  },
+  calendar: {
+    root: '/calendar'
+  },
+  self: {
     root: '/users',
     auth: () => `${controllers.self.root}/auth`,
     refresh: () => `${controllers.self.root}/renewal`,
