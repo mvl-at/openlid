@@ -62,10 +62,11 @@ export class ScoreShelfComponent {
   readonly scoresDataSource: ScoresDataSource;
 
   @ViewChild(MatPaginator)
-  private paginator!: MatPaginator;
+  private paginator?: MatPaginator;
 
   constructor(private archiveService: ArchiveService, private formBuilder: FormBuilder) {
     this.scoresDataSource = new ScoresDataSource(archiveService);
+    this.refreshScores();
   }
 
   get scores() {
@@ -94,7 +95,7 @@ export class ScoreShelfComponent {
   }
 
   private refreshScores() {
-    this.scoresDataSource.loadScores(this.paginator.pageIndex, this.paginator.pageSize, this.scoreFilterForm.getRawValue());
+    this.scoresDataSource.loadScores(this.paginator?.pageIndex ?? 0, this.paginator?.pageSize ?? this.limit, this.scoreFilterForm.getRawValue());
   }
 
 }
