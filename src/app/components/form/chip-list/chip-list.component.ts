@@ -18,32 +18,32 @@
  *
  */
 
-import {Component, ElementRef, HostBinding, Input, OnInit, Optional, Self, ViewChild} from '@angular/core';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {ControlValueAccessor, FormControl, NgControl} from '@angular/forms';
-import {map, Observable, startWith, Subject} from 'rxjs';
-import {MatChipGrid, MatChipInputEvent} from '@angular/material/chips';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {MatFormFieldControl} from '@angular/material/form-field';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {Component, ElementRef, HostBinding, Input, OnInit, Optional, Self, ViewChild} from "@angular/core";
+import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {ControlValueAccessor, FormControl, NgControl} from "@angular/forms";
+import {map, Observable, startWith, Subject} from "rxjs";
+import {MatChipGrid, MatChipInputEvent} from "@angular/material/chips";
+import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
+import {MatFormFieldControl} from "@angular/material/form-field";
+import {coerceBooleanProperty} from "@angular/cdk/coercion";
 
 @Component({
-  selector: 'lid-chip-list',
-  templateUrl: './chip-list.component.html',
-  styleUrls: ['./chip-list.component.scss'],
+  selector: "lid-chip-list",
+  templateUrl: "./chip-list.component.html",
+  styleUrls: ["./chip-list.component.scss"],
   providers: [{provide: MatFormFieldControl, useExisting: ChipListComponent}]
 })
 export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>, ControlValueAccessor {
   static nextId = 0;
   @Input() allItems: string[] = [];
-  @Input() ariaLabel = 'Element Auswahl';
+  @Input() ariaLabel = "Element Auswahl";
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  itemCtrl = new FormControl('');
+  itemCtrl = new FormControl("");
   filteredItems: Observable<string[]>;
-  @ViewChild('itemInput') itemInput!: ElementRef<HTMLInputElement>;
+  @ViewChild("itemInput") itemInput!: ElementRef<HTMLInputElement>;
   @ViewChild(MatChipGrid) rootChipList!: MatChipGrid;
   readonly autofilled: boolean = false;
-  readonly controlType: string = 'chip-list-input';
+  readonly controlType: string = "chip-list-input";
   focused = false;
   @HostBinding() readonly id = `chip-list-input-${ChipListComponent.nextId++}`;
   readonly stateChanges = new Subject<void>();
@@ -56,7 +56,7 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
     this.filteredItems = this.itemCtrl.valueChanges.pipe(startWith(null), map((item: string | null) => (item ? this._filter(item) : this.allItems.slice())),);
   }
 
-  _value: string[] = ['Lemon'];
+  _value: string[] = ["Lemon"];
 
   get value() {
     return this._value;
@@ -97,11 +97,11 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
     this.stateChanges.next();
   }
 
-  @HostBinding('class.floating') get shouldLabelFloat() {
+  @HostBinding("class.floating") get shouldLabelFloat() {
     return this.focused || !this.empty;
   }
 
-  private _placeholder = 'Neues Element...';
+  private _placeholder = "Neues Element...";
 
   @Input() get placeholder() {
     return this._placeholder;
@@ -113,11 +113,11 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
   }
 
   onChange = () => {
-    console.trace('Called onChange()');
+    console.trace("Called onChange()");
   };
 
   onTouched = () => {
-    console.trace('Called onTouched()');
+    console.trace("Called onTouched()");
   };
 
   writeValue(obj: string[]): void {
@@ -135,9 +135,9 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
   setDescribedByIds(ids: string[]) {
     if (this.itemInput) {
       const controlElement = this.itemInput.nativeElement
-        .querySelector('.chipList');
+        .querySelector(".chipList");
       if (controlElement) {
-        controlElement.setAttribute('aria-describedby', ids.join(' '));
+        controlElement.setAttribute("aria-describedby", ids.join(" "));
       }
     }
     if (this.rootChipList) {
@@ -146,7 +146,7 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
   }
 
   add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = (event.value || "").trim();
 
     // Add our item
     if (value) {
@@ -170,16 +170,16 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.value.push(event.option.viewValue);
-    this.itemInput.nativeElement.value = '';
+    this.itemInput.nativeElement.value = "";
     this.itemCtrl.setValue(null);
   }
 
   ngOnInit(): void {
-    console.debug('called ngInInit()');
+    console.debug("called ngInInit()");
   }
   onContainerClick(event: MouseEvent) {
-    if ((event.target as Element).tagName.toLowerCase() != 'input') {
-      this.itemInput.nativeElement.querySelector('input')?.focus();
+    if ((event.target as Element).tagName.toLowerCase() != "input") {
+      this.itemInput.nativeElement.querySelector("input")?.focus();
     }
   }
 

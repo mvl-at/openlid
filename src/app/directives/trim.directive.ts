@@ -18,11 +18,11 @@
  *
  */
 
-import {Directive, HostListener, Input, Self} from '@angular/core';
-import {NgControl} from '@angular/forms';
+import {Directive, HostListener, Input, Self} from "@angular/core";
+import {NgControl} from "@angular/forms";
 
 @Directive({
-  selector: '[lidTrim]'
+  selector: "[lidTrim]"
 })
 export class TrimDirective {
 
@@ -32,7 +32,7 @@ export class TrimDirective {
   constructor(@Self() private ngControl: NgControl) {
   }
 
-  @HostListener('keyup') trim() {
+  @HostListener("keyup") trim() {
     const value = this.ngControl.value;
     if (value) {
       this.ngControl.control?.setValue(value.trim());

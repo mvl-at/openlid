@@ -18,21 +18,21 @@
  *
  */
 
-import {Component, Input, OnInit} from '@angular/core';
-import {DocumentService} from '../../../services/document.service';
-import {environment} from '../../../../environments/environment';
-import {map} from 'rxjs';
-import {controllers} from '../../../services/controllers';
-import {HttpErrorSnackBarService} from '../../../mat-helpers/http-error-snack-bar.service';
+import {Component, Input, OnInit} from "@angular/core";
+import {DocumentService} from "../../../services/document.service";
+import {environment} from "../../../../environments/environment";
+import {map} from "rxjs";
+import {controllers} from "../../../services/controllers";
+import {HttpErrorSnackBarService} from "../../../mat-helpers/http-error-snack-bar.service";
 
 @Component({
-  selector: 'lid-blackboard-item',
-  templateUrl: './blackboard-item.component.html',
-  styleUrls: ['./blackboard-item.component.scss']
+  selector: "lid-blackboard-item",
+  templateUrl: "./blackboard-item.component.html",
+  styleUrls: ["./blackboard-item.component.scss"]
 })
 export class BlackboardItemComponent implements OnInit {
 
-  @Input() filename = '';
+  @Input() filename = "";
 
   constructor(private documentService: DocumentService, private snackBarErrorHandler: HttpErrorSnackBarService) {
   }
@@ -43,7 +43,7 @@ export class BlackboardItemComponent implements OnInit {
     return this._isLoading;
   }
 
-  private _content = '';
+  private _content = "";
 
   get content() {
     return this._content;
@@ -57,17 +57,17 @@ export class BlackboardItemComponent implements OnInit {
    * @private
    */
   private static replaceAttachmentUrls(markdownContent: string): string {
-    console.debug('replaceAttachmentUrls');
+    console.debug("replaceAttachmentUrls");
     const attachmentRegex = /!\[.*]\(\.attachments\..*\/.*\)/;
-    const urlPartPrefix = '](.attachments.';
+    const urlPartPrefix = "](.attachments.";
     let workingContent = markdownContent.toString();
     let searchIndex;
     while ((searchIndex = workingContent.search(attachmentRegex)) != -1) {
       const fileIdBeginIndex = workingContent.indexOf(urlPartPrefix, searchIndex) + urlPartPrefix.length;
-      console.debug('fileIdBeginIndex', searchIndex);
-      const documentFileCombination = workingContent.substring(fileIdBeginIndex, workingContent.indexOf(')', fileIdBeginIndex)).split('/');
+      console.debug("fileIdBeginIndex", searchIndex);
+      const documentFileCombination = workingContent.substring(fileIdBeginIndex, workingContent.indexOf(")", fileIdBeginIndex)).split("/");
       const newUrl = controllers.documents.blackboard.image(documentFileCombination[1]);
-      console.debug('new url', newUrl);
+      console.debug("new url", newUrl);
       workingContent = workingContent.replace(/\(.*\)/, `(${environment.barrelUrl}${newUrl})`);
     }
     return workingContent;

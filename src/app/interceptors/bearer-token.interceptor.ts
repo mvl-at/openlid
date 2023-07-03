@@ -18,12 +18,12 @@
  *
  */
 
-import {Injectable} from '@angular/core';
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {catchError, Observable, switchMap, throwError} from 'rxjs';
-import {SelfService} from '../services/self.service';
-import {environment} from '../../environments/environment';
-import {controllers} from '../services/controllers';
+import {Injectable} from "@angular/core";
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {catchError, Observable, switchMap, throwError} from "rxjs";
+import {SelfService} from "../services/self.service";
+import {environment} from "../../environments/environment";
+import {controllers} from "../services/controllers";
 
 @Injectable()
 export class BearerTokenInterceptor implements HttpInterceptor {
@@ -35,13 +35,13 @@ export class BearerTokenInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<object>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.debug('intercept bearer token');
+    console.debug("intercept bearer token");
     const token = this.selfService.token;
     const isApiUrl = request.url.startsWith(environment.barrelUrl);
     const isRenewalUrl = request.url.toLowerCase() === `${environment.barrelUrl}${controllers.self.refresh()}`;
 
     if (isRenewalUrl) {
-      console.debug('skip bearer interceptor on token renewal');
+      console.debug("skip bearer interceptor on token renewal");
       return next.handle(request);
     }
 
@@ -51,7 +51,7 @@ export class BearerTokenInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((error) => {
-        console.debug('catch bearer error', error);
+        console.debug("catch bearer error", error);
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handleTokenError(request, next);
         } else {
@@ -82,14 +82,14 @@ export class BearerTokenInterceptor implements HttpInterceptor {
    * @private
    */
   private handleTokenError(request: HttpRequest<object>, next: HttpHandler) {
-    console.debug('handleTokenError');
+    console.debug("handleTokenError");
     if (!this.isRefreshing) {
       this.isRefreshing = true;
-      console.debug('begin to refresh token');
+      console.debug("begin to refresh token");
       return this.selfService.refreshToken().pipe(
         switchMap((token) => {
           this.isRefreshing = false;
-          console.debug('handle refresh next', token, this.selfService.token);
+          console.debug("handle refresh next", token, this.selfService.token);
           const clonedRequest = token && this.selfService.token ? this.addToken(request, this.selfService.token) : request;
           return next.handle(clonedRequest);
         })

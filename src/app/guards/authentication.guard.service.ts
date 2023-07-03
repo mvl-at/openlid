@@ -18,9 +18,9 @@
  *
  */
 
-import {inject} from '@angular/core';
-import {Router} from '@angular/router';
-import {SelfService} from '../services/self.service';
+import {inject} from "@angular/core";
+import {Router} from "@angular/router";
+import {SelfService} from "../services/self.service";
 
 /**
  * Redirect the user to `/login` if they are not authenticated.
@@ -33,7 +33,7 @@ export const authenticationGuard = () => {
   if (isLoggedIn) {
     return true;
   }
-  router.navigateByUrl('/login').then(() => console.debug('tried to reach page which requires authentication, redirected to login'));
+  router.navigateByUrl("/login").then(() => console.debug("tried to reach page which requires authentication, redirected to login"));
   return false;
 };
 

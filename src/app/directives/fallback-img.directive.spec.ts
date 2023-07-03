@@ -1,7 +1,7 @@
-import { FallbackImgDirective } from './fallback-img.directive';
+import {FallbackImgDirective} from "./fallback-img.directive";
 
-describe('FallbackImgDirective', () => {
-  it('should create an instance', () => {
+describe("FallbackImgDirective", () => {
+  it("should create an instance", () => {
     const directive = new FallbackImgDirective();
     expect(directive).toBeTruthy();
   });

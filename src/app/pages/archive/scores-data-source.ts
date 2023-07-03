@@ -18,10 +18,10 @@
  *
  */
 
-import {CollectionViewer, DataSource} from '@angular/cdk/collections';
-import {isEmpty, Score, ScoreFilter} from '../../common/archive';
-import {BehaviorSubject, catchError, finalize, Observable, of} from 'rxjs';
-import {ArchiveService} from '../../services/archive.service';
+import {CollectionViewer, DataSource} from "@angular/cdk/collections";
+import {isEmpty, Score, ScoreFilter} from "../../common/archive";
+import {BehaviorSubject, catchError, finalize, Observable, of} from "rxjs";
+import {ArchiveService} from "../../services/archive.service";
 
 export class ScoresDataSource implements DataSource<Score> {
 
@@ -71,9 +71,9 @@ export class ScoresDataSource implements DataSource<Score> {
     this.loadingSubject.next(true);
     this.isEmpty = isEmpty(filter);
     this.lastLimit = limit;
-    console.debug('old and new filter', this.lastFilter, filter);
+    console.debug("old and new filter", this.lastFilter, filter);
     if (JSON.stringify(filter) !== JSON.stringify(this.lastFilter)) {
-      console.log('clear bookmarks');
+      console.log("clear bookmarks");
       this.bookmarks.clear();
       this.totalRows = 0;
       this.foundResults = 1;
@@ -99,14 +99,14 @@ export class ScoresDataSource implements DataSource<Score> {
 
   private loadScoresFromSearch(index: number, limit: number, filter: ScoreFilter) {
     const bookmark = this.bookmarks.get(index) || null;
-    console.debug('current bookmarks', index, this.bookmarks);
+    console.debug("current bookmarks", index, this.bookmarks);
     this.archiveService.searchScore(filter, limit, bookmark).pipe(catchError(() => of({
-      docs: [], bookmark: ''
+      docs: [], bookmark: ""
     })), finalize(() => this.loadingSubject.next(false)))
       .subscribe({
         next: data => {
           this.scoresSubject.next(data.docs);
-          console.debug('store bookmark', index + 1, data.bookmark);
+          console.debug("store bookmark", index + 1, data.bookmark);
           if (!this.bookmarks.has(index + 1)) {
             this.foundResults += data.docs.length;
             if (this.lastResultSize > data.docs.length) {

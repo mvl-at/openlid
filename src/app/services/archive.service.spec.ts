@@ -18,11 +18,11 @@
  *
  */
 
-import {TestBed} from '@angular/core/testing';
+import {TestBed} from "@angular/core/testing";
 
-import {ArchiveService} from './archive.service';
+import {ArchiveService} from "./archive.service";
 
-describe('ArchiveService', () => {
+describe("ArchiveService", () => {
   let service: ArchiveService;
 
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe('ArchiveService', () => {
     service = TestBed.inject(ArchiveService);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 });

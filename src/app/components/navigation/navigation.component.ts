@@ -18,16 +18,16 @@
  *
  */
 
-import {Component} from '@angular/core';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {Observable} from 'rxjs';
-import {map, shareReplay} from 'rxjs/operators';
-import {SelfService} from '../../services/self.service';
-import {environment} from '../../../environments/environment';
-import {controllers} from '../../services/controllers';
+import {Component} from "@angular/core";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {Observable} from "rxjs";
+import {map, shareReplay} from "rxjs/operators";
+import {SelfService} from "../../services/self.service";
+import {environment} from "../../../environments/environment";
+import {controllers} from "../../services/controllers";
 
 @Component({
-  selector: 'lid-navigation', templateUrl: './navigation.component.html', styleUrls: ['./navigation.component.scss']
+  selector: "lid-navigation", templateUrl: "./navigation.component.html", styleUrls: ["./navigation.component.scss"]
 })
 export class NavigationComponent {
 
@@ -38,7 +38,7 @@ export class NavigationComponent {
     .pipe(map(result => result.matches), shareReplay());
 
   get photo(): string {
-    return `${environment.barrelUrl}${controllers.members.photo(this.selfService?.user?.username ? this.selfService?.user?.username : '')}`;
+    return `${environment.barrelUrl}${controllers.members.photo(this.selfService?.user?.username ? this.selfService?.user?.username : "")}`;
   }
 
   get isSpecialBar(): boolean {
@@ -70,7 +70,7 @@ export class NavigationComponent {
 
   scroll(event: MouseEvent, id: string) {
     const target = document.getElementById(id);
-    target?.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+    target?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 
   isScrollItem(item: NavigationItem): boolean {
@@ -82,16 +82,16 @@ export class NavigationComponent {
   }
 }
 
-export const defaultItems: NavigationItem[] = [{label: 'Startseite', link: ['/'], children: []}, {
-  label: 'Mitglieder',
-  link: ['/members'],
+export const defaultItems: NavigationItem[] = [{label: "Startseite", link: ["/"], children: []}, {
+  label: "Mitglieder",
+  link: ["/members"],
   children: []
 }, {
-  label: 'Termine',
-  link: ['/events'],
+  label: "Termine",
+  link: ["/events"],
   children: [],
 }, {
-  label: 'Archiv', link: ['/archive'], children: [], roles: [environment.executiveRoles.archive]
+  label: "Archiv", link: ["/archive"], children: [], roles: [environment.executiveRoles.archive]
 }];
 
 export interface NavigationItem {

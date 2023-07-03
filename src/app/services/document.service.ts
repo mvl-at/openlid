@@ -18,14 +18,14 @@
  *
  */
 
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
-import {controllers} from './controllers';
+import {Injectable} from "@angular/core";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {environment} from "../../environments/environment";
+import {controllers} from "./controllers";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class DocumentService {
 
@@ -46,7 +46,7 @@ export class DocumentService {
    * @param name the filename of the blackboard document
    */
   getBlackBoardDocument(name: string): Observable<string> {
-    const headers = new HttpHeaders({'Accept': 'text/markdown'});
-    return this.httpClient.get(`${environment.barrelUrl}${controllers.documents.blackboard.document(name)}`, {headers: headers, responseType: 'text'});
+    const headers = new HttpHeaders({"Accept": "text/markdown"});
+    return this.httpClient.get(`${environment.barrelUrl}${controllers.documents.blackboard.document(name)}`, {headers: headers, responseType: "text"});
   }
 }

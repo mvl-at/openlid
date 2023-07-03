@@ -18,26 +18,26 @@
  *
  */
 
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Login} from '../common/login';
-import {environment} from '../../environments/environment';
-import {controllers} from './controllers';
-import {map, tap} from 'rxjs/operators';
-import {Group, Member} from '../common/member';
-import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {catchError, of} from 'rxjs';
+import {Injectable} from "@angular/core";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Login} from "../common/login";
+import {environment} from "../../environments/environment";
+import {controllers} from "./controllers";
+import {map, tap} from "rxjs/operators";
+import {Group, Member} from "../common/member";
+import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {catchError, of} from "rxjs";
 
-const TOKEN_KEY = 'request_token';
-const RENEWAL_TOKEN_KEY = 'renewal_token';
-const LAST_ROLES = 'last_roles';
+const TOKEN_KEY = "request_token";
+const RENEWAL_TOKEN_KEY = "renewal_token";
+const LAST_ROLES = "last_roles";
 
-const AUTHORIZATION_HEADER = 'authorization';
-const AUTHORIZATION_RENEWAL_HEADER = 'x-authorization-renewal';
+const AUTHORIZATION_HEADER = "authorization";
+const AUTHORIZATION_RENEWAL_HEADER = "x-authorization-renewal";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SelfService {
 
@@ -127,17 +127,17 @@ export class SelfService {
    */
   login(credentials: Login) {
     const headers = new HttpHeaders({
-      'Content-Type': 'text/plain', 'Authorization': 'Basic ' + btoa(`${credentials.username}:${credentials.password}`)
+      "Content-Type": "text/plain", "Authorization": "Basic " + btoa(`${credentials.username}:${credentials.password}`)
     });
-    return this.httpClient.post(`${environment.barrelUrl}${controllers.self.auth()}`, '', {
+    return this.httpClient.post(`${environment.barrelUrl}${controllers.self.auth()}`, "", {
       headers: headers,
-      observe: 'response'
+      observe: "response"
     }).pipe(map(response => {
       if (response.ok) {
-        console.log('login was successful, store token');
+        console.log("login was successful, store token");
         this.token = response.headers.get(AUTHORIZATION_HEADER);
         if (credentials.persist) {
-          console.log('user decided to remain logged-in, store renewal token');
+          console.log("user decided to remain logged-in, store renewal token");
           this.renewalToken = response.headers.get(AUTHORIZATION_RENEWAL_HEADER);
         }
         this.refreshUserInfo();
@@ -153,22 +153,22 @@ export class SelfService {
    */
   refreshToken() {
     if (!this.renewalToken) {
-      console.log('there is not refresh token');
+      console.log("there is not refresh token");
       return of(false);
     }
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.renewalToken}`
     });
     return this.httpClient
-      .post<object>(`${environment.barrelUrl}${controllers.self.refresh()}`, '', {headers: headers, observe: 'response'})
+      .post<object>(`${environment.barrelUrl}${controllers.self.refresh()}`, "", {headers: headers, observe: "response"})
       .pipe(
         tap((response) => {
-          console.debug('retrieved the new token');
+          console.debug("retrieved the new token");
           this.token = response.headers.get(AUTHORIZATION_HEADER);
           this.refreshUserInfo();
         }),
         catchError((error) => {
-          console.log('error during token renewal', error);
+          console.log("error during token renewal", error);
           this.logout();
           return of(false);
         })
@@ -184,7 +184,7 @@ export class SelfService {
     this.token = null;
     this.renewalToken = null;
     this.setExecutives([]);
-    this.router.navigateByUrl('/').then(() => this.snackBar.open('Sie sind nun abgemeldet'));
+    this.router.navigateByUrl("/").then(() => this.snackBar.open("Sie sind nun abgemeldet"));
   }
 
   /**
@@ -204,13 +204,13 @@ export class SelfService {
   private refreshUserInfo() {
     this.info().subscribe({
       next: value => {
-        console.debug('retrieved user info', value);
+        console.debug("retrieved user info", value);
         this._user = value;
       }
     });
     this.executiveRoles().subscribe({
       next: value => {
-        console.debug('retrieved executive roles', value);
+        console.debug("retrieved executive roles", value);
         this.setExecutives(value);
       }
     });
@@ -238,6 +238,6 @@ export class SelfService {
    * @private
    */
   private removeBearerPrefix(token: string): string {
-    return token.replace(/^([Bb])earer( )*/, '');
+    return token.replace(/^([Bb])earer( )*/, "");
   }
 }

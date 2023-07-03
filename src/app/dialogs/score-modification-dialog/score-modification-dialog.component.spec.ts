@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from "@angular/core/testing";
 
-import { ScoreModificationDialogComponent } from './score-modification-dialog.component';
+import {ScoreModificationDialogComponent} from "./score-modification-dialog.component";
 
-describe('ScoreModificationDialogComponent', () => {
+describe("ScoreModificationDialogComponent", () => {
   let component: ScoreModificationDialogComponent;
   let fixture: ComponentFixture<ScoreModificationDialogComponent>;
 
@@ -17,7 +17,7 @@ describe('ScoreModificationDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

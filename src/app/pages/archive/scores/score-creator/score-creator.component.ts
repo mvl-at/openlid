@@ -18,22 +18,22 @@
  *
  */
 
-import {Component, ViewChild} from '@angular/core';
-import {Score} from '../../../../common/archive';
-import {ScoreEditorComponent} from '../../../../components/archive/score-editor/score-editor.component';
-import {Location} from '@angular/common';
-import {MatDialog} from '@angular/material/dialog';
+import {Component, ViewChild} from "@angular/core";
+import {Score} from "../../../../common/archive";
+import {ScoreEditorComponent} from "../../../../components/archive/score-editor/score-editor.component";
+import {Location} from "@angular/common";
+import {MatDialog} from "@angular/material/dialog";
 import {
   ScoreModificationDialogComponent
-} from '../../../../dialogs/score-modification-dialog/score-modification-dialog.component';
-import {ArchiveService} from '../../../../services/archive.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {HttpErrorSnackBarService} from '../../../../mat-helpers/http-error-snack-bar.service';
+} from "../../../../dialogs/score-modification-dialog/score-modification-dialog.component";
+import {ArchiveService} from "../../../../services/archive.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {HttpErrorSnackBarService} from "../../../../mat-helpers/http-error-snack-bar.service";
 
 @Component({
-  selector: 'lid-score-creator',
-  templateUrl: './score-creator.component.html',
-  styleUrls: ['./score-creator.component.scss']
+  selector: "lid-score-creator",
+  templateUrl: "./score-creator.component.html",
+  styleUrls: ["./score-creator.component.scss"]
 })
 export class ScoreCreatorComponent {
 
@@ -55,20 +55,20 @@ export class ScoreCreatorComponent {
     pages: [],
     publisher: null,
     subtitles: [],
-    title: ''
+    title: ""
   };
 
   constructor(private location: Location, private dialog: MatDialog, private archiveService: ArchiveService, private snackBar: MatSnackBar, private snackBarErrorHandler: HttpErrorSnackBarService) {
   }
 
   cancel(event: MouseEvent) {
-    console.debug('navigate back with', event);
+    console.debug("navigate back with", event);
     if (this.scoreEditor?.scoreForm?.untouched) {
       this.location.back();
       return;
     }
     const dialogRef = this.dialog.open(ScoreModificationDialogComponent, {
-      data: {score: this.scoreEditor?.scoreForm?.getRawValue(), mode: 'cancel'},
+      data: {score: this.scoreEditor?.scoreForm?.getRawValue(), mode: "cancel"},
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -82,16 +82,16 @@ export class ScoreCreatorComponent {
   createScore() {
     const score = this.scoreEditor?.scoreForm.getRawValue();
     if (!score) {
-      console.error('unable to retrieve score from presumably valid form');
+      console.error("unable to retrieve score from presumably valid form");
       return;
     }
     this.archiveService.putScore(score as Score).subscribe({
       next: value => {
-        console.log('created score', value);
+        console.log("created score", value);
         this.location.back();
         this.snackBar.open(`Stück "${score.title}" erfolgreich eingetragen`);
       }, error: err => {
-        console.error('unable to persist score', err);
+        console.error("unable to persist score", err);
         this.snackBarErrorHandler.showError(err);
       }
     });

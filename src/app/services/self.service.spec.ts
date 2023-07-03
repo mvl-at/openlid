@@ -1,8 +1,8 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from "@angular/core/testing";
 
-import { SelfService } from './self.service';
+import {SelfService} from "./self.service";
 
-describe('SelfService', () => {
+describe("SelfService", () => {
   let service: SelfService;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('SelfService', () => {
     service = TestBed.inject(SelfService);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 });

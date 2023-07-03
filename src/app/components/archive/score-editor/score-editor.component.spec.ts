@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from "@angular/core/testing";
 
-import {ScoreEditorComponent} from './score-editor.component';
+import {ScoreEditorComponent} from "./score-editor.component";
 
-describe('ScoreEditorComponent', () => {
+describe("ScoreEditorComponent", () => {
   let component: ScoreEditorComponent;
   let fixture: ComponentFixture<ScoreEditorComponent>;
 
@@ -17,7 +17,7 @@ describe('ScoreEditorComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

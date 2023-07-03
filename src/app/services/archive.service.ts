@@ -18,11 +18,11 @@
  *
  */
 
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
-import {controllers} from './controllers';
+import {Injectable} from "@angular/core";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {environment} from "../../environments/environment";
+import {controllers} from "./controllers";
 import {
   CountStatistic,
   CountStatisticSubject,
@@ -31,10 +31,10 @@ import {
   Score,
   ScoreFilter,
   SearchResult
-} from '../common/archive';
+} from "../common/archive";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ArchiveService {
 
@@ -75,26 +75,26 @@ export class ArchiveService {
    */
   searchScore(filter: ScoreFilter, limit: number, bookmark: string | null): Observable<SearchResult<Score>> {
     let params = new HttpParams();
-    params = params.set('limit', limit);
+    params = params.set("limit", limit);
     if (bookmark) {
-      params = params.set('bookmark', bookmark);
+      params = params.set("bookmark", bookmark);
     }
     if (filter.searchTerm) {
-      params = params.set('search_term', filter.searchTerm);
+      params = params.set("search_term", filter.searchTerm);
     }
-    params = params.set('regex', filter.regex);
-    filter.attributes.forEach(a => {params = params.append('attributes', a)});
+    params = params.set("regex", filter.regex);
+    filter.attributes.forEach(a => {params = params.append("attributes", a)});
     if (filter.book) {
-      params = params.set('book', filter.book);
+      params = params.set("book", filter.book);
     }
     if (filter.location) {
-      params = params.set('location', filter.location);
+      params = params.set("location", filter.location);
     }
     if (filter.sort) {
-      params = params.set('sort', filter.sort);
+      params = params.set("sort", filter.sort);
     }
     if (filter.ascending) {
-      params = params.set('ascending', filter.ascending);
+      params = params.set("ascending", filter.ascending);
     }
     return this.httpClient.get<SearchResult<Score>>(`${environment.barrelUrl}${controllers.archive.scores.searches()}`, {params: params});
   }

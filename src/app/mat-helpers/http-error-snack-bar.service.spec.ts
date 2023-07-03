@@ -1,8 +1,8 @@
-import {TestBed} from '@angular/core/testing';
+import {TestBed} from "@angular/core/testing";
 
-import {HttpErrorSnackBarService} from './http-error-snack-bar.service';
+import {HttpErrorSnackBarService} from "./http-error-snack-bar.service";
 
-describe('HttpErrorSnackBarService', () => {
+describe("HttpErrorSnackBarService", () => {
   let service: HttpErrorSnackBarService;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('HttpErrorSnackBarService', () => {
     service = TestBed.inject(HttpErrorSnackBarService);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 });

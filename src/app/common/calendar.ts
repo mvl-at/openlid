@@ -33,8 +33,8 @@ export interface CalendarEventValue {
 }
 
 export enum CalendarType {
-  PUBLIC = 'public',
-  INTERNAL = 'internal',
+  PUBLIC = "public",
+  INTERNAL = "internal",
 }
 
 export function eventStart(event: CalendarEvent) {
