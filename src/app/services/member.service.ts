@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Crew} from "../common/member";
@@ -6,7 +6,7 @@ import {environment} from "../../environments/environment";
 import {controllers} from "./controllers";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class MemberService {
 

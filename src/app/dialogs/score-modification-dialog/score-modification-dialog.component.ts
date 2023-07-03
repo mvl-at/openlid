@@ -18,25 +18,22 @@
  *
  */
 
-import {Component, Inject, OnInit} from '@angular/core';
-import {Score} from '../../common/archive';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Component, Inject} from "@angular/core";
+import {Score} from "../../common/archive";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 export interface ScoreModificationDialogData {
   score?: Score;
-  mode: 'cancel' | 'delete' | 'modify';
+  mode: "cancel" | "delete" | "modify";
 }
 
 @Component({
-  selector: 'lid-score-modification-dialog',
-  templateUrl: './score-modification-dialog.component.html',
-  styleUrls: ['./score-modification-dialog.component.scss']
+  selector: "lid-score-modification-dialog",
+  templateUrl: "./score-modification-dialog.component.html",
+  styleUrls: ["./score-modification-dialog.component.scss"]
 })
-export class ScoreModificationDialogComponent implements OnInit {
+export class ScoreModificationDialogComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ScoreModificationDialogData) { }
-
-  ngOnInit(): void {
-  }
 
 }

@@ -18,24 +18,24 @@
  *
  */
 
-import {Injectable} from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {HttpErrorResponse} from '@angular/common/http';
+import {Injectable} from "@angular/core";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {HttpErrorResponse} from "@angular/common/http";
 
 export interface StatusMessages {
   [key: number]: string;
 }
 
 const DEFAULT_MESSAGES: StatusMessages = {
-  400: 'Die Anfrage war ungültig, vermutlich sind Daten falsch eingegeben worden',
-  403: 'Die Anfrage ist für Sie nicht erlaubt',
-  404: 'Die angefragte Resource kann nicht gefunden werden',
-  500: 'Der Server scheint Probleme zu haben, bitte probieren Sie es später',
-  0: 'Der Server kann zurzeit nicht erreicht werden, bitte probieren Sie es später'
+  400: "Die Anfrage war ungültig, vermutlich sind Daten falsch eingegeben worden",
+  403: "Die Anfrage ist für Sie nicht erlaubt",
+  404: "Die angefragte Resource kann nicht gefunden werden",
+  500: "Der Server scheint Probleme zu haben, bitte probieren Sie es später",
+  0: "Der Server kann zurzeit nicht erreicht werden, bitte probieren Sie es später"
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class HttpErrorSnackBarService {
 
@@ -43,17 +43,17 @@ export class HttpErrorSnackBarService {
   }
 
   showError(err: HttpErrorResponse, statusMessages?: StatusMessages) {
-    let messages: StatusMessages = {};
-    for (let statusCode in DEFAULT_MESSAGES) {
+    const messages: StatusMessages = {};
+    for (const statusCode in DEFAULT_MESSAGES) {
       messages[statusCode] = DEFAULT_MESSAGES[statusCode];
     }
     if (statusMessages) {
-      for (let statusCode in statusMessages) {
+      for (const statusCode in statusMessages) {
         messages[statusCode] = statusMessages[statusCode];
       }
     }
-    if (messages.hasOwnProperty(err.status)) {
-      this.snackBar.open(messages[err.status], 'schade', {duration: 0});
+    if (Object.prototype.hasOwnProperty.call(messages, err.status)) {
+      this.snackBar.open(messages[err.status], "schade", {duration: 0});
     }
   }
 }

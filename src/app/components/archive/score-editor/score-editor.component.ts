@@ -18,19 +18,19 @@
  *
  */
 
-import {Component, Input, OnInit} from '@angular/core';
-import {Score} from '../../../common/archive';
-import {FormBuilder} from '@angular/forms';
-import {FormModel, InferModeNullable} from 'ngx-mf';
-import {ArchiveService} from '../../../services/archive.service';
-import {Observable, startWith} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {HttpErrorSnackBarService} from '../../../mat-helpers/http-error-snack-bar.service';
+import {Component, Input, OnInit} from "@angular/core";
+import {Score} from "../../../common/archive";
+import {FormBuilder} from "@angular/forms";
+import {FormModel, InferModeNullable} from "ngx-mf";
+import {ArchiveService} from "../../../services/archive.service";
+import {Observable, startWith} from "rxjs";
+import {map} from "rxjs/operators";
+import {HttpErrorSnackBarService} from "../../../mat-helpers/http-error-snack-bar.service";
 
 @Component({
-  selector: 'lid-score-editor',
-  templateUrl: './score-editor.component.html',
-  styleUrls: ['./score-editor.component.scss']
+  selector: "lid-score-editor",
+  templateUrl: "./score-editor.component.html",
+  styleUrls: ["./score-editor.component.scss"]
 })
 export class ScoreEditorComponent implements OnInit {
 
@@ -42,7 +42,7 @@ export class ScoreEditorComponent implements OnInit {
   filteredPublishers: Observable<string[]> | undefined;
   filteredLocations: Observable<string[]> | undefined;
 
-  scoreForm = this.formBuilder.nonNullable.group<ScoreForm['controls']>({
+  scoreForm = this.formBuilder.nonNullable.group<ScoreForm["controls"]>({
     _id: this.formBuilder.control(null),
     _rev: this.formBuilder.control(null),
     alias: this.formBuilder.nonNullable.control([]),
@@ -58,7 +58,7 @@ export class ScoreEditorComponent implements OnInit {
     pages: this.formBuilder.array<PageForm>([]),
     publisher: this.formBuilder.control(null),
     subtitles: this.formBuilder.nonNullable.control([]),
-    title: this.formBuilder.nonNullable.control('')
+    title: this.formBuilder.nonNullable.control("")
   });
 
   constructor(private formBuilder: FormBuilder, private archiveService: ArchiveService, private snackBarErrorHandler: HttpErrorSnackBarService) {
@@ -71,13 +71,13 @@ export class ScoreEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshStatistics();
-    this.filteredPublishers = this.scoreForm.controls['publisher'].valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '', this.publishers)),
+    this.filteredPublishers = this.scoreForm.controls["publisher"].valueChanges.pipe(
+      startWith(""),
+      map(value => this._filter(value || "", this.publishers)),
     );
-    this.filteredLocations = this.scoreForm.controls['location'].valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '', this.locations)),
+    this.filteredLocations = this.scoreForm.controls["location"].valueChanges.pipe(
+      startWith(""),
+      map(value => this._filter(value || "", this.locations)),
     );
   }
 
@@ -110,5 +110,5 @@ export class ScoreEditorComponent implements OnInit {
   }
 }
 
-type ScoreForm = FormModel<Score, { pages: ['group'] }, InferModeNullable>;
-type PageForm = ScoreForm['controls']['pages']['controls'][0];
+type ScoreForm = FormModel<Score, { pages: ["group"] }, InferModeNullable>;
+type PageForm = ScoreForm["controls"]["pages"]["controls"][0];

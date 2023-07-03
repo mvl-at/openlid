@@ -18,14 +18,14 @@
  *
  */
 
-import {Component, OnInit} from '@angular/core';
-import {DocumentService} from '../../services/document.service';
-import {HttpErrorSnackBarService} from '../../mat-helpers/http-error-snack-bar.service';
+import {Component, OnInit} from "@angular/core";
+import {DocumentService} from "../../services/document.service";
+import {HttpErrorSnackBarService} from "../../mat-helpers/http-error-snack-bar.service";
 
 @Component({
-  selector: 'lid-blackboard',
-  templateUrl: './blackboard.component.html',
-  styleUrls: ['./blackboard.component.scss']
+  selector: "lid-blackboard",
+  templateUrl: "./blackboard.component.html",
+  styleUrls: ["./blackboard.component.scss"]
 })
 export class BlackboardComponent implements OnInit {
 

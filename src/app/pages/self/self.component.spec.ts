@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from "@angular/core/testing";
 
-import { SelfComponent } from './self.component';
+import {SelfComponent} from "./self.component";
 
-describe('SelfComponent', () => {
+describe("SelfComponent", () => {
   let component: SelfComponent;
   let fixture: ComponentFixture<SelfComponent>;
 
@@ -17,7 +17,7 @@ describe('SelfComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

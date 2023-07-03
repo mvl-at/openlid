@@ -1,8 +1,8 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from "@angular/core/testing";
 
-import { ExecutiveRoleGuard } from './executive-role.guard';
+import {ExecutiveRoleGuard} from "./executive-role.guard";
 
-describe('ExecutiveRoleGuard', () => {
+describe("ExecutiveRoleGuard", () => {
   let guard: ExecutiveRoleGuard;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('ExecutiveRoleGuard', () => {
     guard = TestBed.inject(ExecutiveRoleGuard);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(guard).toBeTruthy();
   });
 });

@@ -1,4 +1,3 @@
-import {ScoresDataSource} from './scores-data-source';
-
-describe('ScoresDataSource', () => {
+describe("ScoresDataSource", () => {
+  console.trace("describe()");
 });

@@ -18,14 +18,14 @@
  *
  */
 
-import {Pipe, PipeTransform} from '@angular/core';
+import {Pipe, PipeTransform} from "@angular/core";
 
 @Pipe({
-  name: 'debugDisplay'
+  name: "debugDisplay"
 })
 export class DebugDisplayPipe implements PipeTransform {
 
   transform(showInDebugOnly: boolean): boolean {
-    return !!localStorage.getItem('debug_display') === showInDebugOnly;
+    return !!localStorage.getItem("debug_display") === showInDebugOnly;
   }
 }

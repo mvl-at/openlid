@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from "@angular/core/testing";
 
-import { ChipListComponent } from './chip-list.component';
+import {ChipListComponent} from "./chip-list.component";
 
-describe('ChipListComponent', () => {
+describe("ChipListComponent", () => {
   let component: ChipListComponent;
   let fixture: ComponentFixture<ChipListComponent>;
 
@@ -17,7 +17,7 @@ describe('ChipListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

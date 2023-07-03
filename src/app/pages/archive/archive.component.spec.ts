@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from "@angular/core/testing";
 
-import { ArchiveComponent } from './archive.component';
+import {ArchiveComponent} from "./archive.component";
 
-describe('ArchiveComponent', () => {
+describe("ArchiveComponent", () => {
   let component: ArchiveComponent;
   let fixture: ComponentFixture<ArchiveComponent>;
 
@@ -17,7 +17,7 @@ describe('ArchiveComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

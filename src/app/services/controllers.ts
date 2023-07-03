@@ -20,27 +20,27 @@
 
 export const controllers = {
   members: {
-    root: '/members', photo: (username: string) => `${controllers.members.root}/${username}/photo`
+    root: "/members", photo: (username: string) => `${controllers.members.root}/${username}/photo`
   }, archive: {
     scores: {
-      root: '/scores',
+      root: "/scores",
       searches: () => `${controllers.archive.scores.root}/searches`
     },
     statistics: {
-      root: '/statistics', counts: () => `${controllers.archive.statistics.root}/counts`
+      root: "/statistics", counts: () => `${controllers.archive.statistics.root}/counts`
     }
   }, documents: {
-    root: '/documents', blackboard: {
+    root: "/documents", blackboard: {
       root: () => `${controllers.documents.root}/blackboard`,
       document: (document: string) => `${controllers.documents.blackboard.root()}/${document}`,
       image: (filename: string) => `${controllers.documents.blackboard.root()}/assets/${filename}`
     }
   },
   calendar: {
-    root: '/calendar'
+    root: "/calendar"
   },
   self: {
-    root: '/users',
+    root: "/users",
     auth: () => `${controllers.self.root}/auth`,
     refresh: () => `${controllers.self.root}/renewal`,
     info: () => `${controllers.self.root}/self`,

@@ -1,20 +1,17 @@
-import {Directive, HostBinding, HostListener, Input} from '@angular/core';
+import {Directive, HostBinding, HostListener, Input} from "@angular/core";
 
 @Directive({
-  selector: 'img[fallback]'
+  selector: "img[lidFallback]"
 })
 export class FallbackImgDirective {
 
   @Input()
-  @HostBinding('src')
+  @HostBinding("src")
   src!: string;
-  @Input() fallback!: string;
+  @Input() lidFallback!: string;
 
-  constructor() {
-  }
-
-  @HostListener('error')
+  @HostListener("error")
   onError() {
-    this.src = this.fallback;
+    this.src = this.lidFallback;
   }
 }

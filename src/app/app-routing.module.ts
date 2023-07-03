@@ -18,47 +18,47 @@
  *
  */
 
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {NavigationComponent} from './components/navigation/navigation.component';
-import {MembersComponent} from './pages/members/members.component';
-import {ArchiveComponent} from './pages/archive/archive.component';
-import {BlackboardComponent} from './pages/blackboard/blackboard.component';
-import {LoginComponent} from './pages/login/login.component';
-import {SelfComponent} from './pages/self/self.component';
-import {authenticationGuard} from './guards/authentication.guard.service';
-import {executiveRoleGuard} from './guards/executive-role.guard';
-import {environment} from '../environments/environment';
-import {ScoreShelfComponent} from './pages/archive/scores/score-shelf/score-shelf.component';
-import {ScoreCreatorComponent} from './pages/archive/scores/score-creator/score-creator.component';
-import {CalendarComponent} from './pages/calendar/calendar.component';
+import {NgModule} from "@angular/core";
+import {RouterModule, Routes} from "@angular/router";
+import {NavigationComponent} from "./components/navigation/navigation.component";
+import {MembersComponent} from "./pages/members/members.component";
+import {ArchiveComponent} from "./pages/archive/archive.component";
+import {BlackboardComponent} from "./pages/blackboard/blackboard.component";
+import {LoginComponent} from "./pages/login/login.component";
+import {SelfComponent} from "./pages/self/self.component";
+import {authenticationGuard} from "./guards/authentication.guard.service";
+import {executiveRoleGuard} from "./guards/executive-role.guard";
+import {environment} from "../environments/environment";
+import {ScoreShelfComponent} from "./pages/archive/scores/score-shelf/score-shelf.component";
+import {ScoreCreatorComponent} from "./pages/archive/scores/score-creator/score-creator.component";
+import {CalendarComponent} from "./pages/calendar/calendar.component";
 
 const routes: Routes = [
-  {path: '', component: BlackboardComponent},
-  {path: 'menu', component: NavigationComponent},
-  {path: 'members', component: MembersComponent},
-  {path: 'events', component: CalendarComponent},
+  {path: "", component: BlackboardComponent},
+  {path: "menu", component: NavigationComponent},
+  {path: "members", component: MembersComponent},
+  {path: "events", component: CalendarComponent},
   {
-    path: 'archive',
+    path: "archive",
     component: ArchiveComponent,
     canActivate: [executiveRoleGuard],
     data: {roles: [environment.executiveRoles.archive]},
     children: [{
-      path: '',
+      path: "",
       component: ScoreShelfComponent
     },
       {
-        path: 'scores',
+        path: "scores",
         component: ScoreShelfComponent,
       },
       {
-        path: 'scores/new',
+        path: "scores/new",
         component: ScoreCreatorComponent
       }
     ]
   },
-  {path: 'login', component: LoginComponent},
-  {path: 'self', component: SelfComponent, canActivate: [authenticationGuard]},
+  {path: "login", component: LoginComponent},
+  {path: "self", component: SelfComponent, canActivate: [authenticationGuard]},
 ];
 
 @NgModule({

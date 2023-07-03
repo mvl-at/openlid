@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Crew} from '../../common/member';
-import {MemberService} from '../../services/member.service';
-import {NavigationComponent, NavigationItem} from '../../components/navigation/navigation.component';
-import {Router} from '@angular/router';
-import {HttpErrorSnackBarService} from '../../mat-helpers/http-error-snack-bar.service';
+import {Component, OnInit} from "@angular/core";
+import {Crew} from "../../common/member";
+import {MemberService} from "../../services/member.service";
+import {NavigationComponent, NavigationItem} from "../../components/navigation/navigation.component";
+import {Router} from "@angular/router";
+import {HttpErrorSnackBarService} from "../../mat-helpers/http-error-snack-bar.service";
 
 @Component({
-  selector: 'lid-members',
-  templateUrl: './members.component.html',
-  styleUrls: ['./members.component.scss']
+  selector: "lid-members",
+  templateUrl: "./members.component.html",
+  styleUrls: ["./members.component.scss"]
 })
 export class MembersComponent implements OnInit {
 
@@ -20,9 +20,9 @@ export class MembersComponent implements OnInit {
   ngOnInit(): void {
     this.memberService.getAllByRegisters().subscribe({
       next: data => {
-        console.log('received registers', data);
+        console.log("received registers", data);
         this.crew = data;
-        let memberNavigation: NavigationItem[] = this.crew.musicians.map(register => ({
+        const memberNavigation: NavigationItem[] = this.crew.musicians.map(register => ({
           link: [this.router.url],
           fragment: register.name,
           label: register.name,
@@ -41,13 +41,13 @@ export class MembersComponent implements OnInit {
         if (this.crew.honoraryMembers.length > 0) {
           memberNavigation.push({
             children: [],
-            fragment: 'Ehrenmitglieder',
-            label: 'Ehrenmitglieder',
+            fragment: "Ehrenmitglieder",
+            label: "Ehrenmitglieder",
             link: [this.router.url],
             scroll: true
           });
         }
-        this.navigation.addChildren('Mitglieder', memberNavigation);
+        this.navigation.addChildren("Mitglieder", memberNavigation);
       },
       error: this.snackBarErrorHandler.showError
     })

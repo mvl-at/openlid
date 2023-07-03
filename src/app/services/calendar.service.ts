@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {Calendar, CalendarType} from '../common/calendar';
-import {environment} from '../../environments/environment';
-import {controllers} from './controllers';
+import {Injectable} from "@angular/core";
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {Calendar, CalendarType} from "../common/calendar";
+import {environment} from "../../environments/environment";
+import {controllers} from "./controllers";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class CalendarService {
 

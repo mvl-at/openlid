@@ -18,10 +18,10 @@
  *
  */
 
-import {inject} from '@angular/core';
-import {ActivatedRouteSnapshot, Router} from '@angular/router';
-import {SelfService} from '../services/self.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {inject} from "@angular/core";
+import {ActivatedRouteSnapshot, Router} from "@angular/router";
+import {SelfService} from "../services/self.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 /**
  * Redirect the user to the `/self` page if their executive roles are not sufficient.
@@ -33,14 +33,14 @@ export const executiveRoleGuard = (route: ActivatedRouteSnapshot) => {
   const selfService = inject(SelfService);
   const router = inject(Router);
   const snackBar = inject(MatSnackBar);
-  const desiredRoles: string[] = route.data['roles'];
+  const desiredRoles: string[] = route.data["roles"];
   if (desiredRoles.some(r => selfService.hasExecutiveRole(r))) {
     return true;
   }
-  console.debug('user has not at least one of the required executive roles', desiredRoles);
-  router.navigateByUrl('/self').then(value => {
-      console.debug('user redirection', value);
-      snackBar.open(`Sie haben nicht eines der notwendigen Rechte: ${desiredRoles.join(', ')}`);
+  console.debug("user has not at least one of the required executive roles", desiredRoles);
+  router.navigateByUrl("/self").then(value => {
+      console.debug("user redirection", value);
+      snackBar.open(`Sie haben nicht eines der notwendigen Rechte: ${desiredRoles.join(", ")}`);
     }
   );
     return false;

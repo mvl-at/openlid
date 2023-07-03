@@ -18,38 +18,38 @@
  *
  */
 
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl} from '@angular/forms';
-import {ScoresDataSource} from '../../scores-data-source';
-import {MatPaginator} from '@angular/material/paginator';
-import {ArchiveService} from '../../../../services/archive.service';
-import {Page, PageNumber, ScoreFilter} from '../../../../common/archive';
-import {FormModel, InferModeFromModel} from 'ngx-mf';
+import {Component, ViewChild} from "@angular/core";
+import {FormBuilder, FormControl} from "@angular/forms";
+import {ScoresDataSource} from "../../scores-data-source";
+import {MatPaginator} from "@angular/material/paginator";
+import {ArchiveService} from "../../../../services/archive.service";
+import {Page, PageNumber, ScoreFilter} from "../../../../common/archive";
+import {FormModel, InferModeFromModel} from "ngx-mf";
 
 @Component({
-  selector: 'lid-score-shelf',
-  templateUrl: './score-shelf.component.html',
-  styleUrls: ['./score-shelf.component.scss']
+  selector: "lid-score-shelf",
+  templateUrl: "./score-shelf.component.html",
+  styleUrls: ["./score-shelf.component.scss"]
 })
-export class ScoreShelfComponent implements OnInit {
+export class ScoreShelfComponent {
 
-  attributeList = [{name: 'Titel', value: 'title'}, {name: 'Untertitel', value: 'subtitles'}, {
-    name: 'Komponisten', value: 'composers'
-  }, {name: 'Arrangeure', value: 'arrangers'}, {name: 'Verlag', value: 'publisher'}, {
-    name: 'Aufbewahrung', value: 'location'
-  }, {name: 'Seiten', value: 'pages'}];
+  attributeList = [{name: "Titel", value: "title"}, {name: "Untertitel", value: "subtitles"}, {
+    name: "Komponisten", value: "composers"
+  }, {name: "Arrangeure", value: "arrangers"}, {name: "Verlag", value: "publisher"}, {
+    name: "Aufbewahrung", value: "location"
+  }, {name: "Seiten", value: "pages"}];
 
   attributes = new FormControl(this.attributeList);
 
-  filterAttributes = [{name: 'Titel', value: 'title'}, {name: 'Alias', value: 'alias'}, {name: 'Untertitel', value: 'subtitles'}, {name: 'Genres', value: 'genres'}, {
-    name: 'Komponisten', value: 'composers'
-  }, {name: 'Arrangeure', value: 'arrangers'}, {name: 'Verlag', value: 'publisher'}];
+  filterAttributes = [{name: "Titel", value: "title"}, {name: "Alias", value: "alias"}, {name: "Untertitel", value: "subtitles"}, {name: "Genres", value: "genres"}, {
+    name: "Komponisten", value: "composers"
+  }, {name: "Arrangeure", value: "arrangers"}, {name: "Verlag", value: "publisher"}];
 
-  scoreFilterForm = this.formBuilder.nonNullable.group<ScoreFilterForm['controls']>({
+  scoreFilterForm = this.formBuilder.nonNullable.group<ScoreFilterForm["controls"]>({
     searchTerm: this.formBuilder.control(null),
     regex: this.formBuilder.nonNullable.control(false),
     attributes: this.formBuilder.nonNullable.control([]),
-    book: this.formBuilder.control('Rot'),
+    book: this.formBuilder.control("Rot"),
     location: this.formBuilder.control(null),
     sort: this.formBuilder.control(null),
     ascending: this.formBuilder.control(null)
@@ -77,14 +77,7 @@ export class ScoreShelfComponent implements OnInit {
   }
 
   private static pageNumberToString(pageNumber: PageNumber) {
-    return `${pageNumber.prefix ?? ''}${pageNumber.number}${pageNumber.suffix ?? ''}`;
-  }
-
-  ngOnInit(): void {
-  }
-
-  ngAfterViewInit() {
-    this.refreshScores();
+    return `${pageNumber.prefix ?? ""}${pageNumber.number}${pageNumber.suffix ?? ""}`;
   }
 
   changePage() {
@@ -106,4 +99,4 @@ export class ScoreShelfComponent implements OnInit {
 
 }
 
-type ScoreFilterForm = FormModel<ScoreFilter, {}, InferModeFromModel>;
+type ScoreFilterForm = FormModel<ScoreFilter, object, InferModeFromModel>;
