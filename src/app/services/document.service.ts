@@ -46,8 +46,7 @@ export class DocumentService {
    * @param name the filename of the blackboard document
    */
   getBlackBoardDocument(name: string): Observable<string> {
-    let headers = new HttpHeaders({'Accept': 'text/markdown'});
-    let httpOptions: Object = {headers: headers, responseType: 'text'};
-    return this.httpClient.get<string>(`${environment.barrelUrl}${controllers.documents.blackboard.document(name)}`, httpOptions);
+    const headers = new HttpHeaders({'Accept': 'text/markdown'});
+    return this.httpClient.get(`${environment.barrelUrl}${controllers.documents.blackboard.document(name)}`, {headers: headers, responseType: 'text'});
   }
 }

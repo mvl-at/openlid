@@ -18,7 +18,7 @@
  *
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {SelfService} from '../../services/self.service';
 
 @Component({
@@ -26,8 +26,8 @@ import {SelfService} from '../../services/self.service';
   templateUrl: './self.component.html',
   styleUrls: ['./self.component.scss']
 })
-export class SelfComponent implements OnInit {
-  panelOpenState: boolean = false;
+export class SelfComponent {
+  panelOpenState = false;
 
   constructor(private selfService: SelfService) {
   }
@@ -42,10 +42,6 @@ export class SelfComponent implements OnInit {
 
   get executiveRoles() {
     return this.selfService.executives;
-  }
-
-
-  ngOnInit(): void {
   }
 
 }

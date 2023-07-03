@@ -29,18 +29,18 @@ export class ScoresDataSource implements DataSource<Score> {
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   // `true` if the last request by `this.logScores(...)` was requested with an empty filter
-  private isEmpty: boolean = true;
+  private isEmpty = true;
 
   private lastFilter: ScoreFilter | undefined = undefined;
-  private lastLimit: number = 0;
+  private lastLimit = 0;
 
   // begin empty filter attributes
-  private totalRows: number = 1;
+  private totalRows = 1;
   // end empty filter attributes
 
   // begin non-empty filter attributes
-  private lastResultSize: number = 0;
-  private foundResults: number = 1;
+  private lastResultSize = 0;
+  private foundResults = 1;
   private bookmarks: Map<number, string> = new Map();
 
   // begin non-empty filter attributes
@@ -56,10 +56,12 @@ export class ScoresDataSource implements DataSource<Score> {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   connect(collectionViewer: CollectionViewer): Observable<Score[]> {
     return this.scoresSubject.asObservable();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   disconnect(collectionViewer: CollectionViewer): void {
     this.scoresSubject.complete();
     this.loadingSubject.complete();
@@ -96,7 +98,7 @@ export class ScoresDataSource implements DataSource<Score> {
   }
 
   private loadScoresFromSearch(index: number, limit: number, filter: ScoreFilter) {
-    let bookmark = this.bookmarks.get(index) || null;
+    const bookmark = this.bookmarks.get(index) || null;
     console.debug('current bookmarks', index, this.bookmarks);
     this.archiveService.searchScore(filter, limit, bookmark).pipe(catchError(() => of({
       docs: [], bookmark: ''

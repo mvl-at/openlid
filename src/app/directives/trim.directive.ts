@@ -27,7 +27,7 @@ import {NgControl} from '@angular/forms';
 export class TrimDirective {
 
   @Input()
-  lidTrim: boolean = false;
+  lidTrim = false;
 
   constructor(@Self() private ngControl: NgControl) {
   }

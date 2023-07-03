@@ -32,18 +32,18 @@ import {HttpErrorSnackBarService} from '../../../mat-helpers/http-error-snack-ba
 })
 export class BlackboardItemComponent implements OnInit {
 
-  @Input() filename: string = '';
+  @Input() filename = '';
 
   constructor(private documentService: DocumentService, private snackBarErrorHandler: HttpErrorSnackBarService) {
   }
 
-  private _isLoading: boolean = true;
+  private _isLoading = true;
 
   get isLoading() {
     return this._isLoading;
   }
 
-  private _content: string = '';
+  private _content = '';
 
   get content() {
     return this._content;

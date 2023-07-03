@@ -36,7 +36,7 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>, ControlValueAccessor {
   static nextId = 0;
   @Input() allItems: string[] = [];
-  @Input() ariaLabel: string = 'Element Auswahl';
+  @Input() ariaLabel = 'Element Auswahl';
   separatorKeysCodes: number[] = [ENTER, COMMA];
   itemCtrl = new FormControl('');
   filteredItems: Observable<string[]>;
@@ -44,11 +44,10 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
   @ViewChild(MatChipGrid) rootChipList!: MatChipGrid;
   readonly autofilled: boolean = false;
   readonly controlType: string = 'chip-list-input';
-  focused: boolean = false;
+  focused = false;
   @HostBinding() readonly id = `chip-list-input-${ChipListComponent.nextId++}`;
   readonly stateChanges = new Subject<void>();
-  @Input('aria-describedby') userAriaDescribedBy: string = '';
-  private touched: boolean = false;
+  private touched = false;
 
   constructor(@Optional() @Self() public ngControl: NgControl) {
     if (this.ngControl != null) {
@@ -102,7 +101,7 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
     return this.focused || !this.empty;
   }
 
-  private _placeholder: string = 'Neues Element...';
+  private _placeholder = 'Neues Element...';
 
   @Input() get placeholder() {
     return this._placeholder;
@@ -113,28 +112,30 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
     this.stateChanges.next();
   }
 
-  onChange: any = () => {
+  onChange = () => {
+    console.trace('Called onChange()');
   };
 
-  onTouched: any = () => {
+  onTouched = () => {
+    console.trace('Called onTouched()');
   };
 
-  writeValue(obj: any): void {
+  writeValue(obj: string[]): void {
     this.value = obj;
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: () => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
   setDescribedByIds(ids: string[]) {
     if (this.itemInput) {
       const controlElement = this.itemInput.nativeElement
-        .querySelector('.chipList')!;
+        .querySelector('.chipList');
       if (controlElement) {
         controlElement.setAttribute('aria-describedby', ids.join(' '));
       }
@@ -153,7 +154,7 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
     }
 
     // Clear the input value
-    event.chipInput!.clear();
+    event.chipInput?.clear();
 
     this.itemCtrl.setValue(null);
   }
@@ -174,18 +175,15 @@ export class ChipListComponent implements OnInit, MatFormFieldControl<string[]>,
   }
 
   ngOnInit(): void {
+    console.debug('called ngInInit()');
   }
-
-  ngOnDestroy() {
-    this.stateChanges.complete();
-  }
-
   onContainerClick(event: MouseEvent) {
     if ((event.target as Element).tagName.toLowerCase() != 'input') {
       this.itemInput.nativeElement.querySelector('input')?.focus();
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onFocusIn(_event: FocusEvent) {
     if (!this.focused) {
       this.focused = true;

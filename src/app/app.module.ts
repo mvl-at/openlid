@@ -71,6 +71,7 @@ import { ScoreModificationDialogComponent } from './dialogs/score-modification-d
 import {MatDialogModule} from '@angular/material/dialog';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {NgOptimizedImage} from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent],
@@ -82,7 +83,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         scrollPositionRestoration: 'enabled'
     }), MarkdownModule.forRoot({
         sanitize: SecurityContext.NONE
-    }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, MatDialogModule, MatProgressSpinnerModule],
+    }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, MatDialogModule, MatProgressSpinnerModule, NgOptimizedImage],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
   providers: [{
     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

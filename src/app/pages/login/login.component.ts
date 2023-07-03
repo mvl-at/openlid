@@ -58,4 +58,4 @@ export class LoginComponent implements OnInit {
 
 }
 
-type LoginForm = FormModel<Login, {}, InferModeFromModel>;
+type LoginForm = FormModel<Login, object, InferModeFromModel>;

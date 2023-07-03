@@ -29,7 +29,7 @@ export class CalendarComponent {
           return !start || start >= new Date();
         });
         this.eventsLoadingDone = true;
-      }, error: err => {this.eventsLoadingDone = true}
+      }, error: () => {this.eventsLoadingDone = true}
     });
   }
 

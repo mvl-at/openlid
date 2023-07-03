@@ -18,7 +18,7 @@
  *
  */
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Score} from '../../../../common/archive';
 import {ScoreEditorComponent} from '../../../../components/archive/score-editor/score-editor.component';
 import {Location} from '@angular/common';
@@ -35,7 +35,7 @@ import {HttpErrorSnackBarService} from '../../../../mat-helpers/http-error-snack
   templateUrl: './score-creator.component.html',
   styleUrls: ['./score-creator.component.scss']
 })
-export class ScoreCreatorComponent implements OnInit {
+export class ScoreCreatorComponent {
 
   @ViewChild(ScoreEditorComponent) scoreEditor?: ScoreEditorComponent;
 
@@ -59,9 +59,6 @@ export class ScoreCreatorComponent implements OnInit {
   };
 
   constructor(private location: Location, private dialog: MatDialog, private archiveService: ArchiveService, private snackBar: MatSnackBar, private snackBarErrorHandler: HttpErrorSnackBarService) {
-  }
-
-  ngOnInit(): void {
   }
 
   cancel(event: MouseEvent) {

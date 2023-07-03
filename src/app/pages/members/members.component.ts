@@ -22,7 +22,7 @@ export class MembersComponent implements OnInit {
       next: data => {
         console.log('received registers', data);
         this.crew = data;
-        let memberNavigation: NavigationItem[] = this.crew.musicians.map(register => ({
+        const memberNavigation: NavigationItem[] = this.crew.musicians.map(register => ({
           link: [this.router.url],
           fragment: register.name,
           label: register.name,

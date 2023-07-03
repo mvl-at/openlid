@@ -27,7 +27,7 @@ export interface Pagination<E> {
 export interface PaginationRow<E> {
   id: string,
   key: string,
-  value: any,
+  value: object,
   doc: E,
 }
 

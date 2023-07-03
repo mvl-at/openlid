@@ -68,7 +68,7 @@ export class NavigationComponent {
     this.navigationItems.filter(i => i.label === label).forEach(item => item.children = children);
   }
 
-  scroll(id: string) {
+  scroll(event: MouseEvent, id: string) {
     const target = document.getElementById(id);
     target?.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
   }

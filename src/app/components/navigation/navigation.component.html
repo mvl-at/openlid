@@ -19,16 +19,16 @@
     <button (click)="selfService.logout()" mat-menu-item>Logout</button>
   </mat-menu>
   <img *ngIf="selfService.user" [alt]="'Bild von ' + selfService.user.name"
-       [fallback]="selfService.user.gender === 'm'? 'assets/avatar-male.svg' : 'assets/avatar-female.svg'"
+       [lidFallback]="selfService.user.gender === 'm'? 'assets/avatar-male.svg' : 'assets/avatar-female.svg'"
        [src]="photo" class="menu-photo">
   <a *ngIf="!selfService.user" href="/login" mat-button>Login</a>
   <img src="assets/logo-white.svg" alt="logo" class="logo"/>
 </mat-toolbar>
-<mat-sidenav-container [class.normal-toolbar-margin]="!(isHandset | async)"
+<mat-sidenav-container [class.normal-toolbar-margin]="(isHandset | async) === false"
                        [class.small-toolbar-margin]="isHandset | async"
                        class="sidenav-container">
   <mat-sidenav #drawer
-               [class.normal-toolbar-margin]="!(isHandset | async)"
+               [class.normal-toolbar-margin]="(isHandset | async) === false"
                [class.small-toolbar-margin]="isHandset | async"
                [mode]="(isHandset | async) ? 'over' : 'side'"
                [opened]="(isHandset | async) === false"
@@ -37,11 +37,11 @@
     <mat-toolbar>Menü</mat-toolbar>
     <mat-nav-list>
       <ng-container *ngFor="let item of navigationItems">
-        <a (click)="scroll(item.fragment)" *ngIf="item.scroll && item.fragment" mat-list-item>{{item.label}}</a>
+        <button (click)="scroll($event, item.fragment)" *ngIf="item.scroll && item.fragment" mat-list-item>{{item.label}}</button>
         <a *ngIf="!item.scroll" [fragment]="item.fragment" [routerLink]="item.link" mat-list-item>{{item.label}}</a>
-        <a (click)="scroll(subItem.fragment || '')" *ngFor="let subItem of item.children.filter(isScrollItem)"
+        <button (click)="scroll($event, subItem.fragment || '')" *ngFor="let subItem of item.children.filter(isScrollItem)"
            mat-list-item><span
-          class="sub-item">{{subItem.label}}</span></a>
+          class="sub-item">{{subItem.label}}</span></button>
         <a *ngFor="let subItem of item.children.filter(isNotScrollItem)" [fragment]="subItem.fragment"
            [routerLink]="subItem.link" mat-list-item><span
           class="sub-item">{{subItem.label}}</span></a>

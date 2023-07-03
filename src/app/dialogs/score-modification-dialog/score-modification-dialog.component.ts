@@ -18,7 +18,7 @@
  *
  */
 
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {Score} from '../../common/archive';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
@@ -32,11 +32,8 @@ export interface ScoreModificationDialogData {
   templateUrl: './score-modification-dialog.component.html',
   styleUrls: ['./score-modification-dialog.component.scss']
 })
-export class ScoreModificationDialogComponent implements OnInit {
+export class ScoreModificationDialogComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ScoreModificationDialogData) { }
-
-  ngOnInit(): void {
-  }
 
 }

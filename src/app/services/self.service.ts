@@ -160,7 +160,7 @@ export class SelfService {
       Authorization: `Bearer ${this.renewalToken}`
     });
     return this.httpClient
-      .post<any>(`${environment.barrelUrl}${controllers.self.refresh()}`, '', {headers: headers, observe: 'response'})
+      .post<object>(`${environment.barrelUrl}${controllers.self.refresh()}`, '', {headers: headers, observe: 'response'})
       .pipe(
         tap((response) => {
           console.debug('retrieved the new token');

@@ -28,13 +28,13 @@ import {controllers} from '../services/controllers';
 @Injectable()
 export class BearerTokenInterceptor implements HttpInterceptor {
 
-  private isRefreshing: boolean = false;
+  private isRefreshing = false;
 
   constructor(private selfService: SelfService) {
 
   }
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<object>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.debug('intercept bearer token');
     const token = this.selfService.token;
     const isApiUrl = request.url.startsWith(environment.barrelUrl);
@@ -66,7 +66,7 @@ export class BearerTokenInterceptor implements HttpInterceptor {
    * @param token the token to attach
    * @private
    */
-  private addToken(request: HttpRequest<any>, token: string) {
+  private addToken(request: HttpRequest<object>, token: string) {
     return request.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,
@@ -81,7 +81,7 @@ export class BearerTokenInterceptor implements HttpInterceptor {
    * @param next the handler to use to pass the next request to
    * @private
    */
-  private handleTokenError(request: HttpRequest<any>, next: HttpHandler) {
+  private handleTokenError(request: HttpRequest<object>, next: HttpHandler) {
     console.debug('handleTokenError');
     if (!this.isRefreshing) {
       this.isRefreshing = true;

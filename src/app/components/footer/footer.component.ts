@@ -18,13 +18,13 @@
  *
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'lid-footer', templateUrl: './footer.component.html', styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
   get currentYear() {
     const now = new Date(Date.now());
@@ -34,11 +34,4 @@ export class FooterComponent implements OnInit {
   get footerInfo() {
     return environment.footer;
   }
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
 }

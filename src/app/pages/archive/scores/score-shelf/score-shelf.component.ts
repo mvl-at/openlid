@@ -18,7 +18,7 @@
  *
  */
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {ScoresDataSource} from '../../scores-data-source';
 import {MatPaginator} from '@angular/material/paginator';
@@ -31,7 +31,7 @@ import {FormModel, InferModeFromModel} from 'ngx-mf';
   templateUrl: './score-shelf.component.html',
   styleUrls: ['./score-shelf.component.scss']
 })
-export class ScoreShelfComponent implements OnInit {
+export class ScoreShelfComponent {
 
   attributeList = [{name: 'Titel', value: 'title'}, {name: 'Untertitel', value: 'subtitles'}, {
     name: 'Komponisten', value: 'composers'
@@ -80,13 +80,6 @@ export class ScoreShelfComponent implements OnInit {
     return `${pageNumber.prefix ?? ''}${pageNumber.number}${pageNumber.suffix ?? ''}`;
   }
 
-  ngOnInit(): void {
-  }
-
-  ngAfterViewInit() {
-    this.refreshScores();
-  }
-
   changePage() {
     this.refreshScores();
   }
@@ -106,4 +99,4 @@ export class ScoreShelfComponent implements OnInit {
 
 }
 
-type ScoreFilterForm = FormModel<ScoreFilter, {}, InferModeFromModel>;
+type ScoreFilterForm = FormModel<ScoreFilter, object, InferModeFromModel>;
