@@ -29,6 +29,7 @@ import {
 import {ArchiveService} from "../../../../services/archive.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {HttpErrorSnackBarService} from "../../../../mat-helpers/http-error-snack-bar.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: "lid-score-creator",
@@ -39,7 +40,7 @@ export class ScoreCreatorComponent {
 
   @ViewChild(ScoreEditorComponent) scoreEditor?: ScoreEditorComponent;
 
-  readonly defaultScore: Score = {
+  defaultScore: Score = {
     _id: null,
     _rev: null,
     alias: [],
@@ -58,7 +59,13 @@ export class ScoreCreatorComponent {
     title: ""
   };
 
-  constructor(private location: Location, private dialog: MatDialog, private archiveService: ArchiveService, private snackBar: MatSnackBar, private snackBarErrorHandler: HttpErrorSnackBarService) {
+  constructor(private location: Location, private route: ActivatedRoute, private dialog: MatDialog, private archiveService: ArchiveService, private snackBar: MatSnackBar, private snackBarErrorHandler: HttpErrorSnackBarService) {
+    this.route.paramMap.subscribe({next: value => {
+      const id = value.get("id");
+      if (id) {
+        this.archiveService.getScore(id).subscribe({next: s => this.defaultScore = s})
+      }
+      }});
   }
 
   cancel(event: MouseEvent) {

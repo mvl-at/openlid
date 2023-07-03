@@ -82,7 +82,7 @@ export class ScoreShelfComponent {
   }
 
   get selectedValues() {
-    return this.attributes.value?.map(e => e.value) ?? [];
+    return (this.attributes.value?.map(e => e.value) ?? []).concat("actions");
   }
 
   private static pageNumberToString(pageNumber: PageNumber) {

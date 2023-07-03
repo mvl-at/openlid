@@ -54,6 +54,10 @@ const routes: Routes = [
       {
         path: "scores/new",
         component: ScoreCreatorComponent
+      },
+      {
+        path: "scores/:id",
+        component: ScoreCreatorComponent
       }
     ]
   },
