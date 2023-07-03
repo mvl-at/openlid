@@ -57,6 +57,8 @@
   </form>
 </mat-expansion-panel>
 
+<mat-progress-bar mode="indeterminate" *ngIf="inProgress"/>
+
 <br/>
 
 <table [dataSource]="scores" class="mat-elevation-z8" fixedLayout="true" mat-table style="width: 100%">

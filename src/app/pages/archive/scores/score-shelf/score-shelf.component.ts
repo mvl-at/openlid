@@ -40,6 +40,7 @@ export class ScoreShelfComponent {
   }, {name: "Seiten", value: "pages"}];
 
   attributes = new FormControl(this.attributeList);
+  inProgress = false;
 
   filterAttributes = [{name: "Titel", value: "title"}, {name: "Alias", value: "alias"}, {name: "Untertitel", value: "subtitles"}, {name: "Genres", value: "genres"}, {
     name: "Komponisten", value: "composers"
@@ -68,6 +69,7 @@ export class ScoreShelfComponent {
 
   constructor(private archiveService: ArchiveService, private formBuilder: FormBuilder) {
     this.scoresDataSource = new ScoresDataSource(archiveService);
+    this.scoresDataSource.loadingSubject.subscribe({next: value => this.inProgress = value});
     this.archiveService.getBooks().subscribe({next: value => this.booksStatistics = value});
     this.archiveService.getLocations().subscribe({next: value => this.locationsStatistics = value});
     this.scoreFilterForm.valueChanges.subscribe({next: () => this.refreshScores()});
