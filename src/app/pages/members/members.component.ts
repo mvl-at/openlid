@@ -1,9 +1,10 @@
 import {Component, OnInit} from "@angular/core";
 import {Crew} from "../../common/member";
 import {MemberService} from "../../services/member.service";
-import {NavigationComponent, NavigationItem} from "../../components/navigation/navigation.component";
+import {NavigationComponent} from "../../components/navigation/navigation.component";
 import {Router} from "@angular/router";
 import {HttpErrorSnackBarService} from "../../mat-helpers/http-error-snack-bar.service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: "lid-members",
@@ -14,7 +15,7 @@ export class MembersComponent implements OnInit {
 
   crew!: Crew;
 
-  constructor(private memberService: MemberService, private navigation: NavigationComponent, private router: Router, private snackBarErrorHandler: HttpErrorSnackBarService) {
+  constructor(private memberService: MemberService, private location: Location, private navigation: NavigationComponent, private router: Router, private snackBarErrorHandler: HttpErrorSnackBarService) {
   }
 
   ngOnInit(): void {
@@ -22,29 +23,6 @@ export class MembersComponent implements OnInit {
       next: data => {
         console.log("received registers", data);
         this.crew = data;
-        const memberNavigation: NavigationItem[] = this.crew.musicians.map(register => ({
-          link: [this.router.url],
-          fragment: register.name,
-          label: register.name,
-          children: [],
-        }));
-        if (this.crew.sutlers.length > 0) {
-          memberNavigation.push({
-            children: [],
-            fragment: "Marketenderinnen",
-            label: "Marketenderinnen",
-            link: [this.router.url],
-          });
-        }
-        if (this.crew.honoraryMembers.length > 0) {
-          memberNavigation.push({
-            children: [],
-            fragment: "Ehrenmitglieder",
-            label: "Ehrenmitglieder",
-            link: [this.router.url],
-          });
-        }
-        this.navigation.addChildren("Mitglieder", memberNavigation);
       },
       error: this.snackBarErrorHandler.showError
     })
