@@ -61,39 +61,39 @@
 
 <br/>
 
-<table [dataSource]="scores" class="mat-elevation-z8" fixedLayout="true" mat-table style="width: 100%">
+<table [dataSource]="scores" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8" fixedLayout="true" mat-table style="width: 100%">
   <ng-container matColumnDef="title">
-    <th *matHeaderCellDef mat-header-cell> Titel</th>
+    <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sortierung nach Titel"> Titel</th>
     <td *matCellDef="let element" mat-cell> {{element.title}} </td>
   </ng-container>
 
   <ng-container matColumnDef="subtitles">
-    <th *matHeaderCellDef mat-header-cell> Untertitel</th>
+    <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sortierung nach Untertitel"> Untertitel</th>
     <td *matCellDef="let element" mat-cell> {{element.subtitles.join(', ')}} </td>
   </ng-container>
 
   <ng-container matColumnDef="composers">
-    <th *matHeaderCellDef mat-header-cell> Komponisten</th>
+    <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sortierung nach Komponist"> Komponisten</th>
     <td *matCellDef="let element" mat-cell> {{element.composers.join(', ')}} </td>
   </ng-container>
 
   <ng-container matColumnDef="arrangers">
-    <th *matHeaderCellDef mat-header-cell> Arrangeure</th>
+    <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sortierung nach Arrangeur"> Arrangeure</th>
     <td *matCellDef="let element" mat-cell> {{element.arrangers.join(', ')}} </td>
   </ng-container>
 
   <ng-container matColumnDef="publisher">
-    <th *matHeaderCellDef mat-header-cell> Verlag</th>
+    <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sortierung nach Verlag"> Verlag</th>
     <td *matCellDef="let element" mat-cell> {{element.publisher}} </td>
   </ng-container>
 
   <ng-container matColumnDef="location">
-    <th *matHeaderCellDef mat-header-cell> Aufbewahrung</th>
+    <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sortierung nach Aufbewahrung"> Aufbewahrung</th>
     <td *matCellDef="let element" mat-cell> {{element.location}} </td>
   </ng-container>
 
   <ng-container matColumnDef="pages">
-    <th *matHeaderCellDef mat-header-cell> Seiten</th>
+    <th *matHeaderCellDef mat-header-cell mat-sort-header sortActionDescription="Sortierung nach Seite"> Seiten</th>
     <td *matCellDef="let element" mat-cell> {{element.pages.map(pageToString).join(', ')}} </td>
   </ng-container>
 

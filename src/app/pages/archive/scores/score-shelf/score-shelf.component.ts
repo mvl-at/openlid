@@ -25,6 +25,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {ArchiveService} from "../../../../services/archive.service";
 import {CountStatistic, Page, PageNumber, ScoreFilter} from "../../../../common/archive";
 import {FormModel, InferModeFromModel} from "ngx-mf";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: "lid-score-shelf",
@@ -105,6 +106,10 @@ export class ScoreShelfComponent {
     this.scoresDataSource.loadScores(this.paginator?.pageIndex ?? 0, this.paginator?.pageSize ?? this.limit, this.scoreFilterForm.getRawValue());
   }
 
+  announceSortChange(sortEvent: Sort) {
+    this.scoreFilterForm.controls.sort.setValue(sortEvent.direction !== ""? sortEvent.active:null);
+    this.scoreFilterForm.controls.ascending.setValue(sortEvent.direction === "asc");
+  }
 }
 
 type ScoreFilterForm = FormModel<ScoreFilter, object, InferModeFromModel>;
