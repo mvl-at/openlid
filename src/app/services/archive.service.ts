@@ -102,6 +102,13 @@ export class ArchiveService {
   /**
    * Fetch all the genres of the database with the counts of how much they are being used.
    */
+  getBooks(): Observable<CountStatistic> {
+    return this.getCountStatistics(CountStatisticSubject.Books);
+  }
+
+  /**
+   * Fetch all the genres of the database with the counts of how much they are being used.
+   */
   getGenres(): Observable<CountStatistic> {
     return this.getCountStatistics(CountStatisticSubject.Genres);
   }

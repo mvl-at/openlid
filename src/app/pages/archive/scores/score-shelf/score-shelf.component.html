@@ -2,13 +2,64 @@
 
 <p>Hier wird die Möglichkeit zu Verfügung gestellt durch das gesamt Stück Sortiment zu stöbern.</p>
 
-<mat-form-field>
-  <mat-label>Attribute</mat-label>
-  <mat-select [formControl]="attributes" multiple>
-    <mat-option *ngFor="let attribute of attributeList" [value]="attribute">{{attribute.name}}</mat-option>
-  </mat-select>
-</mat-form-field>
+<div class="form-row">
+  <mat-form-field class="form-ratio-1">
+    <mat-label>Attribute</mat-label>
+    <mat-select [formControl]="attributes" multiple>
+      <mat-option *ngFor="let attribute of attributeList" [value]="attribute">{{attribute.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
+  <form [formGroup]="scoreFilterForm" class="form-ratio-2 form-row">
+    <mat-form-field class="form-ratio-2">
+      <mat-label>Suchbegriff</mat-label>
+      <input formControlName="searchTerm" matInput placeholder="z.B. Bitte gib">
+    </mat-form-field>
+
+    <mat-slide-toggle class="form-ratio-1" formControlName="regex" style="align-self: center">Regex</mat-slide-toggle>
+  </form>
+</div>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon>search</mat-icon>
+      Suchoptionen
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <form [formGroup]="scoreFilterForm">
+    <div class="form-row">
+      <mat-form-field class="form-ratio-2">
+        <mat-label>Buch</mat-label>
+        <mat-select formControlName="book" placeholder="Alle">
+          <mat-option [value]="null">Alle</mat-option>
+          <mat-option *ngFor="let book of booksStatistics.rows" [value]="book.key">{{book.key}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-ratio-2">
+        <mat-label>Aufbewahrung</mat-label>
+        <mat-select formControlName="location" placeholder="Alle">
+          <mat-option [value]="null">Alle</mat-option>
+          <mat-option *ngFor="let location of locationsStatistics.rows"
+                      [value]="location.key">{{location.key}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-ratio-2">
+        <mat-label>Suchfelder</mat-label>
+        <mat-select formControlName="attributes" multiple placeholder="z.B. Titel, Alias">
+          <mat-option *ngFor="let filterAttribute of filterAttributes"
+                      [value]="filterAttribute.value">{{filterAttribute.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-expansion-panel>
+
+<mat-progress-bar mode="indeterminate" *ngIf="inProgress"/>
+
+<br/>
 
 <table [dataSource]="scores" class="mat-elevation-z8" fixedLayout="true" mat-table style="width: 100%">
   <ng-container matColumnDef="title">

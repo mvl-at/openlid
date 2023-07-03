@@ -26,7 +26,7 @@ import {ArchiveService} from "../../services/archive.service";
 export class ScoresDataSource implements DataSource<Score> {
 
   private scoresSubject = new BehaviorSubject<Score[]>([]);
-  private loadingSubject = new BehaviorSubject<boolean>(false);
+  loadingSubject = new BehaviorSubject<boolean>(false);
 
   // `true` if the last request by `this.logScores(...)` was requested with an empty filter
   private isEmpty = true;
@@ -89,7 +89,7 @@ export class ScoresDataSource implements DataSource<Score> {
   private loadAllScores(index: number, limit: number) {
     this.archiveService.getAllScoresPaginated(limit, index * limit).pipe(catchError(() => of({
       rows: [], total_rows: 0, offset: 0
-    }))).subscribe({
+    })), finalize(() => this.loadingSubject.next(false))).subscribe({
       next: data => {
         this.scoresSubject.next(data.rows.map(r => r.doc));
         this.totalRows = data.total_rows;
