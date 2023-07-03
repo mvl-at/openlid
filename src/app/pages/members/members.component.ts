@@ -27,7 +27,6 @@ export class MembersComponent implements OnInit {
           fragment: register.name,
           label: register.name,
           children: [],
-          scroll: true
         }));
         if (this.crew.sutlers.length > 0) {
           memberNavigation.push({
@@ -35,7 +34,6 @@ export class MembersComponent implements OnInit {
             fragment: "Marketenderinnen",
             label: "Marketenderinnen",
             link: [this.router.url],
-            scroll: true
           });
         }
         if (this.crew.honoraryMembers.length > 0) {
@@ -44,7 +42,6 @@ export class MembersComponent implements OnInit {
             fragment: "Ehrenmitglieder",
             label: "Ehrenmitglieder",
             link: [this.router.url],
-            scroll: true
           });
         }
         this.navigation.addChildren("Mitglieder", memberNavigation);

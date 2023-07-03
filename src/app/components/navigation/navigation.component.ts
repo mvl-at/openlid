@@ -67,19 +67,6 @@ export class NavigationComponent {
   addChildren(label: string, children: NavigationItem[]) {
     this.navigationItems.filter(i => i.label === label).forEach(item => item.children = children);
   }
-
-  scroll(event: MouseEvent, id: string) {
-    const target = document.getElementById(id);
-    target?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-  }
-
-  isScrollItem(item: NavigationItem): boolean {
-    return item.scroll === true && item.fragment !== undefined;
-  }
-
-  isNotScrollItem(item: NavigationItem): boolean {
-    return item.scroll !== true || item.fragment === undefined;
-  }
 }
 
 export const defaultItems: NavigationItem[] = [{label: "Startseite", link: ["/"], children: []}, {
@@ -99,6 +86,5 @@ export interface NavigationItem {
   link?: string[];
   fragment?: string;
   children: NavigationItem[];
-  scroll?: boolean;
   roles?: string[];
 }
