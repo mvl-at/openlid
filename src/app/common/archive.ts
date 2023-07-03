@@ -90,6 +90,7 @@ export function isEmpty(filter: ScoreFilter): boolean {
 export type CountStatistic = Statistic<string, number>
 
 export enum CountStatisticSubject {
+  Books = "books",
   Genres = "genres",
   Composers = "composers",
   Arrangers = "arrangers",

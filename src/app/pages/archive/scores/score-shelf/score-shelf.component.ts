@@ -23,7 +23,7 @@ import {FormBuilder, FormControl} from "@angular/forms";
 import {ScoresDataSource} from "../../scores-data-source";
 import {MatPaginator} from "@angular/material/paginator";
 import {ArchiveService} from "../../../../services/archive.service";
-import {Page, PageNumber, ScoreFilter} from "../../../../common/archive";
+import {CountStatistic, Page, PageNumber, ScoreFilter} from "../../../../common/archive";
 import {FormModel, InferModeFromModel} from "ngx-mf";
 
 @Component({
@@ -48,7 +48,7 @@ export class ScoreShelfComponent {
   scoreFilterForm = this.formBuilder.nonNullable.group<ScoreFilterForm["controls"]>({
     searchTerm: this.formBuilder.control(null),
     regex: this.formBuilder.nonNullable.control(false),
-    attributes: this.formBuilder.nonNullable.control([]),
+    attributes: this.formBuilder.nonNullable.control(this.filterAttributes.map(a => a.value)),
     book: this.formBuilder.control("Rot"),
     location: this.formBuilder.control(null),
     sort: this.formBuilder.control(null),
@@ -63,9 +63,13 @@ export class ScoreShelfComponent {
 
   @ViewChild(MatPaginator)
   private paginator?: MatPaginator;
+  booksStatistics: CountStatistic = {rows: []};
+  locationsStatistics: CountStatistic = {rows: []};
 
   constructor(private archiveService: ArchiveService, private formBuilder: FormBuilder) {
     this.scoresDataSource = new ScoresDataSource(archiveService);
+    this.archiveService.getBooks().subscribe({next: value => this.booksStatistics = value});
+    this.archiveService.getLocations().subscribe({next: value => this.locationsStatistics = value});
     this.refreshScores();
   }
 
