@@ -31,11 +31,13 @@ import {executiveRoleGuard} from './guards/executive-role.guard';
 import {environment} from '../environments/environment';
 import {ScoreShelfComponent} from './pages/archive/scores/score-shelf/score-shelf.component';
 import {ScoreCreatorComponent} from './pages/archive/scores/score-creator/score-creator.component';
+import {CalendarComponent} from './pages/calendar/calendar.component';
 
 const routes: Routes = [
   {path: '', component: BlackboardComponent},
   {path: 'menu', component: NavigationComponent},
   {path: 'members', component: MembersComponent},
+  {path: 'events', component: CalendarComponent},
   {
     path: 'archive',
     component: ArchiveComponent,

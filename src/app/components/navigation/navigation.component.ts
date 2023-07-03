@@ -87,6 +87,10 @@ export const defaultItems: NavigationItem[] = [{label: 'Startseite', link: ['/']
   link: ['/members'],
   children: []
 }, {
+  label: 'Termine',
+  link: ['/events'],
+  children: [],
+}, {
   label: 'Archiv', link: ['/archive'], children: [], roles: [environment.executiveRoles.archive]
 }];
 

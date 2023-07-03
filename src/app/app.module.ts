@@ -69,9 +69,11 @@ import {ScoreShelfComponent} from './pages/archive/scores/score-shelf/score-shel
 import { ScoreCreatorComponent } from './pages/archive/scores/score-creator/score-creator.component';
 import { ScoreModificationDialogComponent } from './dialogs/score-modification-dialog/score-modification-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CalendarComponent } from './pages/calendar/calendar.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent],
+  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent],
     imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
         useHash: false,
         anchorScrolling: 'enabled',
@@ -80,7 +82,7 @@ import {MatDialogModule} from '@angular/material/dialog';
         scrollPositionRestoration: 'enabled'
     }), MarkdownModule.forRoot({
         sanitize: SecurityContext.NONE
-    }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, MatDialogModule],
+    }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, MatDialogModule, MatProgressSpinnerModule],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
   providers: [{
     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
