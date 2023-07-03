@@ -70,6 +70,7 @@ export class ScoreShelfComponent {
     this.scoresDataSource = new ScoresDataSource(archiveService);
     this.archiveService.getBooks().subscribe({next: value => this.booksStatistics = value});
     this.archiveService.getLocations().subscribe({next: value => this.locationsStatistics = value});
+    this.scoreFilterForm.valueChanges.subscribe({next: () => this.refreshScores()});
     this.refreshScores();
   }
 
