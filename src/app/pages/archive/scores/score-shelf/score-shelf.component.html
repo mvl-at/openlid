@@ -100,9 +100,14 @@
   <ng-container matColumnDef="actions">
     <th *matHeaderCellDef mat-header-cell></th>
     <td *matCellDef="let element" mat-cell>
-      <button [routerLink]="['scores', element._id]" mat-icon-button aria-label="Bearbeiten">
+      <div style="display: flex">
+      <button [routerLink]="['scores', element._id]" mat-icon-button aria-label="Bearbeiten" matTooltip="Bearbeiten">
         <mat-icon>edit</mat-icon>
       </button>
+      <button mat-icon-button aria-label="Entfernen" matTooltip="Entfernen" (click)="removeScore(element)">
+        <mat-icon color="warn">delete</mat-icon>
+      </button>
+      </div>
     </td>
   </ng-container>
 

@@ -76,6 +76,17 @@ export class ArchiveService {
   }
 
   /**
+   * Delete a score from the database.
+   * If the revision is not the latest, this operation will fail.
+   * @param id the id of the score
+   * @param rev the revision of the score to delete
+   */
+  deleteScore(id: string, rev: string): Observable<void> {
+    const params = new HttpParams().set("rev", rev);
+    return this.httpClient.delete<void>(`${environment.barrelUrl}${controllers.archive.scores.root}/${id}`, {params: params});
+  }
+
+  /**
    * Search for all scores with the given filter.
    * For pagination see the upstream API doc.
    * @param filter the filter to use for the search
