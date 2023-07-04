@@ -75,6 +75,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {MatSortModule} from "@angular/material/sort";
 import {PageNumberDirective} from "./directives/page-number.directive";
 import {LidMatPaginatorIntl} from "./providers/lid-mat-paginator-intl";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent, PageNumberDirective],
@@ -86,7 +87,7 @@ import {LidMatPaginatorIntl} from "./providers/lid-mat-paginator-intl";
     scrollPositionRestoration: "enabled"
   }), MarkdownModule.forRoot({
     sanitize: SecurityContext.NONE
-  }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, MatDialogModule, MatProgressSpinnerModule, NgOptimizedImage, MatSortModule],
+  }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, MatDialogModule, MatProgressSpinnerModule, NgOptimizedImage, MatSortModule, MatTooltipModule],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
   providers: [{
     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

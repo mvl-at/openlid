@@ -23,9 +23,15 @@ import {FormBuilder, FormControl} from "@angular/forms";
 import {ScoresDataSource} from "../../scores-data-source";
 import {MatPaginator} from "@angular/material/paginator";
 import {ArchiveService} from "../../../../services/archive.service";
-import {CountStatistic, Page, PageNumber, ScoreFilter} from "../../../../common/archive";
+import {CountStatistic, Page, PageNumber, Score, ScoreFilter} from "../../../../common/archive";
 import {FormModel, InferModeFromModel} from "ngx-mf";
 import {Sort} from "@angular/material/sort";
+import {
+  ScoreModificationDialogComponent
+} from "../../../../dialogs/score-modification-dialog/score-modification-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {HttpErrorSnackBarService} from "../../../../mat-helpers/http-error-snack-bar.service";
 
 @Component({
   selector: "lid-score-shelf",
@@ -68,7 +74,7 @@ export class ScoreShelfComponent {
   booksStatistics: CountStatistic = {rows: []};
   locationsStatistics: CountStatistic = {rows: []};
 
-  constructor(private archiveService: ArchiveService, private formBuilder: FormBuilder) {
+  constructor(private archiveService: ArchiveService, private formBuilder: FormBuilder, private dialog: MatDialog, private snackbar: MatSnackBar, private httpErrorService: HttpErrorSnackBarService) {
     this.scoresDataSource = new ScoresDataSource(archiveService);
     this.scoresDataSource.loadingSubject.subscribe({next: value => this.inProgress = value});
     this.archiveService.getBooks().subscribe({next: value => this.booksStatistics = value});
@@ -109,6 +115,25 @@ export class ScoreShelfComponent {
   announceSortChange(sortEvent: Sort) {
     this.scoreFilterForm.controls.sort.setValue(sortEvent.direction !== ""? sortEvent.active:null);
     this.scoreFilterForm.controls.ascending.setValue(sortEvent.direction === "asc");
+  }
+
+  removeScore(score: Score) {
+    const dialogRef = this.dialog.open(ScoreModificationDialogComponent, {
+      data: {score: score, mode: "delete"},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.debug(`the dialog was closed: ${result}`);
+      if (result) {
+        this.archiveService.deleteScore(score._id ?? "", score._rev ?? "").subscribe({
+          next: () => {
+            this.refreshScores();
+            this.snackbar.open(`"${score.title}" erfolgreich entfernt`, "ok");
+          },
+          error: this.httpErrorService.showError
+        })
+      }
+    });
   }
 }
 
