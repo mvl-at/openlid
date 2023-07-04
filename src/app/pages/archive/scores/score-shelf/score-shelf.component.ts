@@ -51,7 +51,7 @@ export class ScoreShelfComponent {
     searchTerm: this.formBuilder.control(null),
     regex: this.formBuilder.nonNullable.control(false),
     attributes: this.formBuilder.nonNullable.control(this.filterAttributes.map(a => a.value)),
-    book: this.formBuilder.control("Rot"),
+    book: this.formBuilder.control(null),
     location: this.formBuilder.control(null),
     sort: this.formBuilder.control(null),
     ascending: this.formBuilder.control(null)
