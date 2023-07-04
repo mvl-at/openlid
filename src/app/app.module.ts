@@ -39,7 +39,7 @@ import {FallbackImgDirective} from "./directives/fallback-img.directive";
 import {RouterModule} from "@angular/router";
 import {ArchiveComponent} from "./pages/archive/archive.component";
 import {MatTableModule} from "@angular/material/table";
-import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
 import {MatSelectModule} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from "@angular/material/form-field";
@@ -74,6 +74,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NgOptimizedImage} from "@angular/common";
 import {MatSortModule} from "@angular/material/sort";
 import {PageNumberDirective} from "./directives/page-number.directive";
+import {LidMatPaginatorIntl} from "./providers/lid-mat-paginator-intl";
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent, PageNumberDirective],
@@ -102,6 +103,9 @@ import {PageNumberDirective} from "./directives/page-number.directive";
   }, {
     provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
     useValue: {duration: 2500}
+  }, {
+    provide: MatPaginatorIntl,
+    useClass: LidMatPaginatorIntl
   }],
   bootstrap: [AppComponent]
 })
