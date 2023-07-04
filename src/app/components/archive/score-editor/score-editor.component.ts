@@ -99,6 +99,15 @@ export class ScoreEditorComponent implements OnInit {
     this.scoreForm.controls.pages.push(pageForm);
   }
 
+  removePage(index: number) {
+    this.scoreForm.controls.pages.removeAt(index);
+  }
+
+  private _filter(value: string, collection: string[]): string[] {
+    const filterValue = value.toLowerCase();
+    return collection.filter(publisher => publisher.toLowerCase().includes(filterValue));
+  }
+
   private refreshStatistics() {
     this.archiveService.getGenres().subscribe({
       next: data => this.genres = data.rows.map(r => r.key),
@@ -117,14 +126,8 @@ export class ScoreEditorComponent implements OnInit {
       error: this.snackBarErrorHandler.showError
     });
     this.archiveService.getLocations().subscribe({
-      next: data => this.locations = data.rows.map(r => r.key),
-      error: this.snackBarErrorHandler.showError
+      next: data => this.locations = data.rows.map(r => r.key), error: this.snackBarErrorHandler.showError
     });
-  }
-
-  private _filter(value: string, collection: string[]): string[] {
-    const filterValue = value.toLowerCase();
-    return collection.filter(publisher => publisher.toLowerCase().includes(filterValue));
   }
 }
 
