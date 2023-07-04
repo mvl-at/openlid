@@ -39,6 +39,7 @@ export class ScoreEditorComponent implements OnInit {
   composers: string[] = [];
   publishers: string[] = [];
   locations: string[] = [];
+  books: string[] = [];
   filteredPublishers: Observable<string[]> | undefined;
   filteredLocations: Observable<string[]> | undefined;
 
@@ -127,6 +128,10 @@ export class ScoreEditorComponent implements OnInit {
     });
     this.archiveService.getLocations().subscribe({
       next: data => this.locations = data.rows.map(r => r.key), error: this.snackBarErrorHandler.showError
+    });
+    this.archiveService.getBooks().subscribe({
+      next: data => this.books = data.rows.map(r => r.key),
+      error: this.snackBarErrorHandler.showError
     });
   }
 }

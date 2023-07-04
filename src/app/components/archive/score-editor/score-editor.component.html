@@ -82,12 +82,12 @@
     <div *ngFor="let pageForm of scoreForm.controls.pages.controls; index as i" [formGroup]="pageForm" class="form-row">
       <mat-form-field class="form-ratio-1">
         <mat-label>Buch</mat-label>
-        <input formControlName="book" matInput placeholder="z.B. Rot">
-        <!--      <mat-autocomplete #bookAutocomplete="matAutocomplete">-->
-        <!--        <mat-option *ngFor="let book of bookAutocomplete | async" [value]="location">-->
-        <!--          {{location}}-->
-        <!--        </mat-option>-->
-        <!--      </mat-autocomplete>-->
+        <input formControlName="book" [matAutocomplete]="auto" matInput placeholder="z.B. Rot">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let book of books" [value]="book">
+                  {{book}}
+                </mat-option>
+              </mat-autocomplete>
       </mat-form-field>
       <mat-form-field class="form-ratio-1">
         <mat-label>Seitenbeginn</mat-label>
@@ -105,6 +105,7 @@
       <button (click)="addPage()" color="accent" mat-button>Neuer Seiteneintrag</button>
     </mat-action-row>
   </mat-expansion-panel>
+  <br/>
 </form>
 <pre *ngIf="true|debugDisplay">
   value is: {{scoreForm.getRawValue() | json}}
