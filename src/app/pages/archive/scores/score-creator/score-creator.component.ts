@@ -58,12 +58,17 @@ export class ScoreCreatorComponent {
     subtitles: [],
     title: ""
   };
+  isLoading = true;
+  isNew = true;
 
   constructor(private location: Location, private route: ActivatedRoute, private dialog: MatDialog, private archiveService: ArchiveService, private snackBar: MatSnackBar, private snackBarErrorHandler: HttpErrorSnackBarService) {
     this.route.paramMap.subscribe({next: value => {
       const id = value.get("id");
       if (id) {
-        this.archiveService.getScore(id).subscribe({next: s => this.defaultScore = s})
+        this.isNew = false;
+        this.archiveService.getScore(id).subscribe({next: s => {this.defaultScore = s; this.isLoading = false;}, error: () => this.isLoading = false})
+      } else {
+        this.isLoading = false;
       }
       }});
   }
@@ -86,7 +91,7 @@ export class ScoreCreatorComponent {
     });
   }
 
-  createScore() {
+  saveScore() {
     const score = this.scoreEditor?.scoreForm.getRawValue();
     if (!score) {
       console.error("unable to retrieve score from presumably valid form");
