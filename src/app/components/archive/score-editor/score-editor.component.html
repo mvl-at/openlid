@@ -69,6 +69,26 @@
     </mat-form-field>
     <mat-checkbox class="form-ratio-1" formControlName="conductor_score">Partitur</mat-checkbox>
   </div>
+  <div *ngFor="let pageForm of scoreForm.controls.pages.controls" [formGroup]="pageForm" class="form-row">
+    <mat-form-field class="form-ratio-1">
+      <mat-label>Buch</mat-label>
+      <input formControlName="book" matInput placeholder="z.B. Rot">
+<!--      <mat-autocomplete #bookAutocomplete="matAutocomplete">-->
+<!--        <mat-option *ngFor="let book of bookAutocomplete | async" [value]="location">-->
+<!--          {{location}}-->
+<!--        </mat-option>-->
+<!--      </mat-autocomplete>-->
+    </mat-form-field>
+    <mat-form-field class="form-ratio-1">
+      <mat-label>Seitenbeginn</mat-label>
+      <input lidPageNumber formControlName="begin" matInput placeholder="z.B. A4">
+    </mat-form-field>
+    <mat-form-field class="form-ratio-1">
+      <mat-label>Seitenende</mat-label>
+      <input lidPageNumber formControlName="end" matInput placeholder="z.B. A5">
+    </mat-form-field>
+  </div>
+  <button mat-raised-button (click)="addPage()">Neue Seite</button>
 </form>
 <pre *ngIf="true|debugDisplay">
   value is: {{scoreForm.getRawValue() | json}}

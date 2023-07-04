@@ -19,7 +19,7 @@
  */
 
 import {Component, Input, OnInit} from "@angular/core";
-import {Score} from "../../../common/archive";
+import {Page, Score} from "../../../common/archive";
 import {FormBuilder} from "@angular/forms";
 import {FormModel, InferModeNullable} from "ngx-mf";
 import {ArchiveService} from "../../../services/archive.service";
@@ -55,7 +55,7 @@ export class ScoreEditorComponent implements OnInit {
     grade: this.formBuilder.control(null),
     legacy_ids: this.formBuilder.nonNullable.control([]),
     location: this.formBuilder.control(null),
-    pages: this.formBuilder.array<PageForm>([]),
+    pages: this.formBuilder.nonNullable.array<PageForm>([]),
     publisher: this.formBuilder.control(null),
     subtitles: this.formBuilder.nonNullable.control([]),
     title: this.formBuilder.nonNullable.control("")
@@ -67,6 +67,15 @@ export class ScoreEditorComponent implements OnInit {
   @Input()
   set score(score: Score) {
     this.scoreForm.patchValue(score);
+    score.pages.forEach(p => {
+      const pageForm = this.formBuilder.nonNullable.group<PageForm["controls"]>({
+        book: this.formBuilder.nonNullable.control(""),
+        begin: this.formBuilder.nonNullable.control({number: 0, prefix: null, suffix: null}),
+        end: this.formBuilder.control(null)
+      });
+      pageForm.patchValue(p);
+      this.scoreForm.controls.pages.push(pageForm);
+    });
   }
 
   ngOnInit(): void {
@@ -79,6 +88,15 @@ export class ScoreEditorComponent implements OnInit {
       startWith(""),
       map(value => this._filter(value || "", this.locations)),
     );
+  }
+
+  addPage() {
+    const pageForm = this.formBuilder.nonNullable.group<PageForm["controls"]>({
+      book: this.formBuilder.nonNullable.control(""),
+      begin: this.formBuilder.nonNullable.control({number: 0, prefix: null, suffix: null}),
+      end: this.formBuilder.control(null)
+    });
+    this.scoreForm.controls.pages.push(pageForm);
   }
 
   private refreshStatistics() {
@@ -111,4 +129,4 @@ export class ScoreEditorComponent implements OnInit {
 }
 
 type ScoreForm = FormModel<Score, { pages: ["group"] }, InferModeNullable>;
-type PageForm = ScoreForm["controls"]["pages"]["controls"][0];
+type PageForm = FormModel<Page,object, InferModeNullable>;
