@@ -97,6 +97,15 @@
     <td *matCellDef="let element" mat-cell> {{element.pages.map(pageToString).join(', ')}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="actions">
+    <th *matHeaderCellDef mat-header-cell></th>
+    <td *matCellDef="let element" mat-cell>
+      <button [routerLink]="['scores', element._id]" mat-icon-button aria-label="Bearbeiten">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
   <tr *matHeaderRowDef="selectedValues" mat-header-row></tr>
   <tr *matRowDef="let row; columns: selectedValues;" mat-row></tr>
 </table>

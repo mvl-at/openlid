@@ -29,6 +29,7 @@ import {
 import {ArchiveService} from "../../../../services/archive.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {HttpErrorSnackBarService} from "../../../../mat-helpers/http-error-snack-bar.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: "lid-score-creator",
@@ -39,7 +40,7 @@ export class ScoreCreatorComponent {
 
   @ViewChild(ScoreEditorComponent) scoreEditor?: ScoreEditorComponent;
 
-  readonly defaultScore: Score = {
+  defaultScore: Score = {
     _id: null,
     _rev: null,
     alias: [],
@@ -57,8 +58,19 @@ export class ScoreCreatorComponent {
     subtitles: [],
     title: ""
   };
+  isLoading = true;
+  isNew = true;
 
-  constructor(private location: Location, private dialog: MatDialog, private archiveService: ArchiveService, private snackBar: MatSnackBar, private snackBarErrorHandler: HttpErrorSnackBarService) {
+  constructor(private location: Location, private route: ActivatedRoute, private dialog: MatDialog, private archiveService: ArchiveService, private snackBar: MatSnackBar, private snackBarErrorHandler: HttpErrorSnackBarService) {
+    this.route.paramMap.subscribe({next: value => {
+      const id = value.get("id");
+      if (id) {
+        this.isNew = false;
+        this.archiveService.getScore(id).subscribe({next: s => {this.defaultScore = s; this.isLoading = false;}, error: () => this.isLoading = false})
+      } else {
+        this.isLoading = false;
+      }
+      }});
   }
 
   cancel(event: MouseEvent) {
@@ -79,7 +91,7 @@ export class ScoreCreatorComponent {
     });
   }
 
-  createScore() {
+  saveScore() {
     const score = this.scoreEditor?.scoreForm.getRawValue();
     if (!score) {
       console.error("unable to retrieve score from presumably valid form");

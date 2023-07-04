@@ -55,6 +55,15 @@ export class ArchiveService {
   }
 
   /**
+   * Get the latest score version from the backend.
+   * @param id the id of the score
+   * @return the outcome of the request
+   */
+  getScore(id: string): Observable<Score> {
+    return this.httpClient.get<Score>(`${environment.barrelUrl}${controllers.archive.scores.root}/${id}`);
+  }
+
+  /**
    * Store a score in the database. It is not relevant in this case whether it is a new or an existing one.
    * Both actions only differ whether {@link Score._id} and {@link Score._rev} are set or not.
    * If it is the case, a new revision of the score will be stored.

@@ -69,6 +69,43 @@
     </mat-form-field>
     <mat-checkbox class="form-ratio-1" formControlName="conductor_score">Partitur</mat-checkbox>
   </div>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Seiten
+      </mat-panel-title>
+      <mat-panel-description class="page-panel-header">
+        Einsortierung in die Bücher
+        <mat-icon>book</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div *ngFor="let pageForm of scoreForm.controls.pages.controls; index as i" [formGroup]="pageForm" class="form-row">
+      <mat-form-field class="form-ratio-1">
+        <mat-label>Buch</mat-label>
+        <input formControlName="book" [matAutocomplete]="auto" matInput placeholder="z.B. Rot">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let book of books" [value]="book">
+                  {{book}}
+                </mat-option>
+              </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="form-ratio-1">
+        <mat-label>Seitenbeginn</mat-label>
+        <input formControlName="begin" lidPageNumber matInput placeholder="z.B. A4">
+      </mat-form-field>
+      <mat-form-field class="form-ratio-1">
+        <mat-label>Seitenende</mat-label>
+        <input formControlName="end" lidPageNumber matInput placeholder="z.B. A5">
+      </mat-form-field>
+      <button (click)="removePage(i)" color="warn" mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <mat-action-row>
+      <button (click)="addPage()" color="accent" mat-button>Neuer Seiteneintrag</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+  <br/>
 </form>
 <pre *ngIf="true|debugDisplay">
   value is: {{scoreForm.getRawValue() | json}}
