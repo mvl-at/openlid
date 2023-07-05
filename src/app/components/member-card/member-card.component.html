@@ -1,4 +1,4 @@
-<mat-card appearance="outlined" class="member-card">
+<mat-card class="member-card">
   <mat-card-header>
     <mat-card-title>{{member.firstName}} {{member.lastName}}</mat-card-title>
     <mat-card-subtitle>seit {{member.joining}}</mat-card-subtitle>
@@ -7,6 +7,5 @@
        [src]="photo" mat-card-image class="photo">
   <mat-card-content>
     <p *ngIf="member.titles && member.titles.length > 0"><i>{{member.titles.join(', ')}}</i></p>
-    <p *ngIf="!member.titles || member.titles.length === 0"><i>-</i></p>
   </mat-card-content>
 </mat-card>
