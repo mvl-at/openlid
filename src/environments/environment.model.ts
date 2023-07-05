@@ -30,4 +30,7 @@ export interface Environment {
     archive: string; root: string;
   };
   passwordResetLink: string;
+  orchestra: {
+    seats: string[][]
+  }
 }

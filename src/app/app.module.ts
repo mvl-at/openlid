@@ -76,9 +76,10 @@ import {MatSortModule} from "@angular/material/sort";
 import {PageNumberDirective} from "./directives/page-number.directive";
 import {LidMatPaginatorIntl} from "./providers/lid-mat-paginator-intl";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {OrchestraComponent} from "./components/orchestra/orchestra.component";
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent, PageNumberDirective],
+  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent, PageNumberDirective, OrchestraComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
     useHash: false,
     anchorScrolling: "enabled",
