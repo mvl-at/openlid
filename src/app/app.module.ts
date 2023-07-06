@@ -76,18 +76,22 @@ import {MatSortModule} from "@angular/material/sort";
 import {PageNumberDirective} from "./directives/page-number.directive";
 import {LidMatPaginatorIntl} from "./providers/lid-mat-paginator-intl";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {OrchestraComponent} from "./components/orchestra/orchestra.component";
+import {MatTabsModule} from "@angular/material/tabs";
+import {ClassicMembersComponent} from "./components/classic-members/classic-members.component";
+import {MemberDialogComponent} from "./dialogs/member-dialog/member-dialog.component";
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent, PageNumberDirective],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
-    useHash: false,
-    anchorScrolling: "enabled",
-    onSameUrlNavigation: "reload",
-    enableTracing: true,
-    scrollPositionRestoration: "enabled"
-  }), MarkdownModule.forRoot({
-    sanitize: SecurityContext.NONE
-  }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, MatDialogModule, MatProgressSpinnerModule, NgOptimizedImage, MatSortModule, MatTooltipModule],
+  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent, PageNumberDirective, OrchestraComponent, ClassicMembersComponent, MemberDialogComponent],
+    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
+        useHash: false,
+        anchorScrolling: "enabled",
+        onSameUrlNavigation: "reload",
+        enableTracing: true,
+        scrollPositionRestoration: "enabled"
+    }), MarkdownModule.forRoot({
+        sanitize: SecurityContext.NONE
+    }), MatTableModule, MatPaginatorModule, MatSelectModule, ReactiveFormsModule, MatChipsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MarkdownModule, MatProgressBarModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatSnackBarModule, MatExpansionModule, MatDialogModule, MatProgressSpinnerModule, NgOptimizedImage, MatSortModule, MatTooltipModule, MatTabsModule],
   exports: [RouterModule, MatFormFieldModule, MatInputModule],
   providers: [{
     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

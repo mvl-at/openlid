@@ -13,5 +13,8 @@ export const environment: Environment = {
     archive: "Archivar",
     root: "Verzeichnisverwalter",
   },
-  passwordResetLink: "https://selfservice.mvl.at/index.php?action=sendtoken"
+  passwordResetLink: "https://selfservice.mvl.at/index.php?action=sendtoken",
+  orchestra: {
+    seats: [["Klarinette"], [], ["Flöte"], ["Tenorhorn", "Horn"], [], ["Flügelhorn"], ["Tuba", "Posaune"], [], ["Trompete"], [], ["Schlagwerk"], []]
+  }
 };

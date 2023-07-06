@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{data.member.firstName}} {{data.member.lastName}}</h1>
+<div mat-dialog-content>
+  <p>
+  spielt seit {{data.member.joining}} mit uns {{data.register}}.
+  </p>
+  <img [alt]="'Bild von ' + data.member.name" [lidFallback]="data.member.gender === 'm'? 'assets/avatar-male.svg' : 'assets/avatar-female.svg'"
+       [src]="photo" mat-card-image class="photo">
+  <p>
+  <i>{{(data.member.titles ?? []).join(", ")}}</i>
+  </p>
+</div>
+<div mat-dialog-actions>
+
+</div>
