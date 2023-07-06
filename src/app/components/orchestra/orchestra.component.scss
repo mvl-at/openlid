@@ -7,6 +7,11 @@
   margin-right: 50%;
 }
 
+.orchestra-seat:hover {
+  border-width: 0.3em;
+  cursor: pointer;
+}
+
 .orchestra-container {
   position: relative;
   display: block;

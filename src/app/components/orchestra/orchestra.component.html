@@ -3,5 +3,5 @@
        [lidFallback]="seat.member.gender === 'm'? 'assets/avatar-male.svg' : 'assets/avatar-female.svg'"
        [src]="photo(seat.member.username)"
        [style]="'left: ' + seat.coords.x + 'em; top: ' + seat.coords.y +'em; height: ' + iconSize + 'em; width: ' + iconSize + 'em;'"
-       alt="seat"/>
+       alt="seat" [matTooltip]="seat.member.firstName + ' ' + seat.member.lastName"/>
 </div>
