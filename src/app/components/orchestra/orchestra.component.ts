@@ -2,6 +2,8 @@ import {Component, Input} from "@angular/core";
 import {Crew, Member} from "../../common/member";
 import {environment} from "../../../environments/environment";
 import {controllers} from "../../services/controllers";
+import {MatDialog} from "@angular/material/dialog";
+import {MemberDialogComponent} from "../../dialogs/member-dialog/member-dialog.component";
 
 @Component({
   selector: "lid-orchestra", templateUrl: "./orchestra.component.html", styleUrls: ["./orchestra.component.scss"]
@@ -17,6 +19,9 @@ export class OrchestraComponent {
   height = 0;
   width = 0;
   orchestraSeats: OrchestraSeat[] = [];
+
+  constructor(private dialog: MatDialog) {
+  }
 
   calculateOrchestraSeatsDistribution(members: Crew) {
     if (!members) {
@@ -115,6 +120,12 @@ export class OrchestraComponent {
 
   photo(username: string): string {
     return `${environment.barrelUrl}${controllers.members.photo(username)}`;
+  }
+
+  infos(seat: OrchestraSeat) {
+    this.dialog.open(MemberDialogComponent, {
+      data: {member: seat.member, register: seat.register},
+    });
   }
 }
 

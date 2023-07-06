@@ -79,9 +79,10 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {OrchestraComponent} from "./components/orchestra/orchestra.component";
 import {MatTabsModule} from "@angular/material/tabs";
 import {ClassicMembersComponent} from "./components/classic-members/classic-members.component";
+import {MemberDialogComponent} from "./dialogs/member-dialog/member-dialog.component";
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent, PageNumberDirective, OrchestraComponent, ClassicMembersComponent],
+  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent, PageNumberDirective, OrchestraComponent, ClassicMembersComponent, MemberDialogComponent],
     imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
         useHash: false,
         anchorScrolling: "enabled",
