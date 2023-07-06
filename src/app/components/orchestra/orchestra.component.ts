@@ -7,22 +7,28 @@ import {controllers} from "../../services/controllers";
   selector: "lid-orchestra", templateUrl: "./orchestra.component.html", styleUrls: ["./orchestra.component.scss"]
 })
 export class OrchestraComponent {
-  @Input() members: Crew = {honoraryMembers: [], musicians: [], sutlers: []};
+  @Input() set members(members: Crew) {
+    this.calculateOrchestraSeatsDistribution(members);
+  }
   @Input() distance = 6;
   @Input() iconSize = 5;
   @Input() yAmplRatio = 0.75;
   @Input() rowOffset = 7;
   height = 0;
   width = 0;
+  orchestraSeats: OrchestraSeat[] = [];
 
-  get orchestraSeatsDistributed(): OrchestraSeat[] {
+  calculateOrchestraSeatsDistribution(members: Crew) {
+    if (!members) {
+      return;
+    }
     let maxRowLength = 0;
 
     let currentRow: MemberWithRegister[] = [];
     const rows: MemberWithRegister[][] = [];
     const seatConfig = environment.orchestra.seats;
     for (let i = 0; i < seatConfig.length; i++) {
-      currentRow.push(...seatConfig[i].map(s => this.members.musicians.find(r => r.name === s)?.members?.map(m => {
+      currentRow.push(...seatConfig[i].map(s => members.musicians.find(r => r.name === s)?.members?.map(m => {
         return {member: m, register: s};
       }) ?? []).flat());
       if (i % 3 === 2 || seatConfig.length - 1 === i) {
@@ -34,9 +40,10 @@ export class OrchestraComponent {
     const orchestra: OrchestraSeat[] = [];
     const table = this.indexTable(maxRowLength, this.distance);
 
-    this.height = this.iconSize + this.rowOffset * (rows.length - 1) + (table.get(0)?.y ?? 0);
-    this.width = this.iconSize + 2 * (table.get(-maxRowLength + 1)?.x ?? 0);
+    this.height = this.iconSize + this.rowOffset * (rows.length - 1) + (table.get(0)?.y ?? 0) - (table.get(maxRowLength - 1)?.y ?? 0);
+    this.width = this.iconSize + 2 * (table.get(maxRowLength - 1)?.x ?? 0);
     console.debug("Ellipse table", maxRowLength, table);
+    console.debug("Icon size, maxrowlength, table", this.iconSize, maxRowLength, table);
 
     for (let rowNum = 0; rowNum < rows.length; rowNum++) {
       const row: MemberWithRegister[] = rows[rowNum];
@@ -49,13 +56,13 @@ export class OrchestraComponent {
         if (basePoint) {
           orchestra.push({
             register: seat.register, member: seat.member, coords: {
-              x: basePoint.x, y: ((table.get(0)?.y) ?? 0) - basePoint.y + rowYAlign
+              x: basePoint.x - this.iconSize/2, y: ((table.get(0)?.y) ?? 0) - basePoint.y + rowYAlign
             }
           });
         }
       }
     }
-    return orchestra;
+    this.orchestraSeats = orchestra;
   }
 
   private indexTable(maxIndexExclusive: number, distance: number): Map<number, { x: number, y: number }> {
