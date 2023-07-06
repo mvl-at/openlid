@@ -1,5 +1,9 @@
-<div class="orchestra-container">
+<div class="orchestra-container" [style]="'height:' + height + 'em; width: ' + width + 'em;'">
   <img class="orchestra-seat" *ngFor="let seat of orchestraSeatsDistributed"
-       [src]="photo(seat.member.username)" [style]="'left: ' + seat.coords.x + '%; top: ' + (100.0-seat.coords.y) +'%'"
-       alt="seat"/>
+       [src]="photo(seat.member.username)" [style]="'left: ' + seat.coords.x + 'em; top: ' + seat.coords.y +'em; height: ' + iconSize + 'em; width: ' + width + 'em;'"
+       alt="seat" />
+<!--  <img class="orchestra-seat" *ngFor="let seat of orchestraSeatsDistributed"-->
+<!--       [src]="photo(seat.member.username)"-->
+<!--       alt="seat"/>-->
+<!--  [lidFallback]="seat.member.gender === 'm'? 'assets/avatar-male.svg' : 'assets/avatar-female.svg'"-->
 </div>
