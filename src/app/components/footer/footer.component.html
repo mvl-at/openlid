@@ -4,8 +4,8 @@
     <div>
       <b>Links</b>
       <mat-list dense>
-        <mat-list-item *ngFor="let link of footerInfo.links" class="lid-background-primary-font-color">
-          <mat-icon>{{link.icon}}</mat-icon>
+        <mat-list-item *ngFor="let link of footerInfo.links">
+          <mat-icon class="lid-background-primary-font-color">{{link.icon}}</mat-icon>
           <a [href]="link.link" class="lid-background-primary-font-color">{{link.name}}</a>
         </mat-list-item>
       </mat-list>
@@ -14,16 +14,16 @@
     <div>
       <b>Impressum</b>
       <mat-list dense>
-        <mat-list-item class="lid-background-primary-font-color">
-          <mat-icon>phone</mat-icon>
-          <span>{{footerInfo.phone}}</span>
+        <mat-list-item>
+          <mat-icon class="lid-background-primary-font-color">phone</mat-icon>
+          <span class="lid-background-primary-font-color">{{footerInfo.phone}}</span>
         </mat-list-item>
-        <mat-list-item class="lid-background-primary-font-color">
-          <mat-icon>home</mat-icon>
-          <span>{{footerInfo.address}}</span>
+        <mat-list-item>
+          <mat-icon class="lid-background-primary-font-color">home</mat-icon>
+          <span class="lid-background-primary-font-color">{{footerInfo.address}}</span>
         </mat-list-item>
-        <mat-list-item class="lid-background-primary-font-color">
-          <mat-icon>email</mat-icon>
+        <mat-list-item>
+          <mat-icon class="lid-background-primary-font-color">email</mat-icon>
           <a [href]="'mailto:'+footerInfo.email" class="lid-background-primary-font-color">{{footerInfo.email}}</a>
         </mat-list-item>
       </mat-list>
