@@ -35,7 +35,7 @@ export class OrchestraComponent {
       return;
     }
     const seatConfig = environment.orchestra.seats;
-    const rowsInfo = this.extractRows(seatConfig, members, maxRowLength);
+    const rowsInfo = this.extractRows(seatConfig, members);
     const rows = rowsInfo.rows;
     const maxRowLength = rowsInfo.maxRowLength;
     const orchestra: OrchestraSeat[] = [];
