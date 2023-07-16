@@ -24,6 +24,11 @@ footer mat-divider {
 
 .info-item-container div mat-list mat-list-item mat-icon {
   margin-right: 0.21em;
+  vertical-align: middle;
+}
+
+.info-item-container div mat-list mat-list-item span, a {
+  vertical-align: middle;
 }
 
 .credits {
