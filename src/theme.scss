@@ -113,7 +113,5 @@ $lid-dark-theme: mat.define-dark-theme((
 @include styles.background-color($lid-light-theme);
 
 @media (prefers-color-scheme: dark) {
-  @include mat.core-theme($lid-dark-theme);
-  @include mat.all-component-themes($lid-dark-theme);
-  @include mat.all-component-typographies($lid-dark-theme);
+  @include mat.all-component-colors($lid-dark-theme);
 }
