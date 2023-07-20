@@ -24,12 +24,12 @@
   <a *ngIf="!selfService.user" href="/login" mat-button>Login</a>
   <img src="assets/logo-white.svg" alt="logo" class="logo"/>
 </mat-toolbar>
-<mat-sidenav-container [class.normal-toolbar-margin]="(isHandset | async) === false"
-                       [class.small-toolbar-margin]="isHandset | async"
-                       class="sidenav-container">
+<mat-sidenav-container [class.normal-content-padding]="(isHandset | async) === false"
+                       [class.small-content-padding]="isHandset | async"
+                       class="sidenav-container" style="overflow: unset">
   <mat-sidenav #drawer
-               [class.normal-toolbar-margin]="(isHandset | async) === false"
-               [class.small-toolbar-margin]="isHandset | async"
+               [class.normal-content-padding]="(isHandset | async) === false"
+               [class.small-content-padding]="isHandset | async"
                [mode]="(isHandset | async) ? 'over' : 'side'"
                [opened]="(isHandset | async) === false"
                class="sidenav"
@@ -44,7 +44,7 @@
       </ng-container>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="sidenav-content">
     <ng-content></ng-content>
     <lid-footer></lid-footer>
   </mat-sidenav-content>
