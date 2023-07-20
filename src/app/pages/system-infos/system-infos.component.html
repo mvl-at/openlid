@@ -1,0 +1,10 @@
+<h1>Systeminformationen</h1>
+
+<h2>Clientinfo</h2>
+
+<pre>{{ environment | json }}</pre>
+
+<h2>Serverinfo</h2>
+
+<pre *ngIf="serverInfo">{{serverInfo | json}}</pre>
+<i *ngIf="!serverInfo">Server nicht erreichbar</i>
