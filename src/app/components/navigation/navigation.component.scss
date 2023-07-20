@@ -16,7 +16,6 @@
 
 .normal-content-padding {
   padding-top: mat.$mat-toolbar-height-desktop;
-  padding-bottom: mat.$mat-toolbar-height-desktop;
 }
 
 .small-content-padding {
@@ -39,6 +38,13 @@
 }
 
 .sidenav-container {
+  overflow: scroll;
   box-sizing: border-box;
   height: 100%;
+}
+
+.sidenav-content {
+  overflow: unset;
+  display: grid;
+  grid-template-rows: 100fr 1fr auto;
 }
