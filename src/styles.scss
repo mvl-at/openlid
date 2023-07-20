@@ -35,6 +35,16 @@ html, body {
   }
 }
 
+@mixin page-background($theme) {
+  $color-config: mat.get-color-config($theme);
+  $background: map.get($color-config, background);
+  $background-color: map.get($background, background);
+
+  .lid-page-background-color {
+    background-color: $background-color;
+  }
+}
+
 .lid-button-row {
   display: flex;
   gap: 1.1em;
