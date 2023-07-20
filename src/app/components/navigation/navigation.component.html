@@ -42,6 +42,7 @@
            [routerLink]="subItem.link" mat-list-item><span
           class="sub-item">{{subItem.label}}</span></a>
       </ng-container>
+      <a *ngIf="true|debugDisplay" routerLink="/system-infos" mat-list-item>System Infos</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
