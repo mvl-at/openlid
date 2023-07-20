@@ -45,5 +45,6 @@ export const controllers = {
     refresh: () => `${controllers.self.root}/renewal`,
     info: () => `${controllers.self.root}/self`,
     executiveRoles: () => `${controllers.self.root}/executives`
-  }
+  },
+  serverInfo: "/"
 }
