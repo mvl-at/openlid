@@ -80,9 +80,10 @@ import {OrchestraComponent} from "./components/orchestra/orchestra.component";
 import {MatTabsModule} from "@angular/material/tabs";
 import {ClassicMembersComponent} from "./components/classic-members/classic-members.component";
 import {MemberDialogComponent} from "./dialogs/member-dialog/member-dialog.component";
+import {SystemInfosComponent} from "./pages/system-infos/system-infos.component";
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent, PageNumberDirective, OrchestraComponent, ClassicMembersComponent, MemberDialogComponent],
+  declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent, PageNumberDirective, OrchestraComponent, ClassicMembersComponent, MemberDialogComponent, SystemInfosComponent],
     imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, RouterModule.forRoot([], {
         useHash: false,
         anchorScrolling: "enabled",

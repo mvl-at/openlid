@@ -32,6 +32,7 @@ import {environment} from "../environments/environment";
 import {ScoreShelfComponent} from "./pages/archive/scores/score-shelf/score-shelf.component";
 import {ScoreCreatorComponent} from "./pages/archive/scores/score-creator/score-creator.component";
 import {CalendarComponent} from "./pages/calendar/calendar.component";
+import {SystemInfosComponent} from "./pages/system-infos/system-infos.component";
 
 const routes: Routes = [
   {path: "", component: BlackboardComponent},
@@ -63,6 +64,7 @@ const routes: Routes = [
   },
   {path: "login", component: LoginComponent},
   {path: "self", component: SelfComponent, canActivate: [authenticationGuard]},
+  {path: "system-infos", component: SystemInfosComponent}
 ];
 
 @NgModule({
