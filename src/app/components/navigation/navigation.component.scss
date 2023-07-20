@@ -14,12 +14,13 @@
   margin-left: 0.8em;
 }
 
-.normal-toolbar-margin {
-  margin-top: mat.$mat-toolbar-height-desktop;
+.normal-content-padding {
+  padding-top: mat.$mat-toolbar-height-desktop;
+  padding-bottom: mat.$mat-toolbar-height-desktop;
 }
 
-.small-toolbar-margin {
-  margin-top: mat.$mat-toolbar-height-mobile;
+.small-content-padding {
+  padding-top: mat.$mat-toolbar-height-mobile;
 }
 
 .spacer {
@@ -35,4 +36,9 @@
   height: 71%;
   border-radius: 100%;
   margin-right: 1em;
+}
+
+.sidenav-container {
+  box-sizing: border-box;
+  height: 100%;
 }
