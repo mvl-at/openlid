@@ -22,23 +22,25 @@ import {Injectable} from "@angular/core";
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {catchError, Observable, switchMap, throwError} from "rxjs";
 import {SelfService} from "../services/self.service";
-import {environment} from "../../environments/environment";
 import {controllers} from "../services/controllers";
+import {ConfigurationService} from "../services/configuration.service";
+import {Configuration} from "../common/configuration.model";
 
 @Injectable()
 export class BearerTokenInterceptor implements HttpInterceptor {
 
   private isRefreshing = false;
+  private configuration: Configuration;
 
-  constructor(private selfService: SelfService) {
-
+  constructor(private selfService: SelfService, private configurationService: ConfigurationService) {
+    this.configuration = configurationService.configuration;
   }
 
   intercept(request: HttpRequest<object>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.debug("intercept bearer token");
     const token = this.selfService.token;
-    const isApiUrl = request.url.startsWith(environment.barrelUrl);
-    const isRenewalUrl = request.url.toLowerCase() === `${environment.barrelUrl}${controllers.self.refresh()}`;
+    const isApiUrl = request.url.startsWith(this.configuration.barrelUrl);
+    const isRenewalUrl = request.url.toLowerCase() === `${this.configuration.barrelUrl}${controllers.self.refresh()}`;
 
     if (isRenewalUrl) {
       console.debug("skip bearer interceptor on token renewal");

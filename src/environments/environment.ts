@@ -2,22 +2,8 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import {Environment} from "./environment.model";
-
-export const environment: Environment = {
-  production: false, barrelUrl: "http://localhost:1926/api/v1", footer: {
-    links: [{
-      name: "GitHub", link: "https://github.com/example/", icon: "book"
-    }, {
-      name: "Facebook", link: "https://www.facebook.com/example/", icon: "person"
-    }, {
-      name: "Instagram", link: "https://www.instagram.com/example/", icon: "photo_camera"
-    },], phone: "+43 2216 1234", address: "Karlsplatz 1, A-1010 Wien", email: "admin@example.org",
-  }, executiveRoles: {
-    archive: "Archivar", root: "Verzeichnisverwalter",
-  }, passwordResetLink: "https://reset.example.org/", orchestra: {
-    seats: [["Klarinette"], [], ["Flöte"], ["Tenorhorn", "Horn"], [], ["Flügelhorn"], ["Tuba", "Posaune"], [], ["Trompete"], [], ["Schlagwerk"], []]
-  }
+export const environment = {
+  production: false
 };
 
 /*

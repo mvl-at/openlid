@@ -1,8 +1,8 @@
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {Member} from "../../common/member";
-import {environment} from "../../../environments/environment";
 import {controllers} from "../../services/controllers";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: "lid-member-dialog",
@@ -11,10 +11,10 @@ import {controllers} from "../../services/controllers";
 })
 export class MemberDialogComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: MemberDialogData) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: MemberDialogData, private configurationService: ConfigurationService) { }
 
   get photo(): string {
-    return `${environment.barrelUrl}${controllers.members.photo(this.data.member.username)}`;
+    return `${this.configurationService.configuration.barrelUrl}${controllers.members.photo(this.data.member.username)}`;
   }
 }
 

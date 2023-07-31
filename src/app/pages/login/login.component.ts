@@ -6,8 +6,8 @@ import {SelfService} from "../../services/self.service";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {HttpErrorResponse} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
 import {HttpErrorSnackBarService} from "../../mat-helpers/http-error-snack-bar.service";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: "lid-login", templateUrl: "./login.component.html", styleUrls: ["./login.component.scss"]
@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit {
   credentialsInvalid = false;
 
   get resetLink() {
-    return environment.passwordResetLink;
+    return this.configurationService.configuration.passwordResetLink;
   }
 
-  constructor(private formBuilder: FormBuilder, private selfService: SelfService, private router: Router, private snackBar: MatSnackBar, private snackBarErrorHandler: HttpErrorSnackBarService) {
+  constructor(private formBuilder: FormBuilder, private selfService: SelfService, private router: Router, private snackBar: MatSnackBar, private snackBarErrorHandler: HttpErrorSnackBarService, private configurationService: ConfigurationService) {
   }
 
   ngOnInit(): void {

@@ -22,6 +22,8 @@ import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, Router} from "@angular/router";
 import {SelfService} from "../services/self.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {ConfigurationService} from "../services/configuration.service";
+import {Configuration} from "../common/configuration.model";
 
 /**
  * Redirect the user to the `/self` page if their executive roles are not sufficient.
@@ -29,11 +31,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
  * This field must be of type {@link string[]}, containing all roles whereas at least one is required.
  */
 
-export const executiveRoleGuard = (route: ActivatedRouteSnapshot) => {
+export const executiveRoleGuard = (route: ActivatedRouteSnapshot, rolesFunction: (configuration: Configuration) => string[]) => {
   const selfService = inject(SelfService);
   const router = inject(Router);
   const snackBar = inject(MatSnackBar);
-  const desiredRoles: string[] = route.data["roles"];
+  const configurationService = inject(ConfigurationService);
+  const desiredRoles: string[] = rolesFunction(configurationService.configuration);
   if (desiredRoles.some(r => selfService.hasExecutiveRole(r))) {
     return true;
   }
@@ -46,3 +49,6 @@ export const executiveRoleGuard = (route: ActivatedRouteSnapshot) => {
     return false;
   }
 
+export const archiveRoleGuard = (route: ActivatedRouteSnapshot) => {
+  return executiveRoleGuard(route, configuration => [configuration.executiveRoles.archive])
+}

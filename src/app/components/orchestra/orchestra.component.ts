@@ -1,14 +1,16 @@
 import {Component, Input} from "@angular/core";
 import {Crew, Member} from "../../common/member";
-import {environment} from "../../../environments/environment";
 import {controllers} from "../../services/controllers";
 import {MatDialog} from "@angular/material/dialog";
 import {MemberDialogComponent} from "../../dialogs/member-dialog/member-dialog.component";
+import {ConfigurationService} from "../../services/configuration.service";
+import {Configuration} from "../../common/configuration.model";
 
 @Component({
   selector: "lid-orchestra", templateUrl: "./orchestra.component.html", styleUrls: ["./orchestra.component.scss"]
 })
 export class OrchestraComponent {
+  private configuration: Configuration;
   @Input() set members(members: Crew) {
     this.calculateOrchestraSeatsDistribution(members);
   }
@@ -20,7 +22,8 @@ export class OrchestraComponent {
   width = 0;
   orchestraSeats: OrchestraSeat[] = [];
 
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private configurationService: ConfigurationService) {
+    this.configuration = configurationService.configuration;
   }
 
   /**
@@ -34,7 +37,7 @@ export class OrchestraComponent {
     if (!members) {
       return;
     }
-    const seatConfig = environment.orchestra.seats;
+    const seatConfig = this.configuration.orchestra.seats;
     const rowsInfo = this.extractRows(seatConfig, members);
     const rows = rowsInfo.rows;
     const maxRowLength = rowsInfo.maxRowLength;
@@ -175,7 +178,7 @@ export class OrchestraComponent {
   }
 
   photo(username: string): string {
-    return `${environment.barrelUrl}${controllers.members.photo(username)}`;
+    return `${this.configuration.barrelUrl}${controllers.members.photo(username)}`;
   }
 
   infos(seat: OrchestraSeat) {

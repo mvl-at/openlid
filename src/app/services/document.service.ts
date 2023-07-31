@@ -21,15 +21,18 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {environment} from "../../environments/environment";
 import {controllers} from "./controllers";
+import {ConfigurationService} from "./configuration.service";
+import {Configuration} from "../common/configuration.model";
 
 @Injectable({
   providedIn: "root"
 })
 export class DocumentService {
 
-  constructor(private httpClient: HttpClient) {
+  private configuration: Configuration;
+  constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) {
+    this.configuration = configurationService.configuration;
   }
 
   /**
@@ -37,7 +40,7 @@ export class DocumentService {
    * The list contains relative path names which are required to request the specific document content.
    */
   getBlackboardDocuments(): Observable<string[]> {
-    return this.httpClient.get<string[]>(`${environment.barrelUrl}${controllers.documents.blackboard.root()}`);
+    return this.httpClient.get<string[]>(`${this.configuration.barrelUrl}${controllers.documents.blackboard.root()}`);
   }
 
   /**
@@ -47,6 +50,6 @@ export class DocumentService {
    */
   getBlackBoardDocument(name: string): Observable<string> {
     const headers = new HttpHeaders({"Accept": "text/markdown"});
-    return this.httpClient.get(`${environment.barrelUrl}${controllers.documents.blackboard.document(name)}`, {headers: headers, responseType: "text"});
+    return this.httpClient.get(`${this.configuration.barrelUrl}${controllers.documents.blackboard.document(name)}`, {headers: headers, responseType: "text"});
   }
 }

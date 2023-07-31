@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {Member} from "../../common/member";
-import {environment} from "../../../environments/environment";
 import {controllers} from "../../services/controllers";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: "lid-member-card",
@@ -13,8 +13,11 @@ export class MemberCardComponent {
   @Input()
   member!: Member;
 
+  constructor(private configurationService: ConfigurationService) {
+  }
+
   get photo(): string {
-    return `${environment.barrelUrl}${controllers.members.photo(this.member.username)}`;
+    return `${this.configurationService.configuration.barrelUrl}${controllers.members.photo(this.member.username)}`;
   }
 
 }

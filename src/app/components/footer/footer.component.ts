@@ -19,19 +19,21 @@
  */
 
 import {Component} from "@angular/core";
-import {environment} from "../../../environments/environment";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: "lid-footer", templateUrl: "./footer.component.html", styleUrls: ["./footer.component.scss"]
 })
 export class FooterComponent {
 
+  constructor(private configurationService: ConfigurationService) {
+  }
   get currentYear() {
     const now = new Date(Date.now());
     return now.getFullYear();
   }
 
   get footerInfo() {
-    return environment.footer;
+    return this.configurationService.configuration.footer;
   }
 }
