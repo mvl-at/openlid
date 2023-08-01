@@ -21,7 +21,7 @@
   <img *ngIf="selfService.user" [alt]="'Bild von ' + selfService.user.name"
        [lidFallback]="selfService.user.gender === 'm'? 'assets/avatar-male.svg' : 'assets/avatar-female.svg'"
        [src]="photo" class="menu-photo">
-  <a *ngIf="!selfService.user" href="/login" mat-button>Login</a>
+  <a *ngIf="!selfService.user" routerLink="/login" mat-button>Login</a>
   <img src="assets/logo-white.svg" alt="logo" class="logo"/>
 </mat-toolbar>
 <mat-sidenav-container [class.normal-content-padding]="(isHandset | async) === false"
