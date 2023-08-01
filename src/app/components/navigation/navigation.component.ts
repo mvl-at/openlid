@@ -23,30 +23,43 @@ import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {Observable} from "rxjs";
 import {map, shareReplay} from "rxjs/operators";
 import {SelfService} from "../../services/self.service";
-import {environment} from "../../../environments/environment";
 import {controllers} from "../../services/controllers";
+import {ConfigurationService} from "../../services/configuration.service";
+import {Configuration} from "../../common/configuration.model";
 
 @Component({
   selector: "lid-navigation", templateUrl: "./navigation.component.html", styleUrls: ["./navigation.component.scss"]
 })
 export class NavigationComponent {
 
+  defaultItems: NavigationItem[] = [{label: "Startseite", link: ["/"], children: []}, {
+    label: "Mitglieder",
+    link: ["/members"],
+    children: []
+  }, {
+    label: "Termine",
+    link: ["/events"],
+    children: [],
+  }, {
+    label: "Archiv", link: ["/archive"], children: [], roles: [this.configurationService.configuration.executiveRoles.archive]
+  }];
   isExtraScreenSmall: Observable<boolean>;
   isScreenSmall: Observable<boolean>;
 
   isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(map(result => result.matches), shareReplay());
+  private configuration: Configuration;
 
   get photo(): string {
-    return `${environment.barrelUrl}${controllers.members.photo(this.selfService?.user?.username ? this.selfService?.user?.username : "")}`;
+    return `${this.configuration.barrelUrl}${controllers.members.photo(this.selfService?.user?.username ? this.selfService?.user?.username : "")}`;
   }
 
   get isSpecialBar(): boolean {
-    return this.selfService.hasExecutiveRole(environment.executiveRoles.root);
+    return this.selfService.hasExecutiveRole(this.configuration.executiveRoles.root);
   }
 
   get navigationItems() {
-    return defaultItems.filter(i => {
+    return this.defaultItems.filter(i => {
       if (!i.roles) {
         return true;
       }
@@ -57,29 +70,18 @@ export class NavigationComponent {
     });
   }
 
-  constructor(private breakpointObserver: BreakpointObserver, public selfService: SelfService) {
+  constructor(private breakpointObserver: BreakpointObserver, public selfService: SelfService, private configurationService: ConfigurationService) {
     this.isExtraScreenSmall = breakpointObserver.observe(Breakpoints.XSmall)
       .pipe(map(breakpoint => breakpoint.matches));
     this.isScreenSmall = breakpointObserver.observe(Breakpoints.Small)
       .pipe(map(breakpoint => breakpoint.matches));
+    this.configuration = configurationService.configuration;
   }
 
   addChildren(label: string, children: NavigationItem[]) {
     this.navigationItems.filter(i => i.label === label).forEach(item => item.children = children);
   }
 }
-
-export const defaultItems: NavigationItem[] = [{label: "Startseite", link: ["/"], children: []}, {
-  label: "Mitglieder",
-  link: ["/members"],
-  children: []
-}, {
-  label: "Termine",
-  link: ["/events"],
-  children: [],
-}, {
-  label: "Archiv", link: ["/archive"], children: [], roles: [environment.executiveRoles.archive]
-}];
 
 export interface NavigationItem {
   label: string;

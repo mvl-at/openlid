@@ -2,18 +2,18 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Crew} from "../common/member";
-import {environment} from "../../environments/environment";
 import {controllers} from "./controllers";
+import {ConfigurationService} from "./configuration.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class MemberService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) {
   }
 
   getAllByRegisters(): Observable<Crew> {
-    return this.httpClient.get<Crew>(`${environment.barrelUrl}${controllers.members.root}`);
+    return this.httpClient.get<Crew>(`${this.configurationService.configuration.barrelUrl}${controllers.members.root}`);
   }
 }

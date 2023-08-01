@@ -27,8 +27,7 @@ import {BlackboardComponent} from "./pages/blackboard/blackboard.component";
 import {LoginComponent} from "./pages/login/login.component";
 import {SelfComponent} from "./pages/self/self.component";
 import {authenticationGuard} from "./guards/authentication.guard.service";
-import {executiveRoleGuard} from "./guards/executive-role.guard";
-import {environment} from "../environments/environment";
+import {archiveRoleGuard} from "./guards/executive-role.guard";
 import {ScoreShelfComponent} from "./pages/archive/scores/score-shelf/score-shelf.component";
 import {ScoreCreatorComponent} from "./pages/archive/scores/score-creator/score-creator.component";
 import {CalendarComponent} from "./pages/calendar/calendar.component";
@@ -42,8 +41,7 @@ const routes: Routes = [
   {
     path: "archive",
     component: ArchiveComponent,
-    canActivate: [executiveRoleGuard],
-    data: {roles: [environment.executiveRoles.archive]},
+    canActivate: [archiveRoleGuard],
     children: [{
       path: "",
       component: ScoreShelfComponent

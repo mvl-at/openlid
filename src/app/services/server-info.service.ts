@@ -22,18 +22,18 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ServerInfo} from "../common/server-info";
-import {environment} from "../../environments/environment";
 import {controllers} from "./controllers";
+import {ConfigurationService} from "./configuration.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class ServerInfoService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) {
   }
 
   serverInfo(): Observable<ServerInfo> {
-    return this.httpClient.get<ServerInfo>(`${environment.barrelUrl}${controllers.serverInfo}`);
+    return this.httpClient.get<ServerInfo>(`${this.configurationService.configuration.barrelUrl}${controllers.serverInfo}`);
   }
 }

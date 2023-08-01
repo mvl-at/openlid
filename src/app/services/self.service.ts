@@ -21,13 +21,13 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Login} from "../common/login";
-import {environment} from "../../environments/environment";
 import {controllers} from "./controllers";
 import {map, tap} from "rxjs/operators";
 import {Group, Member} from "../common/member";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {catchError, of} from "rxjs";
+import {ConfigurationService} from "./configuration.service";
 
 const TOKEN_KEY = "request_token";
 const RENEWAL_TOKEN_KEY = "renewal_token";
@@ -43,7 +43,7 @@ export class SelfService {
 
   private _user?: Member = undefined;
 
-  constructor(private httpClient: HttpClient, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private httpClient: HttpClient, private router: Router, private snackBar: MatSnackBar, private configurationService: ConfigurationService) {
   }
 
   /**
@@ -108,11 +108,12 @@ export class SelfService {
   /**
    * Create the initializer function which initializes the {@link SelfService} from persisted information such as the token.
    * @param selfService
+   * @param configurationService
    */
-  static initializeSelfService(selfService: SelfService) {
+  static initializeSelfService(selfService: SelfService, configurationService: ConfigurationService) {
     return () => {
       if (selfService.token) {
-        selfService.refreshUserInfo();
+        configurationService.isLoaded.subscribe(() => {selfService.refreshUserInfo();});
         const lastRoles = localStorage.getItem(LAST_ROLES);
         if (lastRoles) {
           selfService._executives = JSON.parse(lastRoles);
@@ -129,7 +130,7 @@ export class SelfService {
     const headers = new HttpHeaders({
       "Content-Type": "text/plain", "Authorization": "Basic " + btoa(`${credentials.username}:${credentials.password}`)
     });
-    return this.httpClient.post(`${environment.barrelUrl}${controllers.self.auth()}`, "", {
+    return this.httpClient.post(`${this.configurationService.configuration.barrelUrl}${controllers.self.auth()}`, "", {
       headers: headers,
       observe: "response"
     }).pipe(map(response => {
@@ -160,7 +161,7 @@ export class SelfService {
       Authorization: `Bearer ${this.renewalToken}`
     });
     return this.httpClient
-      .post<object>(`${environment.barrelUrl}${controllers.self.refresh()}`, "", {headers: headers, observe: "response"})
+      .post<object>(`${this.configurationService.configuration.barrelUrl}${controllers.self.refresh()}`, "", {headers: headers, observe: "response"})
       .pipe(
         tap((response) => {
           console.debug("retrieved the new token");
@@ -191,14 +192,14 @@ export class SelfService {
    * Retrieve the member infos of the currently logged-in user.
    */
   info() {
-    return this.httpClient.get<Member>(`${environment.barrelUrl}${controllers.self.info()}`);
+    return this.httpClient.get<Member>(`${this.configurationService.configuration.barrelUrl}${controllers.self.info()}`);
   }
 
   /**
    * Retrieve all the executive roles of the currently logged-in user.
    */
   executiveRoles() {
-    return this.httpClient.get<Group[]>(`${environment.barrelUrl}${controllers.self.executiveRoles()}`);
+    return this.httpClient.get<Group[]>(`${this.configurationService.configuration.barrelUrl}${controllers.self.executiveRoles()}`);
   }
 
   private refreshUserInfo() {

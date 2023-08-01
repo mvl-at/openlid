@@ -21,7 +21,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {environment} from "../../environments/environment";
 import {controllers} from "./controllers";
 import {
   CountStatistic,
@@ -32,13 +31,17 @@ import {
   ScoreFilter,
   SearchResult
 } from "../common/archive";
+import {ConfigurationService} from "./configuration.service";
+import {Configuration} from "../common/configuration.model";
 
 @Injectable({
   providedIn: "root"
 })
 export class ArchiveService {
+  private configuration: Configuration;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) {
+    this.configuration = configurationService.configuration;
   }
 
   /**
@@ -51,7 +54,7 @@ export class ArchiveService {
    */
   getAllScoresPaginated(limit: number, skip: number): Observable<Pagination<Score>> {
     const params = {limit: limit, skip: skip};
-    return this.httpClient.get<Pagination<Score>>(`${environment.barrelUrl}${controllers.archive.scores.root}`, {params: params});
+    return this.httpClient.get<Pagination<Score>>(`${this.configuration.barrelUrl}${controllers.archive.scores.root}`, {params: params});
   }
 
   /**
@@ -60,7 +63,7 @@ export class ArchiveService {
    * @return the outcome of the request
    */
   getScore(id: string): Observable<Score> {
-    return this.httpClient.get<Score>(`${environment.barrelUrl}${controllers.archive.scores.root}/${id}`);
+    return this.httpClient.get<Score>(`${this.configuration.barrelUrl}${controllers.archive.scores.root}/${id}`);
   }
 
   /**
@@ -72,7 +75,7 @@ export class ArchiveService {
    * @return the outcome of the request
    */
   putScore(score: Score): Observable<DatabaseOperationResponse> {
-    return this.httpClient.put<DatabaseOperationResponse>(`${environment.barrelUrl}${controllers.archive.scores.root}`, score);
+    return this.httpClient.put<DatabaseOperationResponse>(`${this.configuration.barrelUrl}${controllers.archive.scores.root}`, score);
   }
 
   /**
@@ -83,7 +86,7 @@ export class ArchiveService {
    */
   deleteScore(id: string, rev: string): Observable<void> {
     const params = new HttpParams().set("rev", rev);
-    return this.httpClient.delete<void>(`${environment.barrelUrl}${controllers.archive.scores.root}/${id}`, {params: params});
+    return this.httpClient.delete<void>(`${this.configuration.barrelUrl}${controllers.archive.scores.root}/${id}`, {params: params});
   }
 
   /**
@@ -116,7 +119,7 @@ export class ArchiveService {
     if (filter.ascending) {
       params = params.set("ascending", filter.ascending);
     }
-    return this.httpClient.get<SearchResult<Score>>(`${environment.barrelUrl}${controllers.archive.scores.searches()}`, {params: params});
+    return this.httpClient.get<SearchResult<Score>>(`${this.configuration.barrelUrl}${controllers.archive.scores.searches()}`, {params: params});
   }
 
   /**
@@ -168,6 +171,6 @@ export class ArchiveService {
    */
   private getCountStatistics(subject: CountStatisticSubject): Observable<CountStatistic> {
     const params = {subject: subject.toString()};
-    return this.httpClient.get<CountStatistic>(`${environment.barrelUrl}${controllers.archive.statistics.counts()}`, {params: params});
+    return this.httpClient.get<CountStatistic>(`${this.configuration.barrelUrl}${controllers.archive.statistics.counts()}`, {params: params});
   }
 }

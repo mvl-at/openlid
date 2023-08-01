@@ -1,6 +1,6 @@
 /*
  * OpenLid, the frontend of the Musikverein Leopoldsdorf.
- * Copyright (C) 2022  Richard Stöckl
+ * Copyright (C) 2023  Richard Stöckl
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@
  *
  */
 
-export interface Environment {
-  production: boolean;
+export interface Configuration {
   barrelUrl: string;
   footer: {
     links: {

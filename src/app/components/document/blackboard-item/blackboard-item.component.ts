@@ -20,10 +20,10 @@
 
 import {Component, Input, OnInit} from "@angular/core";
 import {DocumentService} from "../../../services/document.service";
-import {environment} from "../../../../environments/environment";
 import {map} from "rxjs";
 import {controllers} from "../../../services/controllers";
 import {HttpErrorSnackBarService} from "../../../mat-helpers/http-error-snack-bar.service";
+import {ConfigurationService} from "../../../services/configuration.service";
 
 @Component({
   selector: "lid-blackboard-item",
@@ -34,7 +34,7 @@ export class BlackboardItemComponent implements OnInit {
 
   @Input() filename = "";
 
-  constructor(private documentService: DocumentService, private snackBarErrorHandler: HttpErrorSnackBarService) {
+  constructor(private documentService: DocumentService, private snackBarErrorHandler: HttpErrorSnackBarService, private configurationService: ConfigurationService) {
   }
 
   private _isLoading = true;
@@ -56,7 +56,7 @@ export class BlackboardItemComponent implements OnInit {
    * @param markdownContent the markdown content string - will not be changed
    * @private
    */
-  private static replaceAttachmentUrls(markdownContent: string): string {
+  private replaceAttachmentUrls(markdownContent: string): string {
     console.debug("replaceAttachmentUrls");
     const attachmentRegex = /!\[.*]\(\.attachments\..*\/.*\)/;
     const urlPartPrefix = "](.attachments.";
@@ -68,13 +68,13 @@ export class BlackboardItemComponent implements OnInit {
       const documentFileCombination = workingContent.substring(fileIdBeginIndex, workingContent.indexOf(")", fileIdBeginIndex)).split("/");
       const newUrl = controllers.documents.blackboard.image(documentFileCombination[1]);
       console.debug("new url", newUrl);
-      workingContent = workingContent.replace(/\(.*\)/, `(${environment.barrelUrl}${newUrl})`);
+      workingContent = workingContent.replace(/\(.*\)/, `(${this.configurationService.configuration.barrelUrl}${newUrl})`);
     }
     return workingContent;
   }
 
   ngOnInit(): void {
-    this.documentService.getBlackBoardDocument(this.filename).pipe(map(BlackboardItemComponent.replaceAttachmentUrls)).subscribe({
+    this.documentService.getBlackBoardDocument(this.filename).pipe(map(this.replaceAttachmentUrls)).subscribe({
       next: value => this._content = value,
       error: this.snackBarErrorHandler.showError,
       complete: () => this._isLoading = false,

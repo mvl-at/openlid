@@ -81,6 +81,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {ClassicMembersComponent} from "./components/classic-members/classic-members.component";
 import {MemberDialogComponent} from "./dialogs/member-dialog/member-dialog.component";
 import {SystemInfosComponent} from "./pages/system-infos/system-infos.component";
+import {ConfigurationService} from "./services/configuration.service";
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, MemberCardComponent, MembersComponent, FallbackImgDirective, ArchiveComponent, ScoreEditorComponent, ChipListComponent, TrimDirective, BlackboardComponent, BlackboardItemComponent, FooterComponent, LoginComponent, SelfComponent, DebugDisplayPipe, ScoreShelfComponent, ScoreCreatorComponent, ScoreModificationDialogComponent, CalendarComponent, PageNumberDirective, OrchestraComponent, ClassicMembersComponent, MemberDialogComponent, SystemInfosComponent],
@@ -103,10 +104,15 @@ import {SystemInfosComponent} from "./pages/system-infos/system-infos.component"
     multi: true
   }, {
     provide: APP_INITIALIZER,
-    deps: [SelfService],
-    useFactory: SelfService.initializeSelfService,
+    deps: [ConfigurationService],
+    useFactory: ConfigurationService.initializeConfigurationService,
     multi: true
   }, {
+    provide: APP_INITIALIZER,
+    deps: [SelfService, ConfigurationService],
+    useFactory: SelfService.initializeSelfService,
+    multi: true
+  },{
     provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
     useValue: {duration: 2500}
   }, {

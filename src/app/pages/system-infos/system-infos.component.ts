@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
-import {environment} from "../../../environments/environment";
 import {ServerInfoService} from "../../services/server-info.service";
 import {ServerInfo} from "../../common/server-info";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: "lid-system-infos",
@@ -13,8 +13,8 @@ export class SystemInfosComponent {
 
   serverInfo?: ServerInfo;
 
-  constructor(private serverInfoService: ServerInfoService) {
+  constructor(private serverInfoService: ServerInfoService, private configurationService: ConfigurationService) {
     this.serverInfoService.serverInfo().subscribe(value => this.serverInfo = value);
   }
-  protected readonly environment = environment;
+  protected readonly configuration = this.configurationService.configuration;
 }
