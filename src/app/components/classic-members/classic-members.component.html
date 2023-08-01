@@ -5,13 +5,13 @@
       <lid-member-card *ngFor="let member of register.members" [member]="member"></lid-member-card>
     </div>
   </div>
-  <div *ngIf=crew.sutlers.length> 0" class="register">
+  <div *ngIf="crew.sutlers.length > 0" class="register">
     <h2 class="mat-h2" id="Marketenderinnen">Marketenderinnen</h2>
     <div class="register-cards">
       <lid-member-card *ngFor="let member of crew.sutlers" [member]="member"></lid-member-card>
     </div>
   </div>
-  <div *ngIf=crew.honoraryMembers.length> 0" class="register">
+  <div *ngIf="crew.honoraryMembers.length > 0" class="register">
     <h2 class="mat-h2" id="Ehrenmitglieder">Ehrenmitglieder</h2>
     <div class="register-cards">
       <lid-member-card *ngFor="let member of crew.honoraryMembers" [member]="member"></lid-member-card>
